@@ -11,41 +11,57 @@
             font-weight: normal;
             font-style: normal;
         }
-        
+
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Montserrat', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #eef1f5;
             color: #333;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            background: linear-gradient(135deg, #eef1f5, #dce4ef, #c8d2df);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
         }
-        
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
         header {
-            background-color: #00128f;
-            padding: 30px 20px;
+            background-color: #000000;
+            padding: 15px 20px;
             text-align: center;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
-        
+
         .logo-container {
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        
+
         .logo-img {
-            width: 140px;
+            width: 120px;
             height: auto;
-            filter: brightness(0) saturate(100%) invert(48%) sepia(87%) saturate(3062%) hue-rotate(200deg) brightness(101%) contrast(100%);
+            filter: invert(100%);
         }
-        
+
         .main-container {
             flex-grow: 1;
             max-width: 1200px;
-            margin: 50px auto;
+            margin: 60px auto;
             padding: 0 20px;
             display: flex;
             flex-direction: column;
@@ -53,22 +69,88 @@
             justify-content: center;
         }
 
-        .title {
-            font-family: 'Waratah', sans-serif;
-            font-size: 3rem;
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
             color: #333;
             text-align: center;
-            margin-bottom: 40px;
-            letter-spacing: 2px;
+            margin-bottom: 20px;
+            margin-top: 40px;
         }
-        
+
+        .employee-section {
+            width: 100%;
+            max-width: 600px;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .employee-list-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .employee-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .employee-table th, .employee-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+            font-size: 1.1rem;
+        }
+
+        .employee-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .employee-table th {
+            background-color: #fafafa;
+        }
+
+        .status-cell {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            background-color: #28a745;
+            border-radius: 50%;
+            margin-right: 15px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+        }
+
+        .portals-section {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 50px;
+        }
+
         .buttons-container {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             gap: 30px;
         }
-        
+
         .portal-button {
             border: none;
             padding: 30px 40px;
@@ -82,62 +164,64 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            text-decoration: none;
+            color: inherit;
         }
-        
-        /* Estilo para los primeros dos botones */
+
         .portal-button.default {
             background-color: #00128f;
             color: white;
         }
-        
+
         .portal-button.default .button-icon {
             color: #6c91ff;
         }
-        
-        /* Estilo para el �ltimo bot�n */
+
         .portal-button.recruitment {
             background-color: #147a80;
             color: white;
         }
-        
+
         .portal-button.recruitment .button-icon {
             color: #beff7d;
         }
-        
+
         .portal-button:hover {
             transform: translateY(-8px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
-        
+
         .button-icon {
             font-size: 3rem;
             margin-bottom: 20px;
         }
-        
+
         footer {
-            background-color: #00128f;
+            background-color: #000000;
             color: #ffffff;
             text-align: center;
             padding: 25px 0;
             box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
             margin-top: auto;
         }
-        
+
         @media (max-width: 768px) {
             .logo-img {
-                width: 120px;
+                width: 100px;
             }
-
-            .title {
-                font-size: 2.5rem;
+            .section-title {
+                font-size: 2rem;
+                text-align: center; /* Se reañade para asegurar que el título esté centrado */
             }
-            
+            .employee-list-title {
+                font-size: 1.2rem;
+                text-align: center; /* Se añade para centrar el título de la lista de empleados */
+            }
             .buttons-container {
                 flex-direction: column;
                 align-items: center;
                 gap: 25px;
             }
-            
             .portal-button {
                 width: 90%;
                 max-width: 350px;
@@ -153,29 +237,98 @@
             <img src="https://raw.githubusercontent.com/novaklar/web/refs/heads/main/Novaklar.svg" alt="Novaklar Logo" class="logo-img">
         </div>
     </header>
-    
+
     <div class="main-container">
-        <h2 class="title">Personal</h2>
-        <div class="buttons-container">
-            <button class="portal-button default" onclick="location.href='#'">
-                <div class="button-icon"><i class="fas fa-users-cog"></i></div>
-                L�der Operativo
-            </button>
-            
-            <button class="portal-button default" onclick="location.href='#'">
-                <div class="button-icon"><i class="fas fa-chart-line"></i></div>
-                Asesor de Ventas
-            </button>
-            
-            <button class="portal-button recruitment" onclick="location.href='#'">
-                <div class="button-icon"><i class="fas fa-user-plus"></i></div>
-                Asesor de Reclutamiento
-            </button>
+        
+        <div class="employee-section">
+            <h3 class="employee-list-title">Lista de empleados activos</h3>
+            <table class="employee-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                    </tr>
+                </thead>
+                <tbody id="employee-list">
+                    <tr><td>Cargando datos...</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="portals-section">
+            <h2 class="section-title">Portal de Empleados</h2>
+            <div class="buttons-container">
+                <a href="lider.html" class="portal-button default">
+                    <div class="button-icon"><i class="fas fa-users-cog"></i></div>
+                    Líder Operativo
+                </a>
+
+                <a href="ventas.html" class="portal-button default">
+                    <div class="button-icon"><i class="fas fa-chart-line"></i></div>
+                    Asesor de Ventas
+                </a>
+
+                <a href="reclu.html" class="portal-button recruitment">
+                    <div class="button-icon"><i class="fas fa-user-plus"></i></div>
+                    Asesor de Reclutamiento
+                </a>
+            </div>
         </div>
     </div>
-    
+
     <footer>
         <p>&copy; 2023 Novaklar. Todos los derechos reservados.</p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sheetId = '1l2Ge_RZ698FQgRbaPxGUd8aZ2SLN_CA2t4rPlVWA3Mw';
+            const sheetUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
+
+            fetch(sheetUrl)
+                .then(response => response.text())
+                .then(text => {
+                    const jsonText = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
+                    const data = JSON.parse(jsonText);
+                    const employeeList = document.getElementById('employee-list');
+                    employeeList.innerHTML = '';
+
+                    const rows = data.table.rows;
+                    if (rows && rows.length > 0) {
+                        rows.forEach(row => {
+                            const employeeName = row.c[1] ? row.c[1].v : 'Nombre no disponible';
+                            
+                            if (employeeName && employeeName.trim() !== '') {
+                                const tr = document.createElement('tr');
+                                const td = document.createElement('td');
+                                const statusCell = document.createElement('div');
+                                statusCell.className = 'status-cell';
+
+                                const statusIndicator = document.createElement('span');
+                                statusIndicator.className = 'status-indicator';
+                                statusCell.appendChild(statusIndicator);
+                                
+                                const nameNode = document.createTextNode(employeeName);
+                                statusCell.appendChild(nameNode);
+                                
+                                td.appendChild(statusCell);
+                                tr.appendChild(td);
+                                employeeList.appendChild(tr);
+                            }
+                        });
+                    } else {
+                        const tr = document.createElement('tr');
+                        const td = document.createElement('td');
+                        td.textContent = 'No hay empleados activos.';
+                        tr.appendChild(td);
+                        employeeList.appendChild(tr);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al obtener los datos:', error);
+                    const employeeList = document.getElementById('employee-list');
+                    employeeList.innerHTML = `<tr><td>Error al cargar los datos.</td></tr>`;
+                });
+        });
+    </script>
 </body>
 </html>
