@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal Novaklar</title>
     <style>
+        /* Fuentes */
         @font-face {
             font-family: 'Waratah';
             src: url('https://raw.githubusercontent.com/novaklar/web/main/waratah.ttf') format('truetype');
@@ -14,42 +15,35 @@
 
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
 
+        /* Estilos Generales */
         body {
             font-family: 'Montserrat', sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #eef1f5;
             color: #333;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background: linear-gradient(135deg, #eef1f5, #dce4ef, #c8d2df);
-            background-size: 400% 400%;
-            animation: gradientAnimation 15s ease infinite;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
-        @keyframes gradientAnimation {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
+        /* Header */
         header {
             background-color: #000000;
             padding: 15px 20px;
-            text-align: center;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         .logo-container {
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
         }
 
         .logo-img {
@@ -57,16 +51,16 @@
             height: auto;
             filter: invert(100%);
         }
-
-        .main-container {
-            flex-grow: 1;
-            max-width: 1200px;
-            margin: 60px auto;
-            padding: 0 20px;
+        
+        /* Contenido Principal */
+        .main-content {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            gap: 50px;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            width: 100%; /* Aseguramos que el contenido principal ocupe todo el ancho */
         }
 
         .section-title {
@@ -75,10 +69,9 @@
             font-weight: 700;
             color: #333;
             text-align: center;
-            margin-bottom: 20px;
-            margin-top: 40px;
         }
 
+        /* Sección de Empleados */
         .employee-section {
             width: 100%;
             max-width: 600px;
@@ -86,7 +79,6 @@
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-            text-align: center;
         }
 
         .employee-list-title {
@@ -108,7 +100,7 @@
             text-align: left;
             font-size: 1.1rem;
         }
-
+        
         .employee-table tr:last-child td {
             border-bottom: none;
         }
@@ -120,7 +112,6 @@
         .status-cell {
             display: flex;
             align-items: center;
-            justify-content: flex-start;
         }
 
         .status-indicator {
@@ -131,17 +122,19 @@
             margin-right: 15px;
             animation: pulse 1.5s infinite;
         }
-
+        
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
             70% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
             100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
         }
 
+        /* Sección de Portales */
         .portals-section {
             width: 100%;
-            max-width: 800px;
-            margin-top: 50px;
+            max-width: 800px; /* Aquí es donde estaba el problema */
+            margin: 0 auto;
+            text-align: center;
         }
 
         .buttons-container {
@@ -196,26 +189,25 @@
             margin-bottom: 20px;
         }
 
+        /* Footer */
         footer {
             background-color: #000000;
             color: #ffffff;
             text-align: center;
             padding: 25px 0;
             box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
-            margin-top: auto;
         }
 
+        /* Media Queries para Responsividad */
         @media (max-width: 768px) {
             .logo-img {
                 width: 100px;
             }
             .section-title {
                 font-size: 2rem;
-                text-align: center; /* Se reañade para asegurar que el título esté centrado */
             }
             .employee-list-title {
                 font-size: 1.2rem;
-                text-align: center; /* Se añade para centrar el título de la lista de empleados */
             }
             .buttons-container {
                 flex-direction: column;
@@ -238,8 +230,7 @@
         </div>
     </header>
 
-    <div class="main-container">
-        
+    <main class="container main-content">
         <div class="employee-section">
             <h3 class="employee-list-title">Lista de empleados activos</h3>
             <table class="employee-table">
@@ -273,7 +264,7 @@
                 </a>
             </div>
         </div>
-    </div>
+    </main>
 
     <footer>
         <p>&copy; 2023 Novaklar. Todos los derechos reservados.</p>
