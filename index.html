@@ -3,322 +3,258 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Novaklar</title>
+    <title>Novaklar Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Fuentes */
-        @font-face {
-            font-family: 'Waratah';
-            src: url('https://raw.githubusercontent.com/novaklar/web/main/waratah.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
+        :root {
+            --color-lider: #6C91FF;
+            --color-reclutamiento: #BEFF7D;
+            --color-boton-lider: #00128f;
+            --color-boton-reclutamiento: #147a80;
         }
 
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
-
-        /* Estilos Generales */
         body {
-            font-family: 'Montserrat', sans-serif;
             margin: 0;
-            padding: 0;
-            background-color: #eef1f5;
-            color: #333;
-            min-height: 100vh;
-            display: grid;
-            grid-template-rows: auto 1fr auto;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f9;
         }
 
-        /* Header */
         header {
-            background-color: #000000;
-            padding: 15px 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background-color: #000;
+            padding: 15px 0; /* Header más pequeño */
+            text-align: center;
         }
 
-        .logo-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .logo-img {
-            width: 120px;
+        header img {
+            max-width: 180px; /* Logo un poco más pequeño */
             height: auto;
             filter: invert(100%);
         }
-        
-        /* Contenido Principal */
-        .main-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 50px;
-            padding-top: 40px;
-            padding-bottom: 40px;
-            width: 100%; /* Aseguramos que el contenido principal ocupe todo el ancho */
+
+        main {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .section-title {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #333;
-            text-align: center;
-        }
-
-        /* Sección de Empleados */
-        .employee-section {
-            width: 100%;
-            max-width: 600px;
-            background-color: #ffffff;
+        .employees-section {
+            background-color: #fff;
             padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .employee-list-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            text-align: center;
+        .employees-section h2 {
+            font-size: 2em;
+            color: #000;
             margin-bottom: 20px;
-            color: #555;
+            text-align: center;
+            font-weight: 700;
         }
 
-        .employee-table {
+        table {
             width: 100%;
             border-collapse: collapse;
-        }
-
-        .employee-table th, .employee-table td {
-            padding: 15px;
-            border-bottom: 1px solid #eee;
             text-align: left;
-            font-size: 1.1rem;
-        }
-        
-        .employee-table tr:last-child td {
-            border-bottom: none;
         }
 
-        .employee-table th {
-            background-color: #fafafa;
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
         }
 
-        .status-cell {
-            display: flex;
-            align-items: center;
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+            font-weight: 700;
         }
 
-        .status-indicator {
-            width: 12px;
-            height: 12px;
-            background-color: #28a745;
+        tbody tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .status-dot {
+            height: 10px;
+            width: 10px;
             border-radius: 50%;
-            margin-right: 15px;
+            display: inline-block;
+            margin-right: 10px;
             animation: pulse 1.5s infinite;
         }
-        
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+
+        .dot-lider-ventas {
+            background-color: var(--color-lider);
         }
 
-        /* Sección de Portales */
-        .portals-section {
-            width: 100%;
-            max-width: 800px; /* Aquí es donde estaba el problema */
-            margin: 0 auto;
+        .dot-reclutamiento {
+            background-color: var(--color-reclutamiento);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .portal-section {
+            margin-top: 50px;
             text-align: center;
         }
 
-        .buttons-container {
+        .portal-section h2 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 2em; /* Mismo tamaño que el título de la tabla */
+            color: #000;
+            margin-bottom: 40px;
+        }
+
+        .button-container {
             display: flex;
             justify-content: center;
+            gap: 20px;
             flex-wrap: wrap;
-            gap: 30px;
         }
 
         .portal-button {
-            border: none;
-            padding: 30px 40px;
-            font-size: 1.3rem;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 320px;
-            text-align: center;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
             display: flex;
-            flex-direction: column;
+            flex-direction: column; /* Coloca los iconos encima del texto */
             align-items: center;
+            justify-content: center;
+            padding: 25px 30px; /* Mayor padding vertical */
+            border-radius: 8px;
             text-decoration: none;
-            color: inherit;
-        }
-
-        .portal-button.default {
-            background-color: #00128f;
-            color: white;
-        }
-
-        .portal-button.default .button-icon {
-            color: #6c91ff;
-        }
-
-        .portal-button.recruitment {
-            background-color: #147a80;
-            color: white;
-        }
-
-        .portal-button.recruitment .button-icon {
-            color: #beff7d;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1em;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            box-sizing: border-box;
+            text-align: center;
         }
 
         .portal-button:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
 
-        .button-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
+        .portal-button i {
+            margin-bottom: 10px; /* Separación entre icono y texto */
+            font-size: 2.5em; /* Icono más grande */
         }
 
-        /* Footer */
+        .button-lider, .button-ventas {
+            background-color: var(--color-boton-lider);
+        }
+
+        .button-lider i, .button-ventas i {
+            color: var(--color-lider);
+        }
+
+        .button-reclutamiento {
+            background-color: var(--color-boton-reclutamiento);
+        }
+
+        .button-reclutamiento i {
+            color: var(--color-reclutamiento);
+        }
+
         footer {
-            background-color: #000000;
-            color: #ffffff;
+            background-color: #000;
+            color: #fff;
             text-align: center;
-            padding: 25px 0;
-            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Media Queries para Responsividad */
-        @media (max-width: 768px) {
-            .logo-img {
-                width: 100px;
-            }
-            .section-title {
-                font-size: 2rem;
-            }
-            .employee-list-title {
-                font-size: 1.2rem;
-            }
-            .buttons-container {
-                flex-direction: column;
-                align-items: center;
-                gap: 25px;
-            }
-            .portal-button {
-                width: 90%;
-                max-width: 350px;
-                padding: 25px 30px;
-            }
+            padding: 20px;
+            margin-top: 50px;
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
-        <div class="logo-container">
-            <img src="https://raw.githubusercontent.com/novaklar/web/refs/heads/main/Novaklar.svg" alt="Novaklar Logo" class="logo-img">
-        </div>
+        <img src="https://raw.githubusercontent.com/novaklar/web/refs/heads/main/Novaklar.svg" alt="Novaklar Logo">
     </header>
 
-    <main class="container main-content">
-        <div class="employee-section">
-            <h3 class="employee-list-title">Lista de empleados activos</h3>
-            <table class="employee-table">
+    <main>
+        <section class="employees-section">
+            <h2>Empleados activos</h2>
+            <table id="employeesTable">
                 <thead>
                     <tr>
                         <th>Nombre</th>
+                        <th>Cargo</th>
                     </tr>
                 </thead>
-                <tbody id="employee-list">
-                    <tr><td>Cargando datos...</td></tr>
+                <tbody>
                 </tbody>
             </table>
-        </div>
-        
-        <div class="portals-section">
-            <h2 class="section-title">Portal de Empleados</h2>
-            <div class="buttons-container">
-                <a href="lider.html" class="portal-button default">
-                    <div class="button-icon"><i class="fas fa-users-cog"></i></div>
-                    Líder Operativo
-                </a>
+        </section>
 
-                <a href="ventas.html" class="portal-button default">
-                    <div class="button-icon"><i class="fas fa-chart-line"></i></div>
-                    Asesor de Ventas
+        <section class="portal-section">
+            <h2>Portal de empleados</h2>
+            <div class="button-container">
+                <a href="lider.html" class="portal-button button-lider">
+                    <i class="fas fa-user-tie"></i>Líder operativo
                 </a>
-
-                <a href="reclu.html" class="portal-button recruitment">
-                    <div class="button-icon"><i class="fas fa-user-plus"></i></div>
-                    Asesor de Reclutamiento
+                <a href="ventas.html" class="portal-button button-ventas">
+                    <i class="fas fa-chart-line"></i>Asesor de ventas
+                </a>
+                <a href="reclu.html" class="portal-button button-reclutamiento">
+                    <i class="fas fa-users"></i>Asesor de reclutamiento
                 </a>
             </div>
-        </div>
+        </section>
     </main>
 
     <footer>
-        <p>&copy; 2023 Novaklar. Todos los derechos reservados.</p>
+        <p>&copy; 2025 Novaklar. Todos los derechos reservados.</p>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const sheetId = '1l2Ge_RZ698FQgRbaPxGUd8aZ2SLN_CA2t4rPlVWA3Mw';
-            const sheetUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
+            const spreadsheetId = '1l2Ge_RZ698FQgRbaPxGUd8aZ2SLN_CA2t4rPlVWA3Mw';
+            const queryUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:json&tq=SELECT B, C`;
 
-            fetch(sheetUrl)
+            const tableBody = document.querySelector('#employeesTable tbody');
+
+            fetch(queryUrl)
                 .then(response => response.text())
                 .then(text => {
-                    const jsonText = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
-                    const data = JSON.parse(jsonText);
-                    const employeeList = document.getElementById('employee-list');
-                    employeeList.innerHTML = '';
+                    const jsonString = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
+                    const data = JSON.parse(jsonString);
 
-                    const rows = data.table.rows;
-                    if (rows && rows.length > 0) {
-                        rows.forEach(row => {
-                            const employeeName = row.c[1] ? row.c[1].v : 'Nombre no disponible';
-                            
-                            if (employeeName && employeeName.trim() !== '') {
-                                const tr = document.createElement('tr');
-                                const td = document.createElement('td');
-                                const statusCell = document.createElement('div');
-                                statusCell.className = 'status-cell';
+                    data.table.rows.forEach(row => {
+                        const name = row.c?.[0]?.v;
+                        const role = row.c?.[1]?.v;
 
-                                const statusIndicator = document.createElement('span');
-                                statusIndicator.className = 'status-indicator';
-                                statusCell.appendChild(statusIndicator);
-                                
-                                const nameNode = document.createTextNode(employeeName);
-                                statusCell.appendChild(nameNode);
-                                
-                                td.appendChild(statusCell);
-                                tr.appendChild(td);
-                                employeeList.appendChild(tr);
+                        if (name && role) {
+                            const newRow = document.createElement('tr');
+                            const nameCell = document.createElement('td');
+                            const roleCell = document.createElement('td');
+
+                            const dotSpan = document.createElement('span');
+                            dotSpan.classList.add('status-dot');
+
+                            if (role === 'Líder operativo' || role === 'Asesor de ventas') {
+                                dotSpan.classList.add('dot-lider-ventas');
+                            } else if (role === 'Asesor de reclutamiento') {
+                                dotSpan.classList.add('dot-reclutamiento');
                             }
-                        });
-                    } else {
-                        const tr = document.createElement('tr');
-                        const td = document.createElement('td');
-                        td.textContent = 'No hay empleados activos.';
-                        tr.appendChild(td);
-                        employeeList.appendChild(tr);
-                    }
+
+                            nameCell.textContent = name;
+                            roleCell.appendChild(dotSpan);
+                            roleCell.innerHTML += role;
+
+                            newRow.appendChild(nameCell);
+                            newRow.appendChild(roleCell);
+
+                            tableBody.appendChild(newRow);
+                        }
+                    });
                 })
-                .catch(error => {
-                    console.error('Error al obtener los datos:', error);
-                    const employeeList = document.getElementById('employee-list');
-                    employeeList.innerHTML = `<tr><td>Error al cargar los datos.</td></tr>`;
-                });
+                .catch(error => console.error('Error fetching data:', error));
         });
     </script>
 </body>
