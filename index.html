@@ -40,7 +40,6 @@
             margin: 0 auto;
         }
 
-        /* Título de la sección de empleados, ahora independiente */
         .section-title {
             font-size: 2em;
             color: #000;
@@ -58,46 +57,39 @@
             margin-bottom: 30px;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-
-        th, td {
-            padding: 12px 15px;
-        }
-
-        th {
-            background-color: #f2f2f2;
-            color: #333;
-            font-weight: 700;
-        }
-
-        /* Estilos para la nueva tabla de una sola columna y centrado */
-        .employee-card {
-            border-bottom: 1px solid #ddd;
-        }
-
-        .employee-card td {
-            display: block;
-            padding: 8px 15px;
-            text-align: center;
+        /* Contenedor de la lista de empleados */
+        .employees-list {
+            display: flex;
+            flex-direction: column;
         }
         
-        .employee-card td:first-child {
-            font-weight: 700;
-            font-size: 1.1em;
-            color: #222;
+        /* Tarjeta de empleado */
+        .employee-card {
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+            text-align: center;
         }
 
-        .employee-card td:last-child {
-            color: #555;
-            padding-bottom: 12px;
+        .employee-card:last-child {
+            border-bottom: none; /* Eliminar la línea del último elemento */
         }
         
         .employee-card:hover {
             background-color: #f9f9f9;
+        }
+
+        .employee-name {
+            font-weight: 700;
+            font-size: 1.1em;
+            color: #222;
+            margin-bottom: 5px;
+        }
+
+        .employee-role {
+            color: #555;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .image-container {
@@ -128,14 +120,12 @@
             background-color: var(--color-reclutamiento);
         }
 
-        /* Animación de pulso con box-shadow, inspirada en tu código */
         @keyframes pulse-shadow {
             0% { box-shadow: 0 0 0 0 rgba(108, 145, 255, 0.7); }
             70% { box-shadow: 0 0 0 10px rgba(108, 145, 255, 0); }
             100% { box-shadow: 0 0 0 0 rgba(108, 145, 255, 0); }
         }
 
-        /* Ajustes para los puntos de reclutamiento */
         .dot-reclutamiento.status-dot {
             animation: pulse-shadow-rec 1.5s infinite;
         }
@@ -226,10 +216,6 @@
                 width: 100%;
                 margin-bottom: 10px;
             }
-
-            #employeesTable thead {
-                display: none;
-            }
         }
     </style>
 </head>
@@ -241,16 +227,8 @@
     <main>
         <h2 class="section-title">Empleados activos</h2>
         <section class="employees-section">
-            <table id="employeesTable">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Cargo</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+            <div id="employeesList" class="employees-list">
+                </div>
         </section>
 
         <div class="image-container">
@@ -282,7 +260,7 @@
             const spreadsheetId = '1l2Ge_RZ698FQgRbaPxGUd8aZ2SLN_CA2t4rPlVWA3Mw';
             const queryUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:json&tq=SELECT B, C`;
 
-            const tableBody = document.querySelector('#employeesTable tbody');
+            const employeesList = document.querySelector('#employeesList');
 
             fetch(queryUrl)
                 .then(response => response.text())
@@ -295,14 +273,16 @@
                         const role = row.c?.[1]?.v;
 
                         if (name && role) {
-                            const newRow = document.createElement('tr');
-                            newRow.classList.add('employee-card');
+                            const employeeCard = document.createElement('div');
+                            employeeCard.classList.add('employee-card');
                             
-                            const nameCell = document.createElement('td');
-                            nameCell.textContent = name;
-                            newRow.appendChild(nameCell);
+                            const nameElement = document.createElement('div');
+                            nameElement.classList.add('employee-name');
+                            nameElement.textContent = name;
                             
-                            const roleCell = document.createElement('td');
+                            const roleElement = document.createElement('div');
+                            roleElement.classList.add('employee-role');
+                            
                             const dotSpan = document.createElement('span');
                             dotSpan.classList.add('status-dot');
 
@@ -312,11 +292,13 @@
                                 dotSpan.classList.add('dot-reclutamiento');
                             }
 
-                            roleCell.appendChild(dotSpan);
-                            roleCell.innerHTML += role;
-                            newRow.appendChild(roleCell);
+                            roleElement.appendChild(dotSpan);
+                            roleElement.innerHTML += role;
+                            
+                            employeeCard.appendChild(nameElement);
+                            employeeCard.appendChild(roleElement);
 
-                            tableBody.appendChild(newRow);
+                            employeesList.appendChild(employeeCard);
                         }
                     });
                 })
