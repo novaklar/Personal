@@ -40,21 +40,22 @@
             margin: 0 auto;
         }
 
-        .employees-section {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px; /* Separación con la sección de portales */
-        }
-
-        .employees-section h2 {
+        /* Título de la sección de empleados, ahora independiente */
+        .section-title {
             font-size: 2em;
             color: #000;
             margin-bottom: 20px;
             text-align: center;
             font-weight: 700;
-            white-space: nowrap; /* Título en una sola línea */
+            white-space: nowrap;
+        }
+
+        .employees-section {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
         }
 
         table {
@@ -65,7 +66,6 @@
 
         th, td {
             padding: 12px 15px;
-            border-bottom: 1px solid #ddd;
         }
 
         th {
@@ -74,21 +74,42 @@
             font-weight: 700;
         }
 
-        tbody tr:hover {
-            background-color: #f9f9f9;
+        /* Estilos para la nueva tabla de una sola columna y centrado */
+        .employee-card {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .employee-card td {
+            display: block;
+            padding: 8px 15px;
+            text-align: center;
         }
         
+        .employee-card td:first-child {
+            font-weight: 700;
+            font-size: 1.1em;
+            color: #222;
+        }
+
+        .employee-card td:last-child {
+            color: #555;
+            padding-bottom: 12px;
+        }
+        
+        .employee-card:hover {
+            background-color: #f9f9f9;
+        }
+
         .image-container {
             margin-top: 30px;
-            margin-bottom: 50px; /* Separación con el siguiente título */
+            margin-bottom: 50px;
             text-align: center;
         }
 
         .image-container img {
-            max-width: 100%; /* La imagen se ajusta al ancho del contenedor */
+            max-width: 100%;
             height: auto;
         }
-
 
         .status-dot {
             height: 10px;
@@ -96,7 +117,7 @@
             border-radius: 50%;
             display: inline-block;
             margin-right: 10px;
-            animation: pulse 1.5s infinite;
+            animation: pulse-shadow 1.5s infinite;
         }
 
         .dot-lider-ventas {
@@ -107,10 +128,22 @@
             background-color: var(--color-reclutamiento);
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 0.7; }
-            100% { transform: scale(1); opacity: 1; }
+        /* Animación de pulso con box-shadow, inspirada en tu código */
+        @keyframes pulse-shadow {
+            0% { box-shadow: 0 0 0 0 rgba(108, 145, 255, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(108, 145, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(108, 145, 255, 0); }
+        }
+
+        /* Ajustes para los puntos de reclutamiento */
+        .dot-reclutamiento.status-dot {
+            animation: pulse-shadow-rec 1.5s infinite;
+        }
+        
+        @keyframes pulse-shadow-rec {
+            0% { box-shadow: 0 0 0 0 rgba(190, 255, 125, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(190, 255, 125, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(190, 255, 125, 0); }
         }
 
         .portal-section {
@@ -184,23 +217,18 @@
             margin-top: 50px;
         }
 
-        /* Media Queries para pantallas pequeñas */
         @media (max-width: 600px) {
-            .employees-section h2 {
+            .section-title {
                 font-size: 1.5em;
             }
             
-            th, td {
-                font-size: 0.9em;
-                padding: 8px 10px;
-                white-space: nowrap; /* Nombres y cargos en una sola línea */
-                overflow: hidden;
-                text-overflow: ellipsis; /* Añade puntos suspensivos si el texto es muy largo */
-            }
-
             .portal-button {
                 width: 100%;
                 margin-bottom: 10px;
+            }
+
+            #employeesTable thead {
+                display: none;
             }
         }
     </style>
@@ -211,8 +239,8 @@
     </header>
 
     <main>
+        <h2 class="section-title">Empleados activos</h2>
         <section class="employees-section">
-            <h2>Empleados activos</h2>
             <table id="employeesTable">
                 <thead>
                     <tr>
@@ -268,9 +296,13 @@
 
                         if (name && role) {
                             const newRow = document.createElement('tr');
+                            newRow.classList.add('employee-card');
+                            
                             const nameCell = document.createElement('td');
+                            nameCell.textContent = name;
+                            newRow.appendChild(nameCell);
+                            
                             const roleCell = document.createElement('td');
-
                             const dotSpan = document.createElement('span');
                             dotSpan.classList.add('status-dot');
 
@@ -280,11 +312,8 @@
                                 dotSpan.classList.add('dot-reclutamiento');
                             }
 
-                            nameCell.textContent = name;
                             roleCell.appendChild(dotSpan);
                             roleCell.innerHTML += role;
-
-                            newRow.appendChild(nameCell);
                             newRow.appendChild(roleCell);
 
                             tableBody.appendChild(newRow);
