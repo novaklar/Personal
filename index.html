@@ -24,12 +24,12 @@
 
         header {
             background-color: #000;
-            padding: 15px 0; /* Header más pequeño */
+            padding: 15px 0;
             text-align: center;
         }
 
         header img {
-            max-width: 180px; /* Logo un poco más pequeño */
+            max-width: 180px;
             height: auto;
             filter: invert(100%);
         }
@@ -45,6 +45,7 @@
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px; /* Separación con la sección de portales */
         }
 
         .employees-section h2 {
@@ -53,6 +54,7 @@
             margin-bottom: 20px;
             text-align: center;
             font-weight: 700;
+            white-space: nowrap; /* Título en una sola línea */
         }
 
         table {
@@ -75,6 +77,18 @@
         tbody tr:hover {
             background-color: #f9f9f9;
         }
+        
+        .image-container {
+            margin-top: 30px;
+            margin-bottom: 50px; /* Separación con el siguiente título */
+            text-align: center;
+        }
+
+        .image-container img {
+            max-width: 100%; /* La imagen se ajusta al ancho del contenedor */
+            height: auto;
+        }
+
 
         .status-dot {
             height: 10px;
@@ -100,14 +114,13 @@
         }
 
         .portal-section {
-            margin-top: 50px;
             text-align: center;
         }
 
         .portal-section h2 {
             font-family: 'Poppins', sans-serif;
             font-weight: 700;
-            font-size: 2em; /* Mismo tamaño que el título de la tabla */
+            font-size: 2em;
             color: #000;
             margin-bottom: 40px;
         }
@@ -121,10 +134,10 @@
 
         .portal-button {
             display: flex;
-            flex-direction: column; /* Coloca los iconos encima del texto */
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 25px 30px; /* Mayor padding vertical */
+            padding: 25px 30px;
             border-radius: 8px;
             text-decoration: none;
             color: #fff;
@@ -143,8 +156,8 @@
         }
 
         .portal-button i {
-            margin-bottom: 10px; /* Separación entre icono y texto */
-            font-size: 2.5em; /* Icono más grande */
+            margin-bottom: 10px;
+            font-size: 2.5em;
         }
 
         .button-lider, .button-ventas {
@@ -170,6 +183,26 @@
             padding: 20px;
             margin-top: 50px;
         }
+
+        /* Media Queries para pantallas pequeñas */
+        @media (max-width: 600px) {
+            .employees-section h2 {
+                font-size: 1.5em;
+            }
+            
+            th, td {
+                font-size: 0.9em;
+                padding: 8px 10px;
+                white-space: nowrap; /* Nombres y cargos en una sola línea */
+                overflow: hidden;
+                text-overflow: ellipsis; /* Añade puntos suspensivos si el texto es muy largo */
+            }
+
+            .portal-button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -191,6 +224,10 @@
                 </tbody>
             </table>
         </section>
+
+        <div class="image-container">
+            <img src="https://raw.githubusercontent.com/novaklar/Personal/refs/heads/main/logos%20(1).png" alt="Logos de empresas">
+        </div>
 
         <section class="portal-section">
             <h2>Portal de empleados</h2>
