@@ -30,7 +30,6 @@
         /* Estilos del Header - Diseño profesional */
         header {
             background-color: transparent;
-            /* Se ha ajustado el padding para reducir la altura */
             padding: 5px 0;
             text-align: center;
             position: sticky;
@@ -41,10 +40,8 @@
         }
 
         header img {
-            /* Se ha reducido el tamaño máximo del logo */
             max-width: 120px;
             height: auto;
-            /* Filtro para que el logo sea negro */
             filter: invert(0%);
         }
 
@@ -85,7 +82,7 @@
         }
 
         .employee-card:last-child {
-            border-bottom: none; /* Eliminar la línea del último elemento */
+            border-bottom: none;
         }
         
         .employee-card:hover {
@@ -220,17 +217,6 @@
             padding: 20px;
             margin-top: 50px;
         }
-
-        @media (max-width: 600px) {
-            .section-title {
-                font-size: 1.5em;
-            }
-            
-            .portal-button {
-                width: 100%;
-                margin-bottom: 10px;
-            }
-        }
         
         .schedule-container {
             text-align: center;
@@ -241,7 +227,6 @@
             padding: 25px 50px;
             border: none;
             border-radius: 8px;
-            /* Botón en color negro */
             background-color: #000;
             color: #fff;
             font-weight: 700;
@@ -253,11 +238,10 @@
         }
 
         .schedule-button:hover {
-            /* Hover más claro para el botón negro */
             background-color: #333;
             transform: translateY(-2px);
         }
-        
+
         .calendar-wrapper {
             display: none;
             background-color: #fff;
@@ -369,7 +353,6 @@
         .icon-button span {
             font-size: 1em;
             text-align: center;
-            /* Texto en color negro */
             color: #000;
         }
         
@@ -379,6 +362,23 @@
 
         .ranking-icon-color {
             color: var(--color-lider);
+        }
+
+        /* MEDIA QUERIES PARA RESPONSIVIDAD */
+        @media (max-width: 600px) {
+            .section-title {
+                font-size: 1.5em;
+            }
+            
+            .portal-button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            /* Ajuste del calendario para pantallas pequeñas */
+            .calendar .day {
+                padding: 10px;
+            }
         }
     </style>
 </head>
