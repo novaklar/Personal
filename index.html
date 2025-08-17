@@ -411,6 +411,125 @@
                 margin-bottom: 10px;
             }
         }
+        
+        /* Estilos para el nuevo modal de contraseña */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            color: var(--text-light);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            width: 90%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .modal-content h3 {
+            margin: 0;
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+
+        .modal-content p {
+            margin: 0;
+        }
+
+        .modal-input-container {
+            position: relative;
+        }
+        
+        .modal-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1em;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        .modal-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .modal-input:focus {
+            outline: none;
+            border-color: var(--color-lider);
+            box-shadow: 0 0 0 3px rgba(108, 145, 255, 0.5);
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .modal-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+            text-decoration: none;
+            text-align: center;
+            width: 100%;
+            max-width: 150px;
+            box-sizing: border-box;
+        }
+        
+        .modal-btn.confirm-btn {
+            background: #6c91ff;
+            color: #00128f;
+        }
+        
+        .modal-btn.confirm-btn:hover {
+            background: #5a80e0;
+            transform: translateY(-2px);
+        }
+
+        .modal-btn.cancel-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .modal-btn.cancel-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .modal-error {
+            color: #ff4d4d;
+            font-size: 0.9em;
+            margin-top: -10px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -487,25 +606,93 @@
     <footer>
         <p>&copy; 2025 Novaklar. Todos los derechos reservados.</p>
     </footer>
-
+    
+    <div id="password-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>Acceso al Departamento Comercial</h3>
+            <p>Introduce la contraseña para continuar:</p>
+            <div class="modal-input-container">
+                <input type="password" id="password-input" class="modal-input" placeholder="Contraseña">
+            </div>
+            <div class="modal-error" id="modal-error-message"></div>
+            <div class="modal-buttons">
+                <button id="confirm-password-btn" class="modal-btn confirm-btn">Acceder</button>
+                <button id="cancel-password-btn" class="modal-btn cancel-btn">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Script para la lista de empleados y ordenamiento por ancho
             const spreadsheetId = '1l2Ge_RZ698FQgRbaPxGUd8aZ2SLN_CA2t4rPlVWA3Mw';
             const queryUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:json&tq=SELECT B, C`;
             const employeesList = document.querySelector('#employeesList');
+            
+            // NUEVO: Variables del modal
             const comercialBtn = document.getElementById('comercial-btn');
-            const password = "200823";
+            const passwordModal = document.getElementById('password-modal');
+            const passwordInput = document.getElementById('password-input');
+            const confirmPasswordBtn = document.getElementById('confirm-password-btn');
+            const cancelPasswordBtn = document.getElementById('cancel-password-btn');
+            const modalErrorMessage = document.getElementById('modal-error-message');
+            
+            const CORRECT_PASSWORD = "200823";
+            const LOCAL_STORAGE_KEY = "novaklar_comercial_access";
 
             comercialBtn.addEventListener('click', (event) => {
                 event.preventDefault();
-                const enteredPassword = prompt("Por favor, introduce la contraseña para acceder al Departamento Comercial:");
-                if (enteredPassword === null || enteredPassword.trim() === "") {
-                    alert("Por favor, ingresa una contraseña.");
-                } else if (enteredPassword === password) {
+                const storedAccess = localStorage.getItem(LOCAL_STORAGE_KEY);
+                
+                if (storedAccess === CORRECT_PASSWORD) {
+                    // Si ya está guardada la contraseña, redirigir directamente
                     window.location.href = "comercial.html";
                 } else {
-                    alert("Contraseña incorrecta. Acceso denegado.");
+                    // Si no está, mostrar el modal
+                    passwordModal.style.display = "flex";
+                    passwordInput.focus();
+                }
+            });
+
+            // Lógica para el botón de confirmación en el modal
+            confirmPasswordBtn.addEventListener('click', () => {
+                handlePasswordCheck();
+            });
+
+            // Lógica para la tecla "Enter" en el campo de contraseña
+            passwordInput.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter') {
+                    handlePasswordCheck();
+                }
+            });
+
+            function handlePasswordCheck() {
+                const enteredPassword = passwordInput.value;
+                if (enteredPassword === CORRECT_PASSWORD) {
+                    // Guardar en localStorage y redirigir
+                    localStorage.setItem(LOCAL_STORAGE_KEY, enteredPassword);
+                    window.location.href = "comercial.html";
+                } else {
+                    // Mostrar error
+                    modalErrorMessage.textContent = "Contraseña incorrecta. Inténtalo de nuevo.";
+                    passwordInput.value = "";
+                    passwordInput.focus();
+                }
+            }
+
+            // Lógica para cerrar el modal
+            cancelPasswordBtn.addEventListener('click', () => {
+                passwordModal.style.display = "none";
+                passwordInput.value = "";
+                modalErrorMessage.textContent = "";
+            });
+
+            // Cerrar el modal al hacer clic fuera de él
+            passwordModal.addEventListener('click', (event) => {
+                if (event.target === passwordModal) {
+                    passwordModal.style.display = "none";
+                    passwordInput.value = "";
+                    modalErrorMessage.textContent = "";
                 }
             });
 
