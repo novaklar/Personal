@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novaklar Portal - Departamento Comercial</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --color-lider: #6C91FF;
+            --color-reclutamiento: #BEFF7D;
+            --color-boton-lider: #00128f;
+            --color-boton-reclutamiento: #147a80;
+            --bg-dark: #121212;
+            --text-light: #f4f4f9;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #00128f;
+            color: var(--text-light);
+            transition: background-color 0.5s ease;
+        }
+
+        main {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2em;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .info-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            text-align: justify;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .info-section p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin: 0;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .portal-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 25px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1em;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            box-sizing: border-box;
+            text-align: center;
+            height: 120px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .portal-button.lider-ventas {
+            background: #6c91ff;
+            border: 1px solid #6c91ff;
+            color: #00128f;
+        }
+
+        .portal-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            background: #5a80e0;
+        }
+
+        .portal-button i {
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            color: inherit;
+        }
+
+        footer {
+            background-color: #0d0d1a;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        .back-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 20px;
+            transition: color 0.3s, background-color 0.3s;
+            text-align: center;
+            background-color: #6c91ff;
+            border-radius: 8px;
+            padding: 15px 20px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            color: #00128f;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            color: #00128f;
+            background-color: #5a80e0;
+        }
+
+        .back-button i {
+            font-size: 1.2em;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .section-title {
+                font-size: 1.5em;
+            }
+            .portal-button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+
+        /* --- Estilos para la nueva tabla de recaudo --- */
+        .recaudo-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 60px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .recaudo-description-header {
+            font-size: 1em;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+
+        .recaudo-item {
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            padding: 20px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .recaudo-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .recaudo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .recaudo-title {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--text-light);
+            flex-grow: 1;
+        }
+
+        .recaudo-utility {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--color-reclutamiento);
+        }
+
+        .recaudo-description {
+            display: none;
+            margin-top: 20px;
+            font-size: 1em;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            text-align: justify;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 20px;
+        }
+
+        .recaudo-description p {
+            margin-bottom: 10px;
+        }
+
+        .recaudo-item.active .recaudo-description {
+            display: block;
+        }
+
+        .recaudo-item-icon {
+            font-size: 1.2em;
+            margin-left: 15px;
+            transition: transform 0.3s;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .recaudo-item.active .recaudo-item-icon {
+            transform: rotate(180deg);
+        }
+
+        .distribucion-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .distribucion-table td {
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .distribucion-table td:first-child {
+            font-weight: bold;
+            color: var(--color-lider);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .distribucion-table td:last-child {
+            text-align: right;
+            color: var(--color-reclutamiento);
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="back-button">
+            <a href="index.html">
+                <i class="fas fa-arrow-left"></i>
+                Regresar
+            </a>
+        </div>
+
+        <h2 class="section-title">Departamento Comercial</h2>
+
+        <section class="info-section">
+            <p>En este apartado podrás registrar a los nuevos reclutados, cargar el ranking y consultar el manual de recaudos. Todo ello con el propósito de centralizar la información y optimizar los procesos de gestión comercial.</p>
+        </section>
+
+        <section class="portal-section">
+            <h2 class="section-title">Herramientas</h2>
+            <div class="button-container">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScv9EWoz5H89s3Tub3m-y9yl3x35EYs9ubDxvG3kGHHQCtBNQ/viewform?usp=header" target="_blank" class="portal-button lider-ventas">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Registrar afiliado</span>
+                </a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSeJqPYPHCrZy69Wf2gTxe-9QrTDE0HSKyMF2Fv--UzdeeGtyg/viewform?usp=header" target="_blank" class="portal-button lider-ventas">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Ranking</span>
+                </a>
+            </div>
+        </section>
+
+        <h2 class="section-title">Manual de Recaudos</h2>
+        <section class="recaudo-section">
+            <p class="recaudo-description-header">El sistema de recaudos de la empresa se organiza en tres modalidades principales, cada una con parámetros específicos de distribución de las utilidades:</p>
+
+            <div class="recaudo-item" onclick="toggleDescription(this)">
+                <div class="recaudo-header">
+                    <h3 class="recaudo-title">Venta Tradicional</h3>
+                    <div class="recaudo-utility">$2.000</div>
+                    <i class="fas fa-chevron-down recaudo-item-icon"></i>
+                </div>
+                <div class="recaudo-description">
+                    <p>La venta tradicional corresponde a las operaciones realizadas con afiliados vinculados mediante el proyecto de reclutamiento. Estos afiliados compran siempre a precio catálogo, el cual incluye un valor adicional de $500 que se destina directamente como comisión para su reclutador.</p>
+                    <p>De esta manera, la utilidad efectiva disponible para la empresa es de $2,000 por venta, distribuida en:</p>
+                    <table class="distribucion-table">
+                        <tr>
+                            <td>Asesor</td>
+                            <td>$1.000</td>
+                        </tr>
+                        <tr>
+                            <td>Empresa</td>
+                            <td>$1.000</td>
+                        </tr>
+                        <tr>
+                            <td>Comisión Reclutador</td>
+                            <td>$500</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="recaudo-item" onclick="toggleDescription(this)">
+                <div class="recaudo-header">
+                    <h3 class="recaudo-title">Venta Promotor</h3>
+                    <div class="recaudo-utility">$2.500</div>
+                    <i class="fas fa-chevron-down recaudo-item-icon"></i>
+                </div>
+                <div class="recaudo-description">
+                    <p>Esta modalidad aplica para todos los promotores de la empresa.</p>
+                    <p>La utilidad generada es de $2,500 por venta, de los cuales $1,200 corresponden al asesor y $1,300 a la empresa.</p>
+                    <table class="distribucion-table">
+                        <tr>
+                            <td>Asesor</td>
+                            <td>$1.200</td>
+                        </tr>
+                        <tr>
+                            <td>Empresa</td>
+                            <td>$1.300</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="recaudo-item" onclick="toggleDescription(this)">
+                <div class="recaudo-header">
+                    <h3 class="recaudo-title">Venta Integral</h3>
+                    <div class="recaudo-utility">$2.500</div>
+                    <i class="fas fa-chevron-down recaudo-item-icon"></i>
+                </div>
+                <div class="recaudo-description">
+                    <p>La venta integral aplica para aquellos afiliados que no han sido reclutados mediante el proyecto de reclutamiento y que tampoco gozan del beneficio de adquirir el producto con descuento.</p>
+                    <p>En este caso, la utilidad es de $2,500, de los cuales $1,200 corresponden al asesor y $1,300 a la empresa. Adicionalmente, al no existir la deducción de $500 por concepto de comisión a reclutador, la empresa dispone íntegramente de este valor.</p>
+                    <table class="distribucion-table">
+                        <tr>
+                            <td>Asesor</td>
+                            <td>$1.200</td>
+                        </tr>
+                        <tr>
+                            <td>Empresa</td>
+                            <td>$1.300</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Novaklar. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        function toggleDescription(element) {
+            const items = document.querySelectorAll('.recaudo-item');
+            const isActive = element.classList.contains('active');
+
+            items.forEach(item => {
+                item.classList.remove('active');
+            });
+
+            if (!isActive) {
+                element.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
