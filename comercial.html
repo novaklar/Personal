@@ -131,18 +131,13 @@
             width: fit-content;
             margin-left: auto;
             margin-right: auto;
-            color: #00128f;
+            color: #FFFFFF;
             text-decoration: none;
         }
 
         .back-button:hover {
             color: #00128f;
             background-color: #5a80e0;
-        }
-
-        .back-button a {
-            color: #FFFFFF; /* Color blanco para la palabra "Regresar" */
-            text-decoration: none; /* Elimina la línea debajo */
         }
 
         .back-button i {
@@ -304,7 +299,7 @@
             <div class="recaudo-item" onclick="toggleDescription(this)">
                 <div class="recaudo-header">
                     <h3 class="recaudo-title">Venta Tradicional</h3>
-                    <div class="recaudo-utility">$2.000</div>
+                    <div class="recaudo-utility">$2.500</div>
                     <i class="fas fa-chevron-down recaudo-item-icon"></i>
                 </div>
                 <div class="recaudo-description">
@@ -334,16 +329,31 @@
                     <i class="fas fa-chevron-down recaudo-item-icon"></i>
                 </div>
                 <div class="recaudo-description">
-                    <p>Esta modalidad aplica para todos los promotores de la empresa.</p>
-                    <p>La utilidad generada es de $2,500 por venta, de los cuales $1,200 corresponden al asesor y $1,300 a la empresa.</p>
+                    <p>Esta modalidad aplica para todos los promotores de la empresa, quienes refieren clientes finales para que las asesoras gestionen la venta. La utilidad se distribuye de manera distinta dependiendo de si el promotor fue reclutado mediante el proyecto de reclutamiento o no.</p>
+                    <p><strong>Caso 1: Promotor con Reclutador</strong></p>
                     <table class="distribucion-table">
+                        <tr>
+                            <td>Empresa</td>
+                            <td>$1.300</td>
+                        </tr>
                         <tr>
                             <td>Asesor</td>
                             <td>$1.200</td>
                         </tr>
                         <tr>
+                            <td>Comisión Reclutador</td>
+                            <td>$2.500</td>
+                        </tr>
+                    </table>
+                    <p><strong>Caso 2: Promotor sin Reclutador</strong></p>
+                    <table class="distribucion-table">
+                        <tr>
                             <td>Empresa</td>
-                            <td>$1.300</td>
+                            <td>$1.500</td>
+                        </tr>
+                        <tr>
+                            <td>Asesor</td>
+                            <td>$1.500</td>
                         </tr>
                     </table>
                 </div>
