@@ -123,29 +123,34 @@
             animation: pulse-shadow 1.5s infinite;
         }
 
-        .dot-lider-ventas {
-            background-color: #6c91ff;
+        /* Cambios aquí: Nuevo color para los puntos de estado */
+        .dot-comercial {
+            background-color: #00128f;
         }
 
         .dot-reclutamiento {
-            background-color: #beff7d;
+            background-color: #147a80;
         }
 
-        @keyframes pulse-shadow {
-            0% { box-shadow: 0 0 0 0 rgba(108, 145, 255, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(108, 145, 255, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(108, 145, 255, 0); }
+        @keyframes pulse-shadow-comercial {
+            0% { box-shadow: 0 0 0 0 rgba(0, 18, 143, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 18, 143, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 18, 143, 0); }
         }
 
+        @keyframes pulse-shadow-rec {
+            0% { box-shadow: 0 0 0 0 rgba(20, 122, 128, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(20, 122, 128, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(20, 122, 128, 0); }
+        }
+
+        .dot-comercial.status-dot {
+            animation: pulse-shadow-comercial 1.5s infinite;
+        }
         .dot-reclutamiento.status-dot {
             animation: pulse-shadow-rec 1.5s infinite;
         }
-        
-        @keyframes pulse-shadow-rec {
-            0% { box-shadow: 0 0 0 0 rgba(190, 255, 125, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(190, 255, 125, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(190, 255, 125, 0); }
-        }
+
 
         .schedule-container {
             text-align: center;
@@ -743,8 +748,9 @@
                         const dotSpan = document.createElement('span');
                         dotSpan.classList.add('status-dot');
 
-                        if (employee.role === 'Líder operativo' || employee.role === 'Asesor de ventas') {
-                            dotSpan.classList.add('dot-lider-ventas');
+                        // Lógica actualizada para asignar las clases de color
+                        if (employee.role === 'Líder comercial' || employee.role === 'Asesor comercial') {
+                            dotSpan.classList.add('dot-comercial');
                         } else if (employee.role === 'Asesor de reclutamiento') {
                             dotSpan.classList.add('dot-reclutamiento');
                         }
