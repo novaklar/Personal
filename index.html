@@ -715,25 +715,8 @@
                         const role = row.c?.[1]?.v;
                         return { name, role };
                     }).filter(emp => emp.name && emp.role);
-
-                    // Función para medir el ancho del texto
-                    function getTextWidth(text, font) {
-                        const canvas = document.createElement('canvas');
-                        const context = canvas.getContext('2d');
-                        context.font = font;
-                        const metrics = context.measureText(text);
-                        return metrics.width;
-                    }
-
-                    // Ordenar empleados por el ancho del texto
-                    const fontStyle = "700 1.1em Poppins";
-                    employees.sort((a, b) => {
-                        const widthA = getTextWidth(a.name, fontStyle);
-                        const widthB = getTextWidth(b.name, fontStyle);
-                        return widthA - widthB;
-                    });
-
-                    // Renderizar los empleados ordenados
+                    
+                    // Renderizar los empleados en el orden original
                     employees.forEach(employee => {
                         const employeeCard = document.createElement('div');
                         employeeCard.classList.add('employee-card');
@@ -748,7 +731,6 @@
                         const dotSpan = document.createElement('span');
                         dotSpan.classList.add('status-dot');
 
-                        // Lógica actualizada para asignar las clases de color
                         if (employee.role === 'Líder comercial' || employee.role === 'Asesor comercial') {
                             dotSpan.classList.add('dot-comercial');
                         } else if (employee.role === 'Asesor de reclutamiento') {
