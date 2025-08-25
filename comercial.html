@@ -11,7 +11,7 @@
     <style>
         :root {
             --color-lider: #6C91FF;
-            --color-reclutamiento: #BEFF7D;
+            --color-reclutamiento: #6c91ff;
             --color-boton-lider: #00128f;
             --color-boton-reclutamiento: #147a80;
             --bg-dark: #121212;
@@ -261,6 +261,110 @@
             text-align: right;
             color: var(--color-reclutamiento);
         }
+        
+        /* Estilos para el modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            color: var(--text-light);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .close-button {
+            color: var(--text-light);
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-button:hover {
+            color: var(--color-lider);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            color: var(--color-lider);
+        }
+
+        .modal-header i {
+            font-size: 2em;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-weight: 700;
+        }
+
+        #password-input {
+            width: 80%;
+            padding: 12px 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            font-size: 1em;
+            outline: none;
+            transition: border-color 0.3s, background-color 0.3s;
+        }
+
+        #password-input:focus {
+            border-color: var(--color-lider);
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-content button {
+            background-color: var(--color-lider);
+            color: var(--color-boton-lider);
+            border: none;
+            padding: 12px 25px;
+            font-size: 1em;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .modal-content button:hover {
+            background-color: #5a80e0;
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body>
@@ -289,6 +393,10 @@
                     <i class="fas fa-chart-line"></i>
                     <span>Ranking</span>
                 </a>
+                <a href="#" onclick="showPasswordModal('NLC.html', '230820')" class="portal-button lider-ventas">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>Nómina</span>
+                </a>
             </div>
         </section>
 
@@ -315,7 +423,7 @@
                             <td>$1.000</td>
                         </tr>
                         <tr>
-                            <td>Comisión Reclutador</td>
+                            <td>Reclutador</td>
                             <td>$500</td>
                         </tr>
                     </table>
@@ -325,7 +433,7 @@
             <div class="recaudo-item" onclick="toggleDescription(this)">
                 <div class="recaudo-header">
                     <h3 class="recaudo-title">Venta Promotor</h3>
-                    <div class="recaudo-utility">$2.500</div>
+                    <div class="recaudo-utility">$3.500</div>
                     <i class="fas fa-chevron-down recaudo-item-icon"></i>
                 </div>
                 <div class="recaudo-description">
@@ -334,26 +442,26 @@
                     <table class="distribucion-table">
                         <tr>
                             <td>Empresa</td>
-                            <td>$1.300</td>
+                            <td>$1.500</td>
                         </tr>
                         <tr>
                             <td>Asesor</td>
-                            <td>$1.200</td>
+                            <td>$1.500</td>
                         </tr>
                         <tr>
-                            <td>Comisión Reclutador</td>
-                            <td>$2.500</td>
+                            <td>Reclutador</td>
+                            <td>$500</td>
                         </tr>
                     </table>
                     <p><strong>Caso 2: Promotor sin Reclutador</strong></p>
                     <table class="distribucion-table">
                         <tr>
                             <td>Empresa</td>
-                            <td>$1.500</td>
+                            <td>$1.800</td>
                         </tr>
                         <tr>
                             <td>Asesor</td>
-                            <td>$1.500</td>
+                            <td>$1.700</td>
                         </tr>
                     </table>
                 </div>
@@ -387,6 +495,19 @@
         <p>&copy; 2025 Novaklar. Todos los derechos reservados.</p>
     </footer>
 
+    <div id="password-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button" onclick="closeModal()">&times;</span>
+        <div class="modal-header">
+          <i class="fas fa-lock"></i>
+          <h3>Acceso a Nómina</h3>
+        </div>
+        <p>Por favor, ingresa la contraseña para acceder.</p>
+        <input type="password" id="password-input" placeholder="Contraseña">
+        <button onclick="checkModalPassword()">Acceder</button>
+      </div>
+    </div>
+
     <script>
         function toggleDescription(element) {
             const items = document.querySelectorAll('.recaudo-item');
@@ -400,6 +521,46 @@
                 element.classList.add('active');
             }
         }
+
+        // Nueva función para mostrar el modal y guardar datos
+        function showPasswordModal(url, correctPassword) {
+            const modal = document.getElementById('password-modal');
+            modal.dataset.url = url;
+            modal.dataset.correctPassword = correctPassword;
+            modal.style.display = 'flex';
+            document.getElementById('password-input').focus();
+        }
+
+        // Función para cerrar el modal
+        function closeModal() {
+            const modal = document.getElementById('password-modal');
+            modal.style.display = 'none';
+            document.getElementById('password-input').value = '';
+        }
+
+        // Función para verificar la contraseña del modal
+        function checkModalPassword() {
+            const input = document.getElementById('password-input');
+            const password = input.value;
+            const modal = document.getElementById('password-modal');
+            const correctPassword = modal.dataset.correctPassword;
+            const url = modal.dataset.url;
+
+            if (password === correctPassword) {
+                window.location.href = url;
+            } else {
+                alert('Contraseña incorrecta. Acceso denegado.');
+                input.value = '';
+                input.focus();
+            }
+        }
+
+        // Opcional: Cerrar el modal al presionar la tecla 'Escape'
+        window.addEventListener('keydown', function(event) {
+          if (event.key === 'Escape' || event.key === 'Esc') {
+            closeModal();
+          }
+        });
     </script>
 </body>
 </html>
