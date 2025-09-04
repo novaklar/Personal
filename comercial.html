@@ -256,110 +256,6 @@
             text-align: right;
             color: #6c91ff; /* Cambiado a 6c91ff */
         }
-
-        /* Estilos para el modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background: #FFFFFF;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            border: 1px solid #00128f;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            position: relative;
-            color: #333;
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .close-button {
-            color: #00128f;
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .close-button:hover {
-            color: #6c91ff;
-        }
-
-        .modal-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-            color: #00128f;
-        }
-
-        .modal-header i {
-            font-size: 2em;
-        }
-
-        .modal-header h3 {
-            margin: 0;
-            font-weight: 700;
-        }
-
-        #password-input {
-            width: 80%;
-            padding: 12px 15px;
-            margin: 15px 0;
-            border-radius: 8px;
-            border: 1px solid #00128f;
-            background-color: #f4f4f9;
-            color: #333;
-            font-size: 1em;
-            outline: none;
-            transition: border-color 0.3s, background-color 0.3s;
-        }
-
-        #password-input:focus {
-            border-color: #6c91ff;
-            background-color: #e9e9f4;
-        }
-
-        .modal-content button {
-            background-color: #6c91ff;
-            color: #00128f;
-            border: none;
-            padding: 12px 25px;
-            font-size: 1em;
-            font-weight: 700;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        .modal-content button:hover {
-            background-color: #5a80e0;
-            transform: translateY(-2px);
-        }
     </style>
 </head>
 <body>
@@ -388,7 +284,7 @@
                     <i class="fas fa-chart-line"></i>
                     <span>Ranking</span>
                 </a>
-                <a href="#" onclick="showPasswordModal('NLC.html', '230820')" class="portal-button lider-ventas">
+                <a href="NLC.html" class="portal-button lider-ventas">
                     <i class="fas fa-money-bill-wave"></i>
                     <span>Nómina</span>
                 </a>
@@ -490,19 +386,6 @@
         <p>&copy; 2025 Novaklar. Todos los derechos reservados.</p>
     </footer>
 
-    <div id="password-modal" class="modal">
-      <div class="modal-content">
-        <span class="close-button" onclick="closeModal()">&times;</span>
-        <div class="modal-header">
-          <i class="fas fa-lock"></i>
-          <h3>Acceso a Nómina</h3>
-        </div>
-        <p>Por favor, ingresa la contraseña para acceder.</p>
-        <input type="password" id="password-input" placeholder="Contraseña">
-        <button onclick="checkModalPassword()">Acceder</button>
-      </div>
-    </div>
-
     <script>
         function toggleDescription(element) {
             const items = document.querySelectorAll('.recaudo-item');
@@ -516,42 +399,6 @@
                 element.classList.add('active');
             }
         }
-
-        function showPasswordModal(url, correctPassword) {
-            const modal = document.getElementById('password-modal');
-            modal.dataset.url = url;
-            modal.dataset.correctPassword = correctPassword;
-            modal.style.display = 'flex';
-            document.getElementById('password-input').focus();
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('password-modal');
-            modal.style.display = 'none';
-            document.getElementById('password-input').value = '';
-        }
-
-        function checkModalPassword() {
-            const input = document.getElementById('password-input');
-            const password = input.value;
-            const modal = document.getElementById('password-modal');
-            const correctPassword = modal.dataset.correctPassword;
-            const url = modal.dataset.url;
-
-            if (password === correctPassword) {
-                window.location.href = url;
-            } else {
-                alert('Contraseña incorrecta. Acceso denegado.');
-                input.value = '';
-                input.focus();
-            }
-        }
-
-        window.addEventListener('keydown', function(event) {
-          if (event.key === 'Escape' || event.key === 'Esc') {
-            closeModal();
-          }
-        });
     </script>
 </body>
 </html>
