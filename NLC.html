@@ -1,583 +1,475 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Líder Comercial | Novaklar</title>
-  <link href="https://fonts.googleapis.com/css2?family=Comme:wght@700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root {
-      --primary-color: #147a80;
-      --secondary-color: #beff7d;
-      --accent-color: #0d5257;
-      --success-color: #00bf63;
-      --warning-color: #ff3131;
-      --text-color: #333;
-      --light-bg: #f8fafc;
-      --card-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      --money-color: #147a80;
-      --earnings-card-bg: #e6f7f8;
-    }
-    
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f5fdfe;
-      color: var(--text-color);
-      line-height: 1.5;
-    }
-
-    header {
-      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 1.5rem;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    header img {
-      height: 40px;
-      filter: invert(86%) sepia(85%) saturate(301%) hue-rotate(18deg) brightness(101%) contrast(101%);
-    }
-
-    header a {
-      text-decoration: none;
-      color: white;
-      font-weight: 600;
-      font-size: 1rem;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      transition: background-color 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    header a:hover {
-      background-color: rgba(255,255,255,0.2);
-    }
-
-    .page-title {
-      font-family: 'Comme', sans-serif;
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--primary-color);
-      text-align: center;
-      margin: 1.5rem 0 0;
-      padding: 0 1rem;
-    }
-
-    .subtitle {
-      font-size: 1.2rem;
-      color: var(--accent-color);
-      text-align: center;
-      margin-top: 0.5rem;
-      margin-bottom: 1.5rem;
-      font-weight: 500;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 1rem 1.5rem;
-      box-sizing: border-box;
-    }
-    
-    .loading {
-      text-align: center;
-      padding: 2rem;
-      font-style: italic;
-      color: #666;
-    }
-
-    .error-message {
-      color: #d32f2f;
-      background-color: #fde8e8;
-      padding: 1rem;
-      border-radius: 8px;
-      margin: 1rem 0;
-      text-align: center;
-      font-size: 0.9rem;
-      border-left: 4px solid #d32f2f;
-    }
-
-    .last-updated {
-      text-align: center;
-      font-size: 0.75rem;
-      color: var(--primary-color);
-      margin-top: 1rem;
-      font-weight: 500;
-    }
-
-    .refresh-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 1.5rem auto;
-      padding: 0.8rem 1.5rem;
-      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: 600;
-      font-size: 1rem;
-      width: 100%;
-      max-width: 300px;
-      gap: 0.5rem;
-      box-shadow: var(--card-shadow);
-    }
-
-    .refresh-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-    }
-
-    .payment-table-container {
-      background: white;
-      border-radius: 12px;
-      box-shadow: var(--card-shadow);
-      overflow: hidden;
-      border: 1px solid rgba(0,0,0,0.05);
-      margin-top: 1.5rem;
-    }
-
-    .payment-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .payment-table th, .payment-table td {
-      text-align: left;
-      padding: 1rem;
-      border-bottom: 1px solid #eee;
-    }
-
-    .payment-table th {
-      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-      color: white;
-      font-weight: 600;
-      position: sticky;
-      top: 0;
-    }
-
-    .payment-table tr:last-child td {
-      border-bottom: none;
-    }
-
-    .payment-table tbody tr:hover {
-      background-color: #f6fbfc;
-    }
-
-    .payment-name {
-      font-weight: 600;
-      color: var(--accent-color);
-      width: 70%;
-    }
-    
-    .payment-amount {
-      font-weight: 700;
-      color: var(--success-color);
-      text-align: right;
-      width: 30%;
-    }
-
-    .no-data {
-      text-align: center;
-      padding: 2rem;
-      color: #666;
-      font-style: italic;
-      background: white;
-      border-radius: 8px;
-      box-shadow: var(--card-shadow);
-      border: 1px solid rgba(0,0,0,0.05);
-    }
-    
-    .earnings-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-    
-    .earnings-card {
-      background: #beff7d; /* Cambiado a #beff7d */
-      border-radius: 12px;
-      padding: 1.5rem;
-      text-align: center;
-      box-shadow: var(--card-shadow);
-    }
-
-    .earnings-card .label {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--primary-color);
-      margin-bottom: 0.5rem;
-    }
-
-    .earnings-card .value {
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--accent-color);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    
-    .week-range {
-      font-size: 0.85rem;
-      margin-top: 0.8rem;
-      color: var(--primary-color);
-      font-weight: 500;
-    }
-    
-    @media (max-width: 768px) {
-      .earnings-container {
-        grid-template-columns: 1fr;
-      }
-      
-      .page-title {
-        font-size: 1.5rem;
-      }
-      
-      .earnings-card .value {
-        font-size: 1.8rem;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Líder Comercial - Nómina Designada por Cargo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <style>
+        :root {
+            --primary: #147a80;
+            --secondary: #beff7d;
+            --accent: #2c9ca6;
+            --light: #f8ffef;
+            --dark: #0d5257;
+            --text: #333333;
+            --shadow: 0 4px 12px rgba(18, 122, 128, 0.15);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f7fbfc;
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 25px 0;
+            text-align: center;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        
+        .back-button {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--secondary);
+            color: var(--dark);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-button:hover {
+            background-color: #a9e86c;
+            transform: translateY(-50%) scale(1.05);
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        h2 {
+            margin: 8px 0 0;
+            font-weight: 400;
+            font-size: 1.5rem;
+            opacity: 0.9;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            margin-top: 0;
+            color: var(--primary);
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-title i {
+            font-size: 1.3rem;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        th {
+            background-color: var(--light);
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        tr:hover {
+            background-color: #f5fcfd;
+        }
+        
+        .stats-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border-radius: 12px;
+            padding: 25px;
+            flex: 1;
+            min-width: 280px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .stat-title {
+            font-size: 1.1rem;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .stat-value {
+            font-size: 2.2rem;
+            margin: 15px 0;
+            font-weight: 700;
+        }
+        
+        .stat-period {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: auto;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 30px;
+            font-style: italic;
+            color: #777;
+        }
+        
+        .table-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .search-box {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            width: 250px;
+            font-size: 0.9rem;
+        }
+        
+        .pagination {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .pagination button {
+            background-color: var(--light);
+            border: 1px solid #ddd;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .pagination button:hover {
+            background-color: var(--secondary);
+        }
+        
+        .pagination button.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .stats-container {
+                flex-direction: column;
+            }
+            
+            .back-button {
+                position: relative;
+                left: 0;
+                margin-bottom: 15px;
+                display: inline-flex;
+                transform: none;
+            }
+            
+            header {
+                padding: 20px 15px;
+            }
+            
+            .table-controls {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <img src="https://raw.githubusercontent.com/novaklar/web/refs/heads/main/Novaklar.svg" alt="Novaklar Logo" />
-    <a href="comercial.html"><i class="fas fa-arrow-left"></i> Regresar</a>
-  </header>
+    <div class="container">
+        <header>
+            <button class="back-button" onclick="window.location.href='comercial.html'">
+                <i class="fas fa-arrow-left"></i> Regresar
+            </button>
+            <h1>Líder Comercial</h1>
+            <h2>Nómina Designada por Cargo</h2>
+        </header>
 
-  <h1 class="page-title">Líder Comercial</h1>
-  <p class="subtitle">Pago de Nómina</p>
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3 class="stat-title"><i class="fas fa-calendar-week"></i> Ganancias Acumuladas Semanales</h3>
+                <div class="stat-value" id="weeklyEarnings">Cargando...</div>
+                <div class="stat-period" id="weekRange"></div>
+            </div>
+            <div class="stat-card">
+                <h3 class="stat-title"><i class="fas fa-chart-line"></i> Ganancia Total Histórica</h3>
+                <div class="stat-value" id="totalEarnings">Cargando...</div>
+                <div class="stat-period">Desde el inicio de registros</div>
+            </div>
+        </div>
 
-  <div class="container">
-    <div id="loading" class="loading">Cargando datos...</div>
-    <div id="error" class="error-message" style="display: none;"></div>
+        <div class="card">
+            <h3 class="card-title"><i class="fas fa-users"></i> Afiliados Registrados</h3>
+            <div class="table-controls">
+                <input type="text" class="search-box" placeholder="Buscar afiliado..." id="searchInput">
+                <div class="pagination" id="pagination"></div>
+            </div>
+            <div id="table_div"></div>
+        </div>
 
-    <div id="content-container" style="display: none;">
-      <div class="earnings-container">
-        <div class="earnings-card">
-          <div class="label">Ganancias de esta semana</div>
-          <div class="value" id="week-earnings">
-            <i class="fas fa-dollar-sign"></i>0
-          </div>
-          <div class="week-range" id="week-range"></div>
+        <div class="card">
+            <h3 class="card-title"><i class="fas fa-history"></i> Historial de Registros</h3>
+            <div id="timeline" style="height: 300px;"></div>
         </div>
         
-        <div class="earnings-card">
-          <div class="label">Ganancias Totales</div>
-          <div class="value" id="total-earnings">
-            <i class="fas fa-dollar-sign"></i>0
-          </div>
-        </div>
-      </div>
-
-      <div class="payment-table-container">
-        <table class="payment-table">
-          <thead>
-            <tr>
-              <th>Afiliado</th>
-              <th style="text-align: right;">Ganancia</th>
-            </tr>
-          </thead>
-          <tbody id="payment-table-body">
-          </tbody>
-        </table>
-      </div>
-      <div id="no-data" class="no-data" style="display: none;">No hay ventas registradas para pago de nómina.</div>
+        <footer>
+            <p>Sistema de Gestión Comercial &copy; 2023 | Desarrollado para el equipo de ventas</p>
+        </footer>
     </div>
-    
-    <button id="refresh-btn" class="refresh-btn">
-      <i class="fas fa-sync-alt" id="refresh-icon"></i>
-      <span id="refresh-text">Actualizar ahora</span>
-    </button>
-    
-    <div id="last-updated" class="last-updated"></div>
-  </div>
 
-  <script>
-    // Configuración
-    const SPREADSHEET_ID = '11jIxfO6Ah2CTRMGXXppwDoOuwC2DJJu9B3K96IW94ew';
-    const SHEET_NAME = 'Form Responses 1';
-    const RANGE = 'A282:F'; 
-    const FIRST_SALE_PAYMENT = 1000;
-    const UPDATE_INTERVAL = 5 * 60 * 1000;
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['table', 'corechart']});
+        google.charts.setOnLoadCallback(loadSheetData);
 
-    // Elementos del DOM
-    const loadingElement = document.getElementById('loading');
-    const errorElement = document.getElementById('error');
-    const lastUpdatedElement = document.getElementById('last-updated');
-    const refreshBtn = document.getElementById('refresh-btn');
-    const refreshText = document.getElementById('refresh-text');
-    const refreshIcon = document.getElementById('refresh-icon');
-    const noDataElement = document.getElementById('no-data');
-    const paymentTableBody = document.getElementById('payment-table-body');
-    const totalEarningsElement = document.getElementById('total-earnings');
-    const weekEarningsElement = document.getElementById('week-earnings');
-    const weekRangeElement = document.getElementById('week-range');
-    const contentContainer = document.getElementById('content-container');
+        function loadSheetData() {
+            const query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1m5K5ApzpAakZVMxRfefy_xbs2_2XUGOeHf6y4hEoyVQ/gviz/tq?headers=1');
+            query.send(handleQueryResponse);
+        }
 
-    let totalEarnings = 0;
-    let weekEarnings = 0;
-    
-    // Función para normalizar nombres
-    function normalizeName(name) {
-      if (!name) return '';
-      return name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
-    }
-    
-    // Función para formatear fecha
-    function formatDate(date) {
-      if (!(date instanceof Date) || isNaN(date)) {
-        return 'Fecha inválida';
-      }
-      const options = { year: 'numeric', month: 'short', day: 'numeric' };
-      return date.toLocaleDateString('es-ES', options);
-    }
-
-    // Función para formatear dinero
-    function formatMoney(amount) {
-      return '$' + amount.toLocaleString('es-MX');
-    }
-
-    // Función para obtener el inicio y fin de la semana (domingo a domingo)
-    function getWeekRange(date = new Date()) {
-      const day = date.getDay(); // 0 (domingo) a 6 (sábado)
-      const start = new Date(date);
-      start.setDate(date.getDate() - day); // Ir al domingo de esta semana
-      
-      const end = new Date(start);
-      end.setDate(start.getDate() + 6); // Sábado de esta semana
-      
-      return { start, end };
-    }
-
-    // Función para verificar si una fecha está en la semana actual
-    function isDateInThisWeek(date) {
-      const weekRange = getWeekRange();
-      return date >= weekRange.start && date <= weekRange.end;
-    }
-
-    // Función para animar el icono de actualización
-    function spinRefreshIcon() {
-      let rotation = 0;
-      const spinInterval = setInterval(() => {
-        rotation += 30;
-        if (rotation >= 360) rotation = 0;
-        refreshIcon.style.transform = `rotate(${rotation}deg)`;
-      }, 50);
-      return spinInterval;
-    }
-
-    // Función para procesar correctamente las fechas de Google Sheets
-    function parseGoogleSheetsDate(dateValue) {
-      try {
-        // Si es una cadena de fecha, intentar parsearla directamente
-        if (typeof dateValue === 'string') {
-          // Intentar diferentes formatos de fecha
-          const parsedDate = new Date(dateValue);
-          if (!isNaN(parsedDate.getTime())) {
-            return parsedDate;
-          }
-          
-          // Si es una fecha en formato "dd/mm/aaaa hh:mm:ss"
-          const parts = dateValue.split(' ');
-          if (parts.length > 0) {
-            const dateParts = parts[0].split('/');
-            if (dateParts.length === 3) {
-              const day = parseInt(dateParts[0], 10);
-              const month = parseInt(dateParts[1], 10) - 1;
-              const year = parseInt(dateParts[2], 10);
-              return new Date(year, month, day);
+        function handleQueryResponse(response) {
+            if (response.isError()) {
+                console.error('Error en la consulta: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+                document.getElementById('weeklyEarnings').textContent = 'Error al cargar datos';
+                document.getElementById('totalEarnings').textContent = 'Error al cargar datos';
+                return;
             }
-          }
-        }
-        
-        // Si es un número (serial date de Excel/Sheets)
-        if (typeof dateValue === 'number') {
-          // La fecha serial de Google Sheets comienza desde 30/12/1899
-          const excelEpoch = new Date(1899, 11, 30);
-          const millisecondsPerDay = 24 * 60 * 60 * 1000;
-          return new Date(excelEpoch.getTime() + dateValue * millisecondsPerDay);
-        }
-        
-        console.warn('Formato de fecha no reconocido:', dateValue);
-        return new Date(); // Fallback a fecha actual
-      } catch (error) {
-        console.error('Error parseando fecha:', error, dateValue);
-        return new Date(); // Fallback a fecha actual
-      }
-    }
 
-    // Función para consolidar datos de la hoja de cálculo
-    function consolidatePayments(rows) {
-      const payments = [];
-      const processedAffiliates = new Set();
-      const weekRange = getWeekRange();
-      
-      // Formatear rango de la semana para mostrar
-      const options = { day: 'numeric', month: 'short' };
-      weekRangeElement.textContent = `Del ${weekRange.start.toLocaleDateString('es-ES', options)} al ${weekRange.end.toLocaleDateString('es-ES', options)}`;
-      
-      try {
-        rows.forEach(row => {
-          if (!row.c || !Array.isArray(row.c)) return;
-          
-          const timestampCell = row.c[0]; // Columna A: Timestamp
-          const recruitedCell = row.c[2]; // Columna C: Nombre del reclutado
-          const salesCell = row.c[5];     // Columna F: Ventas
-          
-          if (!recruitedCell || !salesCell) return;
-          
-          const recruitedName = String(recruitedCell.v || recruitedCell.f || '').trim();
-          const salesCount = parseInt(String(salesCell.v || salesCell.f || '').trim()) || 0;
-          const normalizedName = normalizeName(recruitedName);
-
-          // Procesar la fecha
-          let saleDate = null;
-          if (timestampCell) {
-            const dateValue = timestampCell.v;
-            saleDate = parseGoogleSheetsDate(dateValue);
-          }
-          
-          // Solo procesar si es la primera venta de este reclutado
-          if (recruitedName && salesCount > 0 && !processedAffiliates.has(normalizedName)) {
-            processedAffiliates.add(normalizedName);
+            const data = response.getDataTable();
             
-            payments.push({
-              name: recruitedName,
-              date: saleDate,
-              amount: FIRST_SALE_PAYMENT,
-              isThisWeek: saleDate && isDateInThisWeek(saleDate)
-            });
-          }
-        });
-        
-        // Ordenar pagos por fecha (más recientes primero)
-        payments.sort((a, b) => b.date - a.date);
-        
-        return payments;
-
-      } catch (error) {
-        console.error('Error consolidando datos:', error);
-        return [];
-      }
-    }
-
-    // Función para renderizar la tabla de pagos
-    function renderPayments(payments) {
-      paymentTableBody.innerHTML = '';
-      totalEarnings = 0;
-      weekEarnings = 0;
-
-      if (payments.length === 0) {
-        contentContainer.style.display = 'none';
-        noDataElement.style.display = 'block';
-        totalEarningsElement.innerHTML = `<i class="fas fa-dollar-sign"></i>${formatMoney(0)}`;
-        weekEarningsElement.innerHTML = `<i class="fas fa-dollar-sign"></i>${formatMoney(0)}`;
-        return;
-      }
-      
-      contentContainer.style.display = 'block';
-      noDataElement.style.display = 'none';
-
-      payments.forEach(payment => {
-        const row = document.createElement('tr');
-        
-        const nameCell = document.createElement('td');
-        nameCell.className = 'payment-name';
-        nameCell.textContent = payment.name;
-        
-        const amountCell = document.createElement('td');
-        amountCell.className = 'payment-amount';
-        amountCell.textContent = formatMoney(payment.amount);
-
-        row.appendChild(nameCell);
-        row.appendChild(amountCell);
-        
-        paymentTableBody.appendChild(row);
-        
-        // Acumular ganancias totales
-        totalEarnings += payment.amount;
-        
-        // Acumular ganancias de esta semana
-        if (payment.isThisWeek) {
-          weekEarnings += payment.amount;
+            // Procesar datos para la tabla de afiliados
+            drawAffiliationsTable(data);
+            
+            // Calcular y mostrar ganancias
+            calculateEarnings(data);
+            
+            // Dibujar gráfico de timeline
+            drawTimelineChart(data);
         }
-      });
-      
-      totalEarningsElement.innerHTML = `<i class="fas fa-dollar-sign"></i>${formatMoney(totalEarnings)}`;
-      weekEarningsElement.innerHTML = `<i class="fas fa-dollar-sign"></i>${formatMoney(weekEarnings)}`;
-    }
 
-    // Función para cargar datos desde Google Sheets
-    async function loadDataFromSheets() {
-      let spinInterval;
-      try {
-        loadingElement.style.display = 'block';
-        errorElement.style.display = 'none';
-        contentContainer.style.display = 'none';
-        noDataElement.style.display = 'none';
-        refreshBtn.disabled = true;
-        refreshText.textContent = 'Actualizando...';
-        spinInterval = spinRefreshIcon();
-        
-        const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?sheet=${encodeURIComponent(SHEET_NAME)}&range=${RANGE}&t=${new Date().getTime()}`;
-        
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`Error ${response.status}`);
-        
-        const text = await response.text();
-        const json = JSON.parse(text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1));
-        
-        if (!json.table?.rows) throw new Error('Estructura de datos inesperada');
-        
-        const payments = consolidatePayments(json.table.rows);
-        renderPayments(payments);
-        
-        lastUpdatedElement.textContent = `Actualizado: ${new Date().toLocaleString('es-ES')}`;
-        loadingElement.style.display = 'none';
-        
-      } catch (error) {
-        console.error('Error:', error);
-        loadingElement.style.display = 'none';
-        errorElement.textContent = `Error al cargar datos: ${error.message}`;
-        errorElement.style.display = 'block';
-        contentContainer.style.display = 'none';
-        noDataElement.style.display = 'none';
-      } finally {
-        if (spinInterval) clearInterval(spinInterval);
-        refreshBtn.disabled = false;
-        refreshText.textContent = 'Actualizar ahora';
-        refreshIcon.style.transform = 'rotate(0deg)';
-      }
-    }
+        function drawAffiliationsTable(data) {
+            const table = new google.visualization.Table(document.getElementById('table_div'));
+            
+            // Crear vista de datos con solo las columnas que nos interesan
+            const view = new google.visualization.DataView(data);
+            view.setColumns([0, 1]); // Mostrar timestamp y nombre
+            
+            table.draw(view, {
+                width: '100%',
+                height: '100%',
+                page: 'enable',
+                pageSize: 10,
+                allowHtml: true,
+                cssClassNames: {
+                    headerRow: 'gviz-table-header',
+                    tableRow: 'gviz-table-row',
+                    oddTableRow: 'gviz-odd-table-row',
+                    selectedTableRow: 'gviz-selected-table-row',
+                    hoverTableRow: 'gviz-hover-table-row',
+                    headerCell: 'gviz-header-cell',
+                    tableCell: 'gviz-table-cell'
+                }
+            });
+        }
 
-    // Inicia la actualización automática
-    function startAutoRefresh() {
-      loadDataFromSheets();
-      return setInterval(loadDataFromSheets, UPDATE_INTERVAL);
-    }
+        function calculateEarnings(data) {
+            const numRows = data.getNumberOfRows();
+            const valorPorPersona = 1000; // COP
+            
+            // Calcular ganancia total
+            const gananciaTotal = numRows * valorPorPersona;
+            document.getElementById('totalEarnings').textContent = formatearMoneda(gananciaTotal) + ' COP';
+            
+            // Calcular ganancia semanal (esta semana)
+            const hoy = new Date();
+            const inicioSemana = getFirstDayOfWeek(hoy);
+            const finSemana = getLastDayOfWeek(hoy);
+            
+            let registrosSemanales = 0;
+            for (let i = 0; i < numRows; i++) {
+                const timestamp = new Date(data.getValue(i, 0)); // Columna 0 es timestamp
+                if (timestamp >= inicioSemana && timestamp <= finSemana) {
+                    registrosSemanales++;
+                }
+            }
+            
+            // Mostrar el rango de la semana actual
+            const options = { day: 'numeric', month: 'long' };
+            const semanaStr = `${inicioSemana.toLocaleDateString('es-ES', options)} - ${finSemana.toLocaleDateString('es-ES', options)}`;
+            document.getElementById('weekRange').textContent = `Semana actual: ${semanaStr}`;
+            
+            const gananciaSemanal = registrosSemanales * valorPorPersona;
+            document.getElementById('weeklyEarnings').textContent = formatearMoneda(gananciaSemanal) + ' COP';
+        }
 
-    // Evento para actualización manual
-    let refreshInterval = startAutoRefresh();
-    refreshBtn.addEventListener('click', () => {
-      clearInterval(refreshInterval);
-      refreshInterval = startAutoRefresh();
-    });
-  </script>
+        function getFirstDayOfWeek(date) {
+            const day = date.getDay(); // 0 (Domingo) a 6 (Sábado)
+            const diff = date.getDate() - day + (day === 0 ? -6 : 1); // Ajustar cuando es domingo
+            return new Date(date.setDate(diff));
+        }
+
+        function getLastDayOfWeek(date) {
+            const firstDay = getFirstDayOfWeek(new Date(date));
+            const lastDay = new Date(firstDay);
+            lastDay.setDate(firstDay.getDate() + 6);
+            return lastDay;
+        }
+
+        function drawTimelineChart(data) {
+            // Agrupar registros por fecha para el gráfico de timeline
+            const numRows = data.getNumberOfRows();
+            const registrosPorFecha = {};
+            
+            for (let i = 0; i < numRows; i++) {
+                const timestamp = new Date(data.getValue(i, 0));
+                const fechaStr = timestamp.toISOString().split('T')[0]; // Formato YYYY-MM-DD
+                
+                if (!registrosPorFecha[fechaStr]) {
+                    registrosPorFecha[fechaStr] = 0;
+                }
+                registrosPorFecha[fechaStr]++;
+            }
+            
+            // Preparar datos para el gráfico
+            const chartData = new google.visualization.DataTable();
+            chartData.addColumn('date', 'Fecha');
+            chartData.addColumn('number', 'Registros');
+            chartData.addColumn('number', 'Ganancia (COP)');
+            
+            const fechas = Object.keys(registrosPorFecha).sort();
+            for (const fecha of fechas) {
+                const registros = registrosPorFecha[fecha];
+                const partesFecha = fecha.split('-');
+                const año = parseInt(partesFecha[0]);
+                const mes = parseInt(partesFecha[1]) - 1; // Los meses en JS son 0-indexados
+                const dia = parseInt(partesFecha[2]);
+                
+                chartData.addRow([new Date(año, mes, dia), registros, registros * 1000]);
+            }
+            
+            const options = {
+                title: 'Registros y Ganancias por Fecha',
+                height: 300,
+                colors: ['#147a80', '#beff7d'],
+                hAxis: {
+                    title: 'Fecha',
+                    format: 'dd MMM'
+                },
+                vAxis: {
+                    title: 'Registros'
+                },
+                series: {
+                    0: { targetAxisIndex: 0 },
+                    1: { 
+                        targetAxisIndex: 1,
+                        type: 'line',
+                    }
+                },
+                vAxes: {
+                    0: { title: 'Registros' },
+                    1: { title: 'Ganancia (COP)' }
+                },
+                chartArea: {
+                    width: '85%',
+                    height: '70%'
+                }
+            };
+            
+            const chart = new google.visualization.ColumnChart(document.getElementById('timeline'));
+            chart.draw(chartData, options);
+        }
+
+        function formatearMoneda(monto) {
+            return new Intl.NumberFormat('es-CO').format(monto);
+        }
+        
+        // Funcionalidad de búsqueda
+        document.getElementById('searchInput').addEventListener('input', function() {
+            // Implementar funcionalidad de búsqueda aquí
+            console.log('Buscando: ', this.value);
+        });
+    </script>
 </body>
 </html>
