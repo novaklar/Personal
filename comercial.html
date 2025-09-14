@@ -256,6 +256,109 @@
             text-align: right;
             color: #6c91ff; /* Cambiado a 6c91ff */
         }
+
+        /* --- Estilos para la calculadora de comisiones --- */
+        .calculator-section {
+            background: #f4f4f9;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .calculator-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .calculator-input {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .calculator-input label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #00128f;
+        }
+
+        .calculator-input input {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .calculator-input input:focus {
+            border-color: #6c91ff;
+            outline: none;
+        }
+
+        .calculator-button {
+            grid-column: span 2;
+            background-color: #6c91ff;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .calculator-button:hover {
+            background-color: #5a80e0;
+        }
+
+        .calculator-results {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            font-size: 1.2em;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .result-label {
+            font-weight: 500;
+            color: #555;
+        }
+
+        .result-value {
+            font-weight: 700;
+            color: #00128f;
+        }
+
+        @media (max-width: 768px) {
+            .calculator-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .calculator-button {
+                grid-column: span 1;
+            }
+        }
     </style>
 </head>
 <body>
@@ -288,6 +391,39 @@
                     <i class="fas fa-money-bill-wave"></i>
                     <span>Nómina</span>
                 </a>
+            </div>
+        </section>
+
+        <!-- Sección de la calculadora de comisiones -->
+        <h2 class="section-title">Calculadora de Comisiones</h2>
+        <section class="calculator-section">
+            <div class="calculator-form">
+                <div class="calculator-input">
+                    <label for="venta">Valor de Venta:</label>
+                    <input type="number" id="venta" placeholder="Ingrese el valor de venta" min="0">
+                </div>
+                <div class="calculator-input">
+                    <label for="inversion">Valor de Inversión:</label>
+                    <input type="number" id="inversion" placeholder="Ingrese el valor de inversión" min="0">
+                </div>
+                <button class="calculator-button" onclick="calcularComision()">
+                    Calcular Comisión
+                </button>
+            </div>
+            
+            <div class="calculator-results" id="resultados">
+                <div class="result-item">
+                    <span class="result-label">Utilidad Neta:</span>
+                    <span class="result-value" id="utilidad-neta">$0</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Comisión Promotor:</span>
+                    <span class="result-value" id="comision-promotor">$0</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Ganancia Empresa:</span>
+                    <span class="result-value" id="comision-empresa">$0</span>
+                </div>
             </div>
         </section>
 
@@ -398,6 +534,53 @@
             if (!isActive) {
                 element.classList.add('active');
             }
+        }
+
+        function formatCurrency(number) {
+            return '$' + Math.round(number).toLocaleString('es-CO');
+        }
+
+        function calcularComision() {
+            // Obtener valores de entrada
+            const valorVenta = parseFloat(document.getElementById('venta').value) || 0;
+            const valorInversion = parseFloat(document.getElementById('inversion').value) || 0;
+            
+            // Calcular utilidad neta
+            const utilidadNeta = valorVenta - valorInversion;
+            
+            // Variables para almacenar resultados
+            let comisionPromotor = 0;
+            let comisionEmpresa = 0;
+            
+            // Aplicar reglas según el rango de utilidad
+            if (utilidadNeta >= 1000 && utilidadNeta <= 5000) {
+                // Rango 1: $1,000 - $5,000 (50% cada uno)
+                comisionPromotor = utilidadNeta * 0.5;
+                comisionEmpresa = utilidadNeta * 0.5;
+            } 
+            else if (utilidadNeta >= 6000 && utilidadNeta <= 8000) {
+                // Rango 2: $6,000 - $8,000 ($4,000 fijos para promotor)
+                comisionPromotor = 4000;
+                comisionEmpresa = utilidadNeta - 4000;
+            } 
+            else if (utilidadNeta >= 9000) {
+                // Rango 3: $9,000 en adelante (45% promotor, 55% empresa)
+                comisionPromotor = utilidadNeta * 0.45;
+                comisionEmpresa = utilidadNeta * 0.55;
+            } 
+            else {
+                // Fuera de los rangos especificados
+                comisionPromotor = 0;
+                comisionEmpresa = utilidadNeta;
+            }
+            
+            // Mostrar resultados
+            document.getElementById('utilidad-neta').textContent = formatCurrency(utilidadNeta);
+            document.getElementById('comision-promotor').textContent = formatCurrency(comisionPromotor);
+            document.getElementById('comision-empresa').textContent = formatCurrency(comisionEmpresa);
+            
+            // Mostrar sección de resultados
+            document.getElementById('resultados').style.display = 'block';
         }
     </script>
 </body>
