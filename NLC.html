@@ -15,6 +15,7 @@
             --dark: #00128f;
             --text: #333333;
             --shadow: 0 4px 12px rgba(0, 18, 143, 0.15);
+            --timestamp-bg: #e6eeff; /* Nuevo color para timestamp y nombre */
         }
         
         * {
@@ -90,7 +91,7 @@
             background-color: white;
             border-radius: 10px;
             padding: 20px 15px;
-            margin-bottom: 25px; /* Aumentado para más separación */
+            margin-bottom: 25px;
             box-shadow: var(--shadow);
             transition: transform 0.3s ease;
             overflow: hidden;
@@ -143,7 +144,7 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
-            margin-bottom: 25px; /* Añadido margen inferior para separar de la siguiente sección */
+            margin-bottom: 25px;
         }
         
         .stat-card {
@@ -238,6 +239,48 @@
             font-size: 0.85rem;
         }
         
+        /* Estilos para las secciones de timestamp y nombre */
+        .timestamp-section {
+            background-color: var(--timestamp-bg);
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .week-header {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .week-header i {
+            color: var(--secondary);
+        }
+        
+        .affiliate-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .affiliate-item:last-child {
+            border-bottom: none;
+        }
+        
+        .affiliate-name {
+            font-weight: 500;
+        }
+        
+        .affiliate-date {
+            color: #666;
+            font-size: 0.85rem;
+        }
+        
         /* Estilos específicos para móviles */
         @media (max-width: 768px) {
             .container {
@@ -259,7 +302,7 @@
             
             .card {
                 padding: 15px 10px;
-                margin-bottom: 20px; /* Aumentado para móviles */
+                margin-bottom: 20px;
             }
             
             .card-title {
@@ -296,7 +339,12 @@
             }
             
             .stats-container {
-                margin-bottom: 20px; /* Ajustado para móviles */
+                margin-bottom: 20px;
+            }
+            
+            .affiliate-item {
+                flex-direction: column;
+                gap: 5px;
             }
         }
         
@@ -336,7 +384,7 @@
             }
             
             .stats-container {
-                margin-bottom: 15px; /* Ajustado para móviles pequeños */
+                margin-bottom: 15px;
             }
         }
         
@@ -344,7 +392,7 @@
         .table-container {
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
-            margin-top: 10px; /* Separación adicional */
+            margin-top: 10px;
         }
         
         /* Separación adicional entre secciones en móviles */
@@ -375,6 +423,7 @@
         @media (prefers-contrast: high) {
             :root {
                 --light: #ffffff;
+                --timestamp-bg: #e0e0e0;
             }
             
             th {
@@ -416,7 +465,7 @@
                 <div class="pagination" id="pagination"></div>
             </div>
             <div class="table-container">
-                <div id="table_div"></div>
+                <div id="affiliatesByWeek"></div>
             </div>
         </div>
 
@@ -449,8 +498,8 @@
 
             const data = response.getDataTable();
             
-            // Procesar datos para la tabla de afiliados
-            drawAffiliationsTable(data);
+            // Procesar datos para mostrar afiliados por semana
+            displayAffiliatesByWeek(data);
             
             // Calcular y mostrar ganancias
             calculateEarnings(data);
@@ -459,40 +508,77 @@
             drawTimelineChart(data);
         }
 
-        function drawAffiliationsTable(data) {
-            const table = new google.visualization.Table(document.getElementById('table_div'));
+        function displayAffiliatesByWeek(data) {
+            const numRows = data.getNumberOfRows();
+            const affiliatesByWeek = {};
             
-            // Crear vista de datos con solo las columnas que nos interesan
-            const view = new google.visualization.DataView(data);
-            view.setColumns([0, 1]); // Mostrar timestamp y nombre
-            
-            // Ajustar opciones para móviles
-            const options = {
-                width: '100%',
-                height: '100%',
-                page: 'enable',
-                pageSize: 5, // Menos filas en móviles
-                allowHtml: true,
-                cssClassNames: {
-                    headerRow: 'gviz-table-header',
-                    tableRow: 'gviz-table-row',
-                    oddTableRow: 'gviz-odd-table-row',
-                    selectedTableRow: 'gviz-selected-table-row',
-                    hoverTableRow: 'gviz-hover-table-row',
-                    headerCell: 'gviz-header-cell',
-                    tableCell: 'gviz-table-cell'
-                },
-                sort: 'enable',
-                sortAscending: false,
-                sortColumn: 0
-            };
-            
-            // Ajustar para pantallas más grandes
-            if (window.innerWidth > 768) {
-                options.pageSize = 10;
+            // Agrupar afiliados por semana
+            for (let i = 0; i < numRows; i++) {
+                const timestamp = new Date(data.getValue(i, 0)); // Columna 0 es timestamp
+                const name = data.getValue(i, 1); // Columna 1 es nombre
+                
+                // Obtener el lunes de la semana a la que pertenece este registro
+                const weekStart = getFirstDayOfWeek(timestamp);
+                const weekKey = weekStart.toISOString().split('T')[0]; // Usar como clave
+                
+                if (!affiliatesByWeek[weekKey]) {
+                    affiliatesByWeek[weekKey] = {
+                        start: weekStart,
+                        end: getLastDayOfWeek(timestamp),
+                        affiliates: []
+                    };
+                }
+                
+                affiliatesByWeek[weekKey].affiliates.push({
+                    name: name,
+                    date: timestamp
+                });
             }
             
-            table.draw(view, options);
+            // Ordenar semanas por fecha (más reciente primero)
+            const sortedWeeks = Object.keys(affiliatesByWeek).sort().reverse();
+            
+            // Crear HTML para mostrar afiliados por semana
+            let html = '';
+            
+            for (const weekKey of sortedWeeks) {
+                const week = affiliatesByWeek[weekKey];
+                const weekStartStr = formatDate(week.start);
+                const weekEndStr = formatDate(week.end);
+                
+                html += `
+                <div class="timestamp-section">
+                    <div class="week-header">
+                        <i class="fas fa-calendar-alt"></i>
+                        Semana del ${weekStartStr} al ${weekEndStr}
+                    </div>
+                `;
+                
+                // Ordenar afiliados de la semana por fecha (más reciente primero)
+                week.affiliates.sort((a, b) => b.date - a.date);
+                
+                for (const affiliate of week.affiliates) {
+                    const dateStr = formatDate(affiliate.date);
+                    html += `
+                    <div class="affiliate-item">
+                        <span class="affiliate-name">${affiliate.name}</span>
+                        <span class="affiliate-date">${dateStr}</span>
+                    </div>
+                    `;
+                }
+                
+                html += `</div>`;
+            }
+            
+            document.getElementById('affiliatesByWeek').innerHTML = html;
+        }
+
+        function formatDate(date) {
+            return date.toLocaleDateString('es-ES', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
         }
 
         function calculateEarnings(data) {
@@ -528,13 +614,17 @@
         function getFirstDayOfWeek(date) {
             const day = date.getDay(); // 0 (Domingo) a 6 (Sábado)
             const diff = date.getDate() - day + (day === 0 ? -6 : 1); // Ajustar cuando es domingo
-            return new Date(date.setDate(diff));
+            const firstDay = new Date(date);
+            firstDay.setDate(diff);
+            firstDay.setHours(0, 0, 0, 0);
+            return firstDay;
         }
 
         function getLastDayOfWeek(date) {
             const firstDay = getFirstDayOfWeek(new Date(date));
             const lastDay = new Date(firstDay);
             lastDay.setDate(firstDay.getDate() + 6);
+            lastDay.setHours(23, 59, 59, 999);
             return lastDay;
         }
 
@@ -630,8 +720,26 @@
         
         // Funcionalidad de búsqueda
         document.getElementById('searchInput').addEventListener('input', function() {
-            // Implementar funcionalidad de búsqueda aquí
-            console.log('Buscando: ', this.value);
+            const searchTerm = this.value.toLowerCase();
+            const sections = document.querySelectorAll('.timestamp-section');
+            
+            sections.forEach(section => {
+                const affiliates = section.querySelectorAll('.affiliate-item');
+                let sectionVisible = false;
+                
+                affiliates.forEach(affiliate => {
+                    const name = affiliate.querySelector('.affiliate-name').textContent.toLowerCase();
+                    if (name.includes(searchTerm)) {
+                        affiliate.style.display = 'flex';
+                        sectionVisible = true;
+                    } else {
+                        affiliate.style.display = 'none';
+                    }
+                });
+                
+                // Mostrar u ocultar la sección según si hay resultados
+                section.style.display = sectionVisible ? 'block' : 'none';
+            });
         });
     </script>
 </body>
