@@ -11,9 +11,9 @@
     <style>
         :root {
             --color-lider: #6C91FF;
-            --color-reclutamiento: #BEFF7D;
+            --color-reclutamiento: #00128f;
             --color-boton-lider: #00128f;
-            --color-boton-reclutamiento: #147a80;
+            --color-boton-reclutamiento: #6c91ff;
             --bg-dark: #121212;
             --text-light: #f4f4f9;
             --glass-bg: rgba(255, 255, 255, 0.05);
@@ -23,8 +23,8 @@
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
-            background-color: #FFFFFF; /* Fondo blanco */
-            color: var(--bg-dark); /* Color de texto para el fondo blanco */
+            background-color: #FFFFFF;
+            color: var(--bg-dark);
             transition: background-color 0.5s ease;
         }
 
@@ -42,7 +42,6 @@
         header img {
             max-width: 120px;
             height: auto;
-            /* filter: invert(100%); Si la imagen se ve mal sobre fondo blanco, quitar el filtro */
         }
 
         main {
@@ -53,7 +52,7 @@
 
         .section-title {
             font-size: 2em;
-            color: #000; /* Texto negro para los títulos */
+            color: #000;
             margin-bottom: 20px;
             text-align: center;
             font-weight: 700;
@@ -71,7 +70,7 @@
             background: rgba(0, 0, 0, 0.05);
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            color: #000; /* Texto negro en la lista de empleados */
+            color: #000;
             overflow: hidden;
             border: 1px solid rgba(0, 0, 0, 0.1);
         }
@@ -103,12 +102,12 @@
         .employee-name {
             font-weight: 700;
             font-size: 1.1em;
-            color: #000; /* Texto negro */
+            color: #000;
             margin: 0 0 5px 0;
         }
 
         .employee-role {
-            color: rgba(0, 0, 0, 0.7); /* Texto gris oscuro */
+            color: rgba(0, 0, 0, 0.7);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -123,13 +122,12 @@
             animation: pulse-shadow 1.5s infinite;
         }
 
-        /* Cambios aquí: Nuevo color para los puntos de estado */
         .dot-comercial {
             background-color: #00128f;
         }
 
         .dot-reclutamiento {
-            background-color: #147a80;
+            background-color: #6c91ff;
         }
 
         @keyframes pulse-shadow-comercial {
@@ -139,9 +137,9 @@
         }
 
         @keyframes pulse-shadow-rec {
-            0% { box-shadow: 0 0 0 0 rgba(20, 122, 128, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(20, 122, 128, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(20, 122, 128, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(108, 145, 255, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(108, 145, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(108, 145, 255, 0); }
         }
 
         .dot-comercial.status-dot {
@@ -150,7 +148,6 @@
         .dot-reclutamiento.status-dot {
             animation: pulse-shadow-rec 1.5s infinite;
         }
-
 
         .schedule-container {
             text-align: center;
@@ -161,7 +158,7 @@
             border: none;
             border-radius: 8px;
             background: rgba(0, 0, 0, 0.05);
-            color: #000; /* Texto negro */
+            color: #000;
             font-weight: 700;
             font-size: 1.2em;
             cursor: pointer;
@@ -207,7 +204,7 @@
         .calendar-header h3 {
             margin: 0 0 15px 0;
             font-size: 1.5em;
-            color: #000; /* Texto negro */
+            color: #000;
         }
 
         .employee-select-container {
@@ -218,7 +215,7 @@
 
         .employee-select-container label {
             font-weight: 700;
-            color: #000; /* Texto negro */
+            color: #000;
         }
         
         #employee-select {
@@ -226,7 +223,7 @@
             border-radius: 5px;
             border: 1px solid rgba(0, 0, 0, 0.3);
             background-color: rgba(0, 0, 0, 0.1);
-            color: #000; /* Texto negro */
+            color: #000;
             font-family: 'Poppins', sans-serif;
             cursor: pointer;
             -webkit-appearance: none;
@@ -243,7 +240,7 @@
 
         .calendar .day-name {
             font-weight: 700;
-            color: rgba(0, 0, 0, 0.7); /* Texto gris oscuro */
+            color: rgba(0, 0, 0, 0.7);
             padding: 10px 0;
             border-bottom: 2px solid rgba(0, 0, 0, 0.1);
         }
@@ -257,7 +254,7 @@
 
         .calendar .day.day-off {
             background-color: rgba(220, 53, 69, 0.3);
-            color: #8B0000; /* Rojo oscuro */
+            color: #8B0000;
             font-weight: 700;
             box-shadow: 0 0 5px rgba(220, 53, 69, 0.5);
         }
@@ -277,7 +274,7 @@
             align-items: center;
             justify-content: center;
             width: 180px;
-            height: 180px; /* Cambiado a 180px para hacerlo cuadrado */
+            height: 180px;
             border-radius: 12px;
             text-decoration: none;
             font-weight: 500;
@@ -288,15 +285,15 @@
         }
         
         .icon-button.reclutamiento {
-            background: #beff7d;
-            border: 1px solid #beff7d;
-            color: #147a80;
-        }
-        
-        .icon-button.comercial {
             background: #6c91ff;
             border: 1px solid #6c91ff;
             color: #00128f;
+        }
+        
+        .icon-button.comercial {
+            background: #00128f;
+            border: 1px solid #00128f;
+            color: #6c91ff;
         }
 
         .icon-button:hover {
@@ -305,11 +302,11 @@
         }
         
         .icon-button.reclutamiento:hover {
-            background: #a9e46a;
+            background: #5a80e0;
         }
         
         .icon-button.comercial:hover {
-            background: #5a80e0;
+            background: #000a5e;
         }
         
         .icon-button i {
@@ -355,41 +352,28 @@
             height: 120px;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
+            background: linear-gradient(135deg, #00128f, #6c91ff);
+            border: 1px solid transparent;
+            color: #ffffff;
         }
         
-        /* Nuevo estilo para los botones de la sección comercial */
         .portal-button.lider-comercial,
-        .portal-button.asesor-comercial {
-            background: #6c91ff;
-            border: 1px solid #6c91ff;
-            color: #00128f;
-        }
-        
+        .portal-button.asesor-comercial,
         .portal-button.reclutamiento {
-            background: #beff7d;
-            border: 1px solid #beff7d;
-            color: #147a80;
+            background: linear-gradient(135deg, #00128f, #6c91ff);
+            color: #ffffff;
         }
 
         .portal-button:hover {
             transform: translateY(-5px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, #000a5e, #5a80e0);
         }
         
-        .portal-button.lider-comercial:hover,
-        .portal-button.asesor-comercial:hover {
-            background: #5a80e0; /* Un tono más oscuro */
-            border-color: #5a80e0;
-        }
-        
-        .portal-button.reclutamiento:hover {
-            background: #a9e46a;
-        }
-
         .portal-button i {
             margin-bottom: 10px;
             font-size: 2.5em;
-            color: inherit;
+            color: #ffffff;
         }
         
         footer {
@@ -415,12 +399,11 @@
             }
             .icon-button {
                 width: 100%;
-                height: 180px; /* Mantenemos el cuadrado en móvil */
+                height: 180px;
                 margin-bottom: 10px;
             }
         }
         
-        /* Estilos para el nuevo modal de contraseña */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -444,7 +427,7 @@
             border-radius: 15px;
             padding: 30px;
             text-align: center;
-            color: #000; /* Texto negro */
+            color: #000;
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
             width: 90%;
             max-width: 400px;
@@ -473,7 +456,7 @@
             border: 1px solid rgba(0, 0, 0, 0.3);
             border-radius: 8px;
             background: rgba(255, 255, 255, 0.5);
-            color: #000; /* Texto negro */
+            color: #000;
             font-family: 'Poppins', sans-serif;
             font-size: 1em;
             box-sizing: border-box;
@@ -577,7 +560,6 @@
                             <option value="" disabled selected>Seleccione</option>
                             <option value="katherin">Katherin</option>
                             <option value="neyereth">Neyereth</option>
-                            <option value="brijith">Brijith</option>
                             <option value="luz">Luz</option>
                             <option value="ester">Ester</option>
                         </select>
@@ -599,10 +581,10 @@
             <h2 class="section-title">Portal de empleados</h2>
             <div class="button-container">
                 <a href="lider.html" class="portal-button lider-comercial">
-                    <i class="fas fa-user-tie" style="color:#00128f;"></i>Líder comercial
+                    <i class="fas fa-user-tie"></i>Líder comercial
                 </a>
                 <a href="ventas.html" class="portal-button asesor-comercial">
-                    <i class="fas fa-chart-line" style="color:#00128f;"></i>Asesor comercial
+                    <i class="fas fa-chart-line"></i>Asesor comercial
                 </a>
                 <a href="reclu.html" class="portal-button reclutamiento">
                     <i class="fas fa-users"></i>Asesor de reclutamiento
@@ -632,12 +614,10 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Script para la lista de empleados y ordenamiento por ancho
             const spreadsheetId = '1l2Ge_RZ698FQgRbaPxGUd8aZ2SLN_CA2t4rPlVWA3Mw';
             const queryUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:json&tq=SELECT B, C`;
             const employeesList = document.querySelector('#employeesList');
             
-            // NUEVO: Variables del modal
             const comercialBtn = document.getElementById('comercial-btn');
             const passwordModal = document.getElementById('password-modal');
             const passwordInput = document.getElementById('password-input');
@@ -653,21 +633,17 @@
                 const storedAccess = localStorage.getItem(LOCAL_STORAGE_KEY);
                 
                 if (storedAccess === CORRECT_PASSWORD) {
-                    // Si ya está guardada la contraseña, redirigir directamente
                     window.location.href = "comercial.html";
                 } else {
-                    // Si no está, mostrar el modal
                     passwordModal.style.display = "flex";
                     passwordInput.focus();
                 }
             });
 
-            // Lógica para el botón de confirmación en el modal
             confirmPasswordBtn.addEventListener('click', () => {
                 handlePasswordCheck();
             });
 
-            // Lógica para la tecla "Enter" en el campo de contraseña
             passwordInput.addEventListener('keydown', (event) => {
                 if (event.key === 'Enter') {
                     handlePasswordCheck();
@@ -677,25 +653,21 @@
             function handlePasswordCheck() {
                 const enteredPassword = passwordInput.value;
                 if (enteredPassword === CORRECT_PASSWORD) {
-                    // Guardar en localStorage y redirigir
                     localStorage.setItem(LOCAL_STORAGE_KEY, enteredPassword);
                     window.location.href = "comercial.html";
                 } else {
-                    // Mostrar error
                     modalErrorMessage.textContent = "Contraseña incorrecta. Inténtalo de nuevo.";
                     passwordInput.value = "";
                     passwordInput.focus();
                 }
             }
 
-            // Lógica para cerrar el modal
             cancelPasswordBtn.addEventListener('click', () => {
                 passwordModal.style.display = "none";
                 passwordInput.value = "";
                 modalErrorMessage.textContent = "";
             });
 
-            // Cerrar el modal al hacer clic fuera de él
             passwordModal.addEventListener('click', (event) => {
                 if (event.target === passwordModal) {
                     passwordModal.style.display = "none";
@@ -716,7 +688,6 @@
                         return { name, role };
                     }).filter(emp => emp.name && emp.role);
                     
-                    // Renderizar los empleados en el orden original
                     employees.forEach(employee => {
                         const employeeCard = document.createElement('div');
                         employeeCard.classList.add('employee-card');
@@ -757,7 +728,6 @@
             const descansoData = {
                 katherin: [3, 5],
                 neyereth: [3, 5],
-                brijith: [2, 5],
                 luz: [1, 4],
                 ester: [6, 0]
             };
