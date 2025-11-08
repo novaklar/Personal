@@ -24,18 +24,19 @@
             font-style: normal;
         }
         
-        /* Paleta de Colores Actualizada */
+        /* Paleta de Colores Actualizada (con colores sólidos para fondos) */
         :root {
-            --color-principal: #006279; /* Azul oscuro/Teal principal */
-            --color-secundario: #59d8b6; /* Verde/Cian secundario */
+            --color-principal: #006279; /* Teal principal */
+            --color-secundario: #59d8b6; /* Cian/Verde secundario */
             --bg-dark: #121212;
             --text-light: #f4f4f9;
             --glass-bg: rgba(255, 255, 255, 0.05);
+            --shadow-primary: 0 4px 10px rgba(0, 98, 121, 0.15); /* Sombra basada en Primary */
         }
 
         body {
             margin: 0;
-            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
+            font-family: 'Poppins-Regular', sans-serif;
             background-color: #FFFFFF;
             color: #333;
             transition: background-color 0.5s ease;
@@ -64,7 +65,7 @@
         }
 
         .section-title {
-            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
+            font-family: 'Poppins-Bold', sans-serif;
             font-size: 2em;
             color: var(--color-principal);
             margin-bottom: 20px;
@@ -84,7 +85,7 @@
         }
 
         .info-section p {
-            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
+            font-family: 'Poppins-Regular', sans-serif;
             font-size: 1.1em;
             line-height: 1.6;
             margin: 0;
@@ -100,7 +101,7 @@
         }
 
         .portal-button {
-            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
+            font-family: 'Poppins-Bold', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -110,38 +111,37 @@
             text-decoration: none;
             font-weight: 700;
             font-size: 1em;
-            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             width: 250px;
             box-sizing: border-box;
             text-align: center;
             height: 120px;
-            /* Estilos de color actualizados para los botones */
-            background: linear-gradient(135deg, var(--color-principal), var(--color-secundario));
-            border: none; /* Eliminado el contorno */
-            color: var(--text-light); /* Texto blanco para mejor contraste */
+            /* Estilos de color SOLIDOS actualizados para los botones */
+            background-color: var(--color-principal);
+            border: none;
+            color: var(--text-light);
         }
 
         .portal-button.lider-ventas {
-            /* Se usan los estilos generales de portal-button */
             border: none;
-            color: #ffffff; /* Aseguramos texto blanco */
+            color: #ffffff;
         }
 
         .portal-button:hover {
             transform: translateY(-5px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-            background: linear-gradient(135deg, #004a5a, #4ac7a4); /* Ajustado hover */
+            background-color: #004a5a; /* Tono de hover de color principal */
         }
 
         .portal-button i {
             margin-bottom: 10px;
             font-size: 2.5em;
-            color: #ffffff; /* Iconos blancos */
+            color: #ffffff;
         }
 
         footer {
-            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
+            font-family: 'Poppins-Regular', sans-serif;
             background-color: var(--color-principal);
             color: #FFFFFF;
             text-align: center;
@@ -150,7 +150,7 @@
         }
 
         .back-button a {
-            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
+            font-family: 'Poppins-Regular', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -168,11 +168,11 @@
             margin-right: auto;
             color: var(--color-principal);
             text-decoration: none;
-            border: none; /* Eliminar contorno por defecto */
+            border: none;
         }
 
         .back-button a:hover {
-            color: var(--text-light);
+            color: var(--color-principal); /* Mantenemos el color del texto principal */
             background-color: #4ac7a4; /* Tono de hover de color secundario */
         }
 
@@ -203,7 +203,7 @@
         }
 
         .recaudo-description-header {
-            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
+            font-family: 'Poppins-Regular', sans-serif;
             font-size: 1em;
             line-height: 1.6;
             color: #555;
@@ -233,7 +233,7 @@
         }
 
         .recaudo-title {
-            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
+            font-family: 'Poppins-Bold', sans-serif;
             font-size: 1.2em;
             font-weight: 700;
             color: var(--color-principal);
@@ -241,14 +241,14 @@
         }
 
         .recaudo-utility {
-            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
+            font-family: 'Poppins-Bold', sans-serif;
             font-size: 1.2em;
             font-weight: 700;
             color: var(--color-secundario);
         }
 
         .recaudo-description {
-            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
+            font-family: 'Poppins-Regular', sans-serif;
             display: none;
             margin-top: 20px;
             font-size: 1em;
@@ -283,7 +283,7 @@
             border-collapse: collapse;
             margin-top: 15px;
             border: 1px solid rgba(0, 0, 0, 0.1);
-            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
+            font-family: 'Poppins-Regular', sans-serif;
         }
 
         .distribucion-table td {
@@ -292,10 +292,10 @@
         }
 
         .distribucion-table td:first-child {
-            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
+            font-family: 'Poppins-Bold', sans-serif;
             font-weight: 700;
             color: var(--color-principal);
-            background-color: #e9e9f4;
+            background-color: #e6fffb; /* Color claro basado en Secondary */
         }
 
         .distribucion-table td:last-child {
@@ -327,14 +327,14 @@
         }
 
         .calculator-input label {
-            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
+            font-family: 'Poppins-Bold', sans-serif;
             font-weight: 700;
             margin-bottom: 8px;
             color: var(--color-principal);
         }
 
         .calculator-input input {
-            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
+            font-family: 'Poppins-Regular', sans-serif;
             padding: 12px;
             border-radius: 8px;
             border: 1px solid #ddd;
@@ -348,9 +348,9 @@
         }
 
         .calculator-button {
-            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
+            font-family: 'Poppins-Bold', sans-serif;
             grid-column: span 2;
-            background-color: var(--color-secundario);
+            background-color: var(--color-secundario); /* Color sólido secundario */
             color: var(--color-principal);
             border: none;
             padding: 15px;
@@ -362,11 +362,11 @@
         }
 
         .calculator-button:hover {
-            background-color: #4ac7a4;
+            background-color: #4ac7a4; /* Tono de hover de color secundario */
         }
 
         .calculator-results {
-            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
+            font-family: 'Poppins-Regular', sans-serif;
             background: white;
             border-radius: 8px;
             padding: 25px;
@@ -391,13 +391,13 @@
         }
 
         .result-label {
-            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
+            font-family: 'Poppins-Regular', sans-serif;
             font-weight: 500;
             color: #555;
         }
 
         .result-value {
-            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
+            font-family: 'Poppins-Bold', sans-serif;
             font-weight: 700;
             color: var(--color-principal);
         }
@@ -429,7 +429,7 @@
         <h2 class="section-title">Departamento Comercial</h2>
 
         <section class="info-section">
-            <p>En este apartado podrás registrar a los nuevos reclutados, cargar el ranking y consultar el manual de recaudos. Todo ello con el propósito de centralizar la información y optimizar los procesos de gestión comercial.</p>
+            <p>En este apartado podrás **registrar a los nuevos reclutados**, **cargar el ranking** y **consultar el manual de recaudos**. Todo ello con el propósito de centralizar la información y **optimizar los procesos de gestión comercial**.</p>
         </section>
 
         <section class="portal-section">
@@ -493,7 +493,7 @@
                     <i class="fas fa-chevron-down recaudo-item-icon"></i>
                 </div>
                 <div class="recaudo-description">
-                    <p>La venta tradicional corresponde a las operaciones realizadas con afiliados vinculados mediante el proyecto de reclutamiento. Estos afiliados compran siempre a precio catálogo, el cual incluye un valor adicional de $500 que se destina directamente como comisión para su reclutador.</p>
+                    <p>La **venta tradicional** corresponde a las operaciones realizadas con **afiliados vinculados** mediante el proyecto de reclutamiento. Estos afiliados compran siempre a precio catálogo, el cual incluye un valor adicional de $500 que se destina directamente como comisión para su reclutador.</p>
                     <p>De esta manera, la utilidad efectiva disponible para la empresa es de $2,000 por venta, distribuida en:</p>
                     <table class="distribucion-table">
                         <tr>
@@ -519,7 +519,7 @@
                     <i class="fas fa-chevron-down recaudo-item-icon"></i>
                 </div>
                 <div class="recaudo-description">
-                    <p>Esta modalidad aplica para todos los promotores de la empresa, quienes refieren clientes finales para que las asesoras gestionen la venta. La utilidad se distribuye de manera distinta dependiendo de si el promotor fue reclutado mediante el proyecto de reclutamiento o no.</p>
+                    <p>Esta modalidad aplica para todos los **promotores de la empresa**, quienes refieren clientes finales para que las asesoras gestionen la venta. La utilidad se distribuye de manera distinta dependiendo de si el promotor fue reclutado mediante el proyecto de reclutamiento o no.</p>
                     <p><strong>Caso 1: Promotor con Reclutador</strong></p>
                     <table class="distribucion-table">
                         <tr>
@@ -556,7 +556,7 @@
                     <i class="fas fa-chevron-down recaudo-item-icon"></i>
                 </div>
                 <div class="recaudo-description">
-                    <p>La venta integral aplica para aquellos afiliados que no han sido reclutados mediante el proyecto de reclutamiento y que tampoco gozan del beneficio de adquirir el producto con descuento.</p>
+                    <p>La **venta integral** aplica para aquellos afiliados que **no han sido reclutados** mediante el proyecto de reclutamiento y que tampoco gozan del beneficio de adquirir el producto con descuento.</p>
                     <p>En este caso, la utilidad es de $2,500, de los cuales $1,200 corresponden al asesor y $1,300 a la empresa. Adicionalmente, al no existir la deducción de $500 por concepto de comisión a reclutador, la empresa dispone íntegramente de este valor.</p>
                     <table class="distribucion-table">
                         <tr>
