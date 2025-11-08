@@ -9,25 +9,54 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* Fuentes Personalizadas */
+        @font-face {
+            font-family: 'Poppins-Bold';
+            src: url('https://raw.githubusercontent.com/novaklar/web/main/Poppins-Bold.ttf') format('truetype');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Poppins-Regular';
+            src: url('https://raw.githubusercontent.com/novaklar/web/main/Poppins-Regular.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+        }
+        
+        /* Paleta de Colores Actualizada */
         :root {
-            --color-lider: #6C91FF;
-            --color-reclutamiento: #6c91ff;
-            --color-boton-lider: #00128f;
-            --color-boton-reclutamiento: #147a80;
+            --color-principal: #006279; /* Azul oscuro/Teal principal */
+            --color-secundario: #59d8b6; /* Verde/Cian secundario */
             --bg-dark: #121212;
-            --text-light: #00128f;
+            --text-light: #f4f4f9;
             --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
         }
 
         body {
             margin: 0;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
             background-color: #FFFFFF;
             color: #333;
             transition: background-color 0.5s ease;
         }
 
+        header {
+            background-color: transparent;
+            padding: 5px 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        header img {
+            max-width: 70px; /* Reducido de 90px a 70px */
+            height: auto;
+        }
+        
         main {
             padding: 40px 20px;
             max-width: 1200px;
@@ -35,8 +64,9 @@
         }
 
         .section-title {
+            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
             font-size: 2em;
-            color: #00128f;
+            color: var(--color-principal);
             margin-bottom: 20px;
             text-align: center;
             font-weight: 700;
@@ -54,6 +84,7 @@
         }
 
         .info-section p {
+            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
             font-size: 1.1em;
             line-height: 1.6;
             margin: 0;
@@ -69,6 +100,7 @@
         }
 
         .portal-button {
+            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -84,28 +116,33 @@
             box-sizing: border-box;
             text-align: center;
             height: 120px;
+            /* Estilos de color actualizados para los botones */
+            background: linear-gradient(135deg, var(--color-principal), var(--color-secundario));
+            border: none; /* Eliminado el contorno */
+            color: var(--text-light); /* Texto blanco para mejor contraste */
         }
 
         .portal-button.lider-ventas {
-            background: #6c91ff;
-            border: 1px solid #6c91ff;
-            color: #00128f;
+            /* Se usan los estilos generales de portal-button */
+            border: none;
+            color: #ffffff; /* Aseguramos texto blanco */
         }
 
         .portal-button:hover {
             transform: translateY(-5px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-            background: #5a80e0;
+            background: linear-gradient(135deg, #004a5a, #4ac7a4); /* Ajustado hover */
         }
 
         .portal-button i {
             margin-bottom: 10px;
             font-size: 2.5em;
-            color: #00128f;
+            color: #ffffff; /* Iconos blancos */
         }
 
         footer {
-            background-color: #00128f;
+            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
+            background-color: var(--color-principal);
             color: #FFFFFF;
             text-align: center;
             padding: 20px;
@@ -113,6 +150,7 @@
         }
 
         .back-button a {
+            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -121,19 +159,21 @@
             margin-bottom: 20px;
             transition: color 0.3s, background-color 0.3s;
             text-align: center;
-            background-color: #6c91ff;
+            /* Estilos de color actualizados */
+            background-color: var(--color-secundario);
             border-radius: 8px;
             padding: 15px 20px;
             width: fit-content;
             margin-left: auto;
             margin-right: auto;
-            color: #00128f;
+            color: var(--color-principal);
             text-decoration: none;
+            border: none; /* Eliminar contorno por defecto */
         }
 
-        .back-button:hover {
-            color: #FFFFFF;
-            background-color: #5a80e0;
+        .back-button a:hover {
+            color: var(--text-light);
+            background-color: #4ac7a4; /* Tono de hover de color secundario */
         }
 
         .back-button i {
@@ -163,6 +203,7 @@
         }
 
         .recaudo-description-header {
+            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
             font-size: 1em;
             line-height: 1.6;
             color: #555;
@@ -192,19 +233,22 @@
         }
 
         .recaudo-title {
+            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
             font-size: 1.2em;
             font-weight: 700;
-            color: #00128f;
+            color: var(--color-principal);
             flex-grow: 1;
         }
 
         .recaudo-utility {
+            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
             font-size: 1.2em;
             font-weight: 700;
-            color: #6c91ff; /* Cambiado a 6c91ff */
+            color: var(--color-secundario);
         }
 
         .recaudo-description {
+            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
             display: none;
             margin-top: 20px;
             font-size: 1em;
@@ -227,7 +271,7 @@
             font-size: 1.2em;
             margin-left: 15px;
             transition: transform 0.3s;
-            color: #00128f; /* Cambiado a 00128f */
+            color: var(--color-principal);
         }
 
         .recaudo-item.active .recaudo-item-icon {
@@ -239,6 +283,7 @@
             border-collapse: collapse;
             margin-top: 15px;
             border: 1px solid rgba(0, 0, 0, 0.1);
+            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
         }
 
         .distribucion-table td {
@@ -247,14 +292,15 @@
         }
 
         .distribucion-table td:first-child {
-            font-weight: bold;
-            color: #00128f;
+            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
+            font-weight: 700;
+            color: var(--color-principal);
             background-color: #e9e9f4;
         }
 
         .distribucion-table td:last-child {
             text-align: right;
-            color: #6c91ff; /* Cambiado a 6c91ff */
+            color: var(--color-secundario);
         }
 
         /* --- Estilos para la calculadora de comisiones --- */
@@ -281,12 +327,14 @@
         }
 
         .calculator-input label {
-            font-weight: 500;
+            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
+            font-weight: 700;
             margin-bottom: 8px;
-            color: #00128f;
+            color: var(--color-principal);
         }
 
         .calculator-input input {
+            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
             padding: 12px;
             border-radius: 8px;
             border: 1px solid #ddd;
@@ -295,28 +343,30 @@
         }
 
         .calculator-input input:focus {
-            border-color: #6c91ff;
+            border-color: var(--color-secundario);
             outline: none;
         }
 
         .calculator-button {
+            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
             grid-column: span 2;
-            background-color: #6c91ff;
-            color: white;
+            background-color: var(--color-secundario);
+            color: var(--color-principal);
             border: none;
             padding: 15px;
             border-radius: 8px;
             font-size: 1.1em;
-            font-weight: 500;
+            font-weight: 700;
             cursor: pointer;
             transition: background-color 0.3s;
         }
 
         .calculator-button:hover {
-            background-color: #5a80e0;
+            background-color: #4ac7a4;
         }
 
         .calculator-results {
+            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
             background: white;
             border-radius: 8px;
             padding: 25px;
@@ -341,13 +391,15 @@
         }
 
         .result-label {
+            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
             font-weight: 500;
             color: #555;
         }
 
         .result-value {
+            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
             font-weight: 700;
-            color: #00128f;
+            color: var(--color-principal);
         }
 
         @media (max-width: 768px) {
@@ -362,6 +414,10 @@
     </style>
 </head>
 <body>
+    <header>
+        <img src="https://raw.githubusercontent.com/novaklar/web/refs/heads/main/novaklar1.svg" alt="Novaklar Logo">
+    </header>
+
     <main>
         <div class="back-button">
             <a href="index.html">
@@ -394,7 +450,6 @@
             </div>
         </section>
 
-        <!-- Sección de la calculadora de comisiones -->
         <h2 class="section-title">Calculadora de Comisiones</h2>
         <section class="calculator-section">
             <div class="calculator-form">
