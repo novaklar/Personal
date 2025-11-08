@@ -7,7 +7,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
         :root {
-            --primary-color: #00128f;
+            --primary-color: #006279; /* ¡COLOR REEMPLAZADO! */
             --secondary-color: #333;
             --background-color: #f4f7f6;
             --card-background: #ffffff;
@@ -70,9 +70,9 @@
 
         h1 {
             font-size: 2.2rem;
-            color: #00128f; /* Título del contrato en color 00128f */
+            color: var(--primary-color); /* Usando la variable y reemplazando el color directo */
             margin-bottom: 1rem;
-            border-bottom: 2px solid #00128f; /* Línea de color a juego */
+            border-bottom: 2px solid var(--primary-color); /* Usando la variable y reemplazando el color directo */
             padding-bottom: 0.5rem;
         }
 
@@ -92,7 +92,7 @@
 
         .btn-firma {
             padding: 1rem 2rem;
-            background-color: #147a80;
+            background-color: var(--primary-color); /* REEMPLAZADO el color #147a80 por la variable */
             color: #fff;
             border: none;
             border-radius: var(--border-radius);
@@ -103,7 +103,7 @@
         }
 
         .btn-firma:hover {
-            background-color: #00128f;
+            background-color: #004a5a; /* Tono de hover ajustado para #006279 */
         }
     </style>
 </head>
@@ -125,6 +125,3 @@
     </div>
 </body>
 </html>
-
-
-
