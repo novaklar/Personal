@@ -9,11 +9,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        @font-face {
+            font-family: 'Poppins-Bold';
+            src: url('https://raw.githubusercontent.com/novaklar/web/main/Poppins-Bold.ttf') format('truetype');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Poppins-Regular';
+            src: url('https://raw.githubusercontent.com/novaklar/web/main/Poppins-Regular.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+        }
+
         :root {
-            --color-lider: #6C91FF;
-            --color-reclutamiento: #00128f;
-            --color-boton-lider: #00128f;
-            --color-boton-reclutamiento: #6c91ff;
+            --color-lider: #59d8b6; /* Reemplazado de #6C91FF */
+            --color-reclutamiento: #006279; /* Reemplazado de #00128f */
+            --color-boton-lider: #006279; /* Reemplazado de #00128f */
+            --color-boton-reclutamiento: #59d8b6; /* Reemplazado de #6c91ff */
             --bg-dark: #121212;
             --text-light: #f4f4f9;
             --glass-bg: rgba(255, 255, 255, 0.05);
@@ -22,7 +36,7 @@
 
         body {
             margin: 0;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
             background-color: #FFFFFF;
             color: var(--bg-dark);
             transition: background-color 0.5s ease;
@@ -40,7 +54,7 @@
         }
 
         header img {
-            max-width: 120px;
+            max-width: 70px; /* Reducido de 90px a 70px */
             height: auto;
         }
 
@@ -51,6 +65,7 @@
         }
 
         .section-title {
+            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
             font-size: 2em;
             color: #000;
             margin-bottom: 20px;
@@ -100,6 +115,7 @@
         }
 
         .employee-name {
+            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
             font-weight: 700;
             font-size: 1.1em;
             color: #000;
@@ -107,6 +123,7 @@
         }
 
         .employee-role {
+            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
             color: rgba(0, 0, 0, 0.7);
             display: flex;
             align-items: center;
@@ -123,23 +140,23 @@
         }
 
         .dot-comercial {
-            background-color: #00128f;
+            background-color: #006279; /* Reemplazado de #00128f */
         }
 
         .dot-reclutamiento {
-            background-color: #6c91ff;
+            background-color: #59d8b6; /* Reemplazado de #6c91ff */
         }
 
         @keyframes pulse-shadow-comercial {
-            0% { box-shadow: 0 0 0 0 rgba(0, 18, 143, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(0, 18, 143, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 18, 143, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(0, 98, 121, 0.7); } /* Ajustado color */
+            70% { box-shadow: 0 0 0 10px rgba(0, 98, 121, 0); } /* Ajustado color */
+            100% { box-shadow: 0 0 0 0 rgba(0, 98, 121, 0); } /* Ajustado color */
         }
 
         @keyframes pulse-shadow-rec {
-            0% { box-shadow: 0 0 0 0 rgba(108, 145, 255, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(108, 145, 255, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(108, 145, 255, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(89, 216, 182, 0.7); } /* Ajustado color */
+            70% { box-shadow: 0 0 0 10px rgba(89, 216, 182, 0); } /* Ajustado color */
+            100% { box-shadow: 0 0 0 0 rgba(89, 216, 182, 0); } /* Ajustado color */
         }
 
         .dot-comercial.status-dot {
@@ -154,6 +171,7 @@
         }
         
         .schedule-button {
+            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
             padding: 25px 50px;
             border: none;
             border-radius: 8px;
@@ -202,6 +220,7 @@
         }
 
         .calendar-header h3 {
+            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
             margin: 0 0 15px 0;
             font-size: 1.5em;
             color: #000;
@@ -214,17 +233,18 @@
         }
 
         .employee-select-container label {
+            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
             font-weight: 700;
             color: #000;
         }
         
         #employee-select {
+            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
             padding: 8px;
             border-radius: 5px;
             border: 1px solid rgba(0, 0, 0, 0.3);
             background-color: rgba(0, 0, 0, 0.1);
             color: #000;
-            font-family: 'Poppins', sans-serif;
             cursor: pointer;
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -239,6 +259,7 @@
         }
 
         .calendar .day-name {
+            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
             font-weight: 700;
             color: rgba(0, 0, 0, 0.7);
             padding: 10px 0;
@@ -246,6 +267,7 @@
         }
 
         .calendar .day {
+            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
             padding: 15px;
             border-radius: 5px;
             background-color: rgba(0, 0, 0, 0.05);
@@ -269,6 +291,7 @@
         }
         
         .icon-button {
+            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -285,15 +308,15 @@
         }
         
         .icon-button.reclutamiento {
-            background: #6c91ff;
-            border: 1px solid #6c91ff;
-            color: #00128f;
+            background: #59d8b6; /* Reemplazado de #6c91ff */
+            border: 1px solid #59d8b6; /* Reemplazado de #6c91ff */
+            color: #006279; /* Reemplazado de #00128f */
         }
         
         .icon-button.comercial {
-            background: #00128f;
-            border: 1px solid #00128f;
-            color: #6c91ff;
+            background: #006279; /* Reemplazado de #00128f */
+            border: 1px solid #006279; /* Reemplazado de #00128f */
+            color: #59d8b6; /* Reemplazado de #6c91ff */
         }
 
         .icon-button:hover {
@@ -302,11 +325,11 @@
         }
         
         .icon-button.reclutamiento:hover {
-            background: #5a80e0;
+            background: #4ac7a4; /* Ajustado hover */
         }
         
         .icon-button.comercial:hover {
-            background: #000a5e;
+            background: #004a5a; /* Ajustado hover */
         }
         
         .icon-button i {
@@ -335,6 +358,7 @@
         }
 
         .portal-button {
+            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -352,22 +376,22 @@
             height: 120px;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            background: linear-gradient(135deg, #00128f, #6c91ff);
-            border: 1px solid transparent;
+            background: linear-gradient(135deg, #006279, #59d8b6); /* Ajustado color */
+            border: none; /* Eliminado el contorno */
             color: #ffffff;
         }
         
         .portal-button.lider-comercial,
         .portal-button.asesor-comercial,
         .portal-button.reclutamiento {
-            background: linear-gradient(135deg, #00128f, #6c91ff);
+            background: linear-gradient(135deg, #006279, #59d8b6); /* Ajustado color */
             color: #ffffff;
         }
 
         .portal-button:hover {
             transform: translateY(-5px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-            background: linear-gradient(135deg, #000a5e, #5a80e0);
+            background: linear-gradient(135deg, #004a5a, #4ac7a4); /* Ajustado hover */
         }
         
         .portal-button i {
@@ -377,6 +401,7 @@
         }
         
         footer {
+            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
             background-color: #0d0d1a;
             color: rgba(255, 255, 255, 0.7);
             text-align: center;
@@ -437,12 +462,14 @@
         }
 
         .modal-content h3 {
+            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
             margin: 0;
             font-size: 1.5em;
             font-weight: 700;
         }
 
         .modal-content p {
+            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
             margin: 0;
         }
 
@@ -451,13 +478,13 @@
         }
         
         .modal-input {
+            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
             width: 100%;
             padding: 12px;
             border: 1px solid rgba(0, 0, 0, 0.3);
             border-radius: 8px;
             background: rgba(255, 255, 255, 0.5);
             color: #000;
-            font-family: 'Poppins', sans-serif;
             font-size: 1em;
             box-sizing: border-box;
             transition: all 0.3s ease;
@@ -469,8 +496,8 @@
 
         .modal-input:focus {
             outline: none;
-            border-color: #00128f;
-            box-shadow: 0 0 0 3px rgba(0, 18, 143, 0.5);
+            border-color: #006279; /* Ajustado color */
+            box-shadow: 0 0 0 3px rgba(0, 98, 121, 0.5); /* Ajustado color */
         }
 
         .modal-buttons {
@@ -481,6 +508,7 @@
         }
         
         .modal-btn {
+            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
             padding: 12px 25px;
             border: none;
             border-radius: 8px;
@@ -495,12 +523,12 @@
         }
         
         .modal-btn.confirm-btn {
-            background: #00128f;
+            background: #006279; /* Ajustado color */
             color: #fff;
         }
         
         .modal-btn.confirm-btn:hover {
-            background: #000a5e;
+            background: #004a5a; /* Ajustado hover */
             transform: translateY(-2px);
         }
 
@@ -516,6 +544,7 @@
         }
         
         .modal-error {
+            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
             color: #ff4d4d;
             font-size: 0.9em;
             margin-top: -10px;
@@ -799,4 +828,3 @@
     </script>
 </body>
 </html>
-
