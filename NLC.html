@@ -4,29 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Líder Comercial - Nómina Designada por Cargo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <style>
+        /* Fuentes Personalizadas */
+        @font-face {
+            font-family: 'Poppins-Bold';
+            src: url('https://raw.githubusercontent.com/novaklar/web/main/Poppins-Bold.ttf') format('truetype');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Poppins-Regular';
+            src: url('https://raw.githubusercontent.com/novaklar/web/main/Poppins-Regular.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        /* Paleta de Colores Actualizada (sin gradientes) */
         :root {
-            --primary: #00128f;
-            --secondary: #6c91ff;
-            --accent: #00128f;
+            --primary: #006279; /* Teal principal */
+            --secondary: #59d8b6; /* Cian/Verde secundario */
+            --accent: #006279; /* Mismo que primary para consistencia en la sombra */
             --light: #f8ffef;
-            --dark: #00128f;
+            --dark: #006279;
             --text: #333333;
-            --shadow: 0 4px 12px rgba(0, 18, 143, 0.15);
-            --timestamp-bg: #e6eeff; /* Nuevo color para timestamp y nombre */
+            --shadow: 0 4px 12px rgba(0, 98, 121, 0.15); /* Sombra basada en Primary */
+            --timestamp-bg: #e6fffb; /* Fondo claro basado en Secondary */
+            --light-bg-header: #f7fbfc; /* Color de fondo general del body */
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
         }
         
         body {
-            background-color: #f7fbfc;
+            background-color: var(--light-bg-header);
             color: var(--text);
             line-height: 1.6;
             font-size: 16px;
@@ -37,9 +57,10 @@
             margin: 0 auto;
             padding: 15px;
         }
-        
+
         header {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+            /* Volviendo a color sólido para el header */
+            background-color: var(--primary);
             color: white;
             padding: 20px 15px;
             text-align: center;
@@ -49,16 +70,25 @@
             position: relative;
         }
         
+        /* Eliminamos el estilo de la imagen del header ya que no hay logo en el original */
+        /* header img {
+            max-width: 70px;
+            height: auto;
+            margin-bottom: 10px;
+        } */
+        
         .back-button {
             position: relative;
             left: 0;
             margin-bottom: 15px;
+            /* Invertimos colores para el botón de regreso */
             background-color: var(--secondary);
-            color: var(--dark);
+            color: var(--primary);
             border: none;
             padding: 12px 20px;
             border-radius: 50px;
-            font-weight: 600;
+            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -69,11 +99,13 @@
         }
         
         .back-button:hover {
-            background-color: #8aabff;
+            background-color: #4ac7a4; /* Tono de hover de color secundario */
             transform: scale(1.05);
+            color: white;
         }
         
         h1 {
+            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
             margin: 0;
             font-size: 1.8rem;
             font-weight: 700;
@@ -81,6 +113,7 @@
         }
         
         h2 {
+            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
             margin: 8px 0 0;
             font-weight: 400;
             font-size: 1.1rem;
@@ -102,11 +135,12 @@
         }
         
         .card-title {
+            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
             font-size: 1.3rem;
             margin-top: 0;
             color: var(--primary);
             padding-bottom: 12px;
-            border-bottom: 2px solid var(--light);
+            border-bottom: 2px solid var(--light-bg-header);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -130,14 +164,15 @@
         }
         
         th {
-            background-color: var(--light);
-            font-weight: 600;
+            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
+            background-color: #e6fffb; /* Fondo más claro basado en Secondary */
+            font-weight: 700;
             color: var(--dark);
             font-size: 0.9rem;
         }
         
         tr:hover {
-            background-color: #f5fcfd;
+            background-color: #f0fdfc;
         }
         
         .stats-container {
@@ -148,7 +183,8 @@
         }
         
         .stat-card {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+            /* Volviendo a color sólido para las stat-card */
+            background-color: var(--primary);
             color: white;
             border-radius: 10px;
             padding: 20px;
@@ -159,14 +195,17 @@
         }
         
         .stat-title {
+            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
             font-size: 1rem;
             margin-top: 0;
             display: flex;
             align-items: center;
             gap: 8px;
+            font-weight: 500;
         }
         
         .stat-value {
+            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
             font-size: 1.8rem;
             margin: 12px 0;
             font-weight: 700;
@@ -174,6 +213,7 @@
         }
         
         .stat-period {
+            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
             font-size: 0.85rem;
             opacity: 0.9;
             margin-top: auto;
@@ -182,6 +222,7 @@
         }
         
         .loading {
+            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
             text-align: center;
             padding: 20px;
             font-style: italic;
@@ -196,6 +237,7 @@
         }
         
         .search-box {
+            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
             padding: 12px 15px;
             border: 1px solid #ddd;
             border-radius: 50px;
@@ -211,7 +253,8 @@
         }
         
         .pagination button {
-            background-color: var(--light);
+            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
+            background-color: var(--light-bg-header);
             border: 1px solid #ddd;
             padding: 8px 12px;
             border-radius: 6px;
@@ -223,6 +266,7 @@
         
         .pagination button:hover {
             background-color: var(--secondary);
+            color: var(--primary);
         }
         
         .pagination button.active {
@@ -232,6 +276,7 @@
         }
         
         footer {
+            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
             text-align: center;
             margin-top: 30px;
             padding: 15px;
@@ -248,7 +293,8 @@
         }
         
         .week-header {
-            font-weight: bold;
+            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
+            font-weight: 700;
             color: var(--primary);
             margin-bottom: 8px;
             font-size: 1.1rem;
@@ -262,6 +308,7 @@
         }
         
         .affiliate-item {
+            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
             display: flex;
             justify-content: space-between;
             padding: 8px 0;
@@ -455,7 +502,6 @@
             </div>
         </div>
 
-        <!-- Separador adicional para móviles -->
         <div class="section-spacer"></div>
 
         <div class="card">
@@ -475,15 +521,18 @@
         </div>
         
         <footer>
-            <p>Sistema de Gestión Comercial &copy; 2023 | Desarrollado para el equipo de ventas</p>
+            <p>Sistema de Gestión Comercial &copy; 2025 | Desarrollado para el equipo de ventas</p>
         </footer>
     </div>
 
     <script type="text/javascript">
+        // La lógica de JavaScript (uso de Google Charts, manipulación de fechas y datos) permanece igual
+        // para garantizar la funcionalidad de la hoja de cálculo.
         google.charts.load('current', {'packages':['table', 'corechart']});
         google.charts.setOnLoadCallback(loadSheetData);
 
         function loadSheetData() {
+            // Asegúrate de usar la URL de tu hoja de cálculo real
             const query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1m5K5ApzpAakZVMxRfefy_xbs2_2XUGOeHf6y4hEoyVQ/gviz/tq?headers=1');
             query.send(handleQueryResponse);
         }
@@ -665,7 +714,8 @@
             const options = {
                 title: 'Registros y Ganancias por Fecha',
                 height: isMobile ? 250 : 300,
-                colors: ['#00128f', '#6c91ff'],
+                // Colores del gráfico ajustados a la nueva paleta
+                colors: [getComputedStyle(document.documentElement).getPropertyValue('--primary'), getComputedStyle(document.documentElement).getPropertyValue('--secondary')],
                 hAxis: {
                     title: 'Fecha',
                     format: isMobile ? 'MMM' : 'dd MMM',
@@ -710,7 +760,15 @@
             
             // Redibujar el gráfico cuando cambie el tamaño de la ventana
             window.addEventListener('resize', function() {
-                chart.draw(chartData, options);
+                // Hay que volver a obtener las opciones para que el responsive funcione correctamente
+                const newIsMobile = window.innerWidth <= 768;
+                const newOptions = { ...options, 
+                    height: newIsMobile ? 250 : 300,
+                    hAxis: { ...options.hAxis, textStyle: { fontSize: newIsMobile ? 10 : 12 } },
+                    vAxis: { ...options.vAxis, textStyle: { fontSize: newIsMobile ? 10 : 12 } },
+                    chartArea: { ...options.chartArea, width: newIsMobile ? '80%' : '85%', height: newIsMobile ? '65%' : '70%', left: newIsMobile ? 70 : 80 }
+                };
+                chart.draw(chartData, newOptions);
             });
         }
 
