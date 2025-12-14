@@ -26,12 +26,12 @@
         
         /* Paleta de Colores Actualizada (con colores sólidos para fondos) */
         :root {
-            --color-principal: #006279; /* Teal principal */
-            --color-secundario: #59d8b6; /* Cian/Verde secundario */
+            --color-principal: #0d4c7f; /* Cambiado de #006279 a #0d4c7f */
+            --color-secundario: #7fcfda; /* Cambiado de #57d8b4 a #7fcfda */
             --bg-dark: #121212;
             --text-light: #f4f4f9;
             --glass-bg: rgba(255, 255, 255, 0.05);
-            --shadow-primary: 0 4px 10px rgba(0, 98, 121, 0.15); /* Sombra basada en Primary */
+            --shadow-primary: 0 4px 10px rgba(13, 76, 127, 0.15); /* Sombra basada en Primary */
         }
 
         body {
@@ -131,7 +131,7 @@
         .portal-button:hover {
             transform: translateY(-5px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-            background-color: #004a5a; /* Tono de hover de color principal */
+            background-color: #0a3d66; /* Tono de hover de color principal */
         }
 
         .portal-button i {
@@ -173,7 +173,7 @@
 
         .back-button a:hover {
             color: var(--color-principal); /* Mantenemos el color del texto principal */
-            background-color: #4ac7a4; /* Tono de hover de color secundario */
+            background-color: #6bc4d0; /* Tono de hover de color secundario */
         }
 
         .back-button i {
@@ -295,7 +295,7 @@
             font-family: 'Poppins-Bold', sans-serif;
             font-weight: 700;
             color: var(--color-principal);
-            background-color: #e6fffb; /* Color claro basado en Secondary */
+            background-color: #e6f7ff; /* Color claro basado en Primary */
         }
 
         .distribucion-table td:last-child {
@@ -362,7 +362,7 @@
         }
 
         .calculator-button:hover {
-            background-color: #4ac7a4; /* Tono de hover de color secundario */
+            background-color: #6bc4d0; /* Tono de hover de color secundario */
         }
 
         .calculator-results {
@@ -411,6 +411,60 @@
                 grid-column: span 1;
             }
         }
+        
+        /* Modal de contraseña */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 12px;
+            margin: 20px 0;
+            border: 2px solid var(--color-secundario);
+            border-radius: 8px;
+            font-size: 1.1em;
+            box-sizing: border-box;
+        }
+
+        .modal-button {
+            background-color: var(--color-principal);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .modal-button:hover {
+            background-color: #0a3d66;
+        }
+
+        .error-message {
+            color: #ff4444;
+            margin-top: 10px;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -429,7 +483,7 @@
         <h2 class="section-title">Departamento Comercial</h2>
 
         <section class="info-section">
-            <p>En este apartado podrás **registrar a los nuevos reclutados**, **cargar el ranking** y **consultar el manual de recaudos**. Todo ello con el propósito de centralizar la información y **optimizar los procesos de gestión comercial**.</p>
+            <p>En este apartado podrás registrar a los nuevos reclutados, cargar el ranking y consultar el manual de recaudos. Todo ello con el propósito de centralizar la información y optimizar los procesos de gestión comercial.</p>
         </section>
 
         <section class="portal-section">
@@ -446,6 +500,10 @@
                 <a href="NLC.html" class="portal-button lider-ventas">
                     <i class="fas fa-money-bill-wave"></i>
                     <span>Nómina</span>
+                </a>
+                <a href="#" onclick="openPasswordModal()" class="portal-button lider-ventas">
+                    <i class="fas fa-gift"></i>
+                    <span>R&R</span>
                 </a>
             </div>
         </section>
@@ -493,7 +551,7 @@
                     <i class="fas fa-chevron-down recaudo-item-icon"></i>
                 </div>
                 <div class="recaudo-description">
-                    <p>La **venta tradicional** corresponde a las operaciones realizadas con **afiliados vinculados** mediante el proyecto de reclutamiento. Estos afiliados compran siempre a precio catálogo, el cual incluye un valor adicional de $500 que se destina directamente como comisión para su reclutador.</p>
+                    <p>La venta tradicional corresponde a las operaciones realizadas con afiliados vinculados mediante el proyecto de reclutamiento. Estos afiliados compran siempre a precio catálogo, el cual incluye un valor adicional de $500 que se destina directamente como comisión para su reclutador.</p>
                     <p>De esta manera, la utilidad efectiva disponible para la empresa es de $2,000 por venta, distribuida en:</p>
                     <table class="distribucion-table">
                         <tr>
@@ -519,7 +577,7 @@
                     <i class="fas fa-chevron-down recaudo-item-icon"></i>
                 </div>
                 <div class="recaudo-description">
-                    <p>Esta modalidad aplica para todos los **promotores de la empresa**, quienes refieren clientes finales para que las asesoras gestionen la venta. La utilidad se distribuye de manera distinta dependiendo de si el promotor fue reclutado mediante el proyecto de reclutamiento o no.</p>
+                    <p>Esta modalidad aplica para todos los promotores de la empresa, quienes refieren clientes finales para que las asesoras gestionen la venta. La utilidad se distribuye de manera distinta dependiendo de si el promotor fue reclutado mediante el proyecto de reclutamiento o no.</p>
                     <p><strong>Caso 1: Promotor con Reclutador</strong></p>
                     <table class="distribucion-table">
                         <tr>
@@ -556,7 +614,7 @@
                     <i class="fas fa-chevron-down recaudo-item-icon"></i>
                 </div>
                 <div class="recaudo-description">
-                    <p>La **venta integral** aplica para aquellos afiliados que **no han sido reclutados** mediante el proyecto de reclutamiento y que tampoco gozan del beneficio de adquirir el producto con descuento.</p>
+                    <p>La venta integral aplica para aquellos afiliados que no han sido reclutados mediante el proyecto de reclutamiento y que tampoco gozan del beneficio de adquirir el producto con descuento.</p>
                     <p>En este caso, la utilidad es de $2,500, de los cuales $1,200 corresponden al asesor y $1,300 a la empresa. Adicionalmente, al no existir la deducción de $500 por concepto de comisión a reclutador, la empresa dispone íntegramente de este valor.</p>
                     <table class="distribucion-table">
                         <tr>
@@ -576,6 +634,17 @@
     <footer>
         <p>&copy; 2025 Novaklar. Todos los derechos reservados.</p>
     </footer>
+
+    <!-- Modal de contraseña -->
+    <div id="passwordModal" class="modal">
+        <div class="modal-content">
+            <h2 style="color: var(--color-principal);">Acceso R&R</h2>
+            <p>Ingrese la contraseña para acceder al portal de R&R:</p>
+            <input type="password" id="passwordInput" class="modal-input" placeholder="Contraseña">
+            <p id="errorMessage" class="error-message">Contraseña incorrecta. Intente nuevamente.</p>
+            <button class="modal-button" onclick="checkPassword()">Acceder</button>
+        </div>
+    </div>
 
     <script>
         function toggleDescription(element) {
@@ -637,6 +706,42 @@
             // Mostrar sección de resultados
             document.getElementById('resultados').style.display = 'block';
         }
+
+        // Funciones para el modal de contraseña
+        function openPasswordModal() {
+            document.getElementById('passwordModal').style.display = 'block';
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            if (password === '313') {
+                // Contraseña correcta, redirigir
+                window.location.href = 'https://novaklar.github.io/RR/';
+            } else {
+                // Contraseña incorrecta
+                errorMessage.style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+            }
+        }
+
+        // Cerrar modal al hacer clic fuera de él
+        window.onclick = function(event) {
+            const modal = document.getElementById('passwordModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Permitir presionar Enter para enviar la contraseña
+        document.getElementById('passwordInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                checkPassword();
+            }
+        });
     </script>
 </body>
 </html>
