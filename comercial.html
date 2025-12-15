@@ -412,9 +412,8 @@
             }
         }
         
-        /* Modal de contraseña */
+        /* Modal de contraseña - Estilos base (OPTIMIZADO) */
         .modal {
-            display: none;
             position: fixed;
             z-index: 1001;
             left: 0;
@@ -422,17 +421,37 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
+            
+            /* AJUSTE CRÍTICO: Usar Flexbox para centrado completo en cualquier pantalla */
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            
+            /* Por defecto se esconde */
+            visibility: hidden; 
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        /* Clase para mostrar el modal con visibilidad y opacidad */
+        .modal.is-visible {
+            visibility: visible;
+            opacity: 1;
         }
 
         .modal-content {
             background-color: #fefefe;
-            margin: 15% auto;
             padding: 30px;
             border-radius: 12px;
             width: 90%;
             max-width: 400px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
             text-align: center;
+            position: relative;
+            
+            /* Limitar la altura para que no desborde en móviles con teclado */
+            max-height: 90vh; 
+            overflow-y: auto; 
         }
 
         .modal-input {
@@ -464,6 +483,16 @@
             color: #ff4444;
             margin-top: 10px;
             display: none;
+        }
+        
+        /* Optimización de modal para dispositivos móviles */
+        @media (max-width: 600px) {
+            .modal-content {
+                /* AJUSTE: Reducir el ancho máximo para que no ocupe todo el espacio */
+                width: 85%; 
+                max-width: 320px; /* Nuevo límite máximo en móvil */
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -497,12 +526,12 @@
                     <i class="fas fa-chart-line"></i>
                     <span>Ranking</span>
                 </a>
-                <a href="NLC.html" class="portal-button lider-ventas">
+                <a href="#" onclick="openNominaPasswordModal()" class="portal-button lider-ventas">
                     <i class="fas fa-money-bill-wave"></i>
                     <span>Nómina</span>
                 </a>
-                <a href="#" onclick="openPasswordModal()" class="portal-button lider-ventas">
-                    <i class="fas fa-gift"></i>
+                <a href="#" onclick="openRRPasswordModal()" class="portal-button lider-ventas">
+                    <i class="fas fa-chart-pie"></i>
                     <span>R&R</span>
                 </a>
             </div>
@@ -635,18 +664,20 @@
         <p>&copy; 2025 Novaklar. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- Modal de contraseña -->
     <div id="passwordModal" class="modal">
         <div class="modal-content">
-            <h2 style="color: var(--color-principal);">Acceso R&R</h2>
-            <p>Ingrese la contraseña para acceder al portal de R&R:</p>
-            <input type="password" id="passwordInput" class="modal-input" placeholder="Contraseña">
+            <h2 style="color: var(--color-principal);" id="modalTitle">Acceso</h2>
+            <p id="modalText">Ingrese la contraseña para acceder:</p>
+            <input type="password" id="passwordInput" class="modal-input" placeholder="Contraseña" inputmode="numeric">
             <p id="errorMessage" class="error-message">Contraseña incorrecta. Intente nuevamente.</p>
             <button class="modal-button" onclick="checkPassword()">Acceder</button>
         </div>
     </div>
 
     <script>
+        // Variable global para saber a qué portal intentar acceder
+        let currentAccess = ''; 
+
         function toggleDescription(element) {
             const items = document.querySelectorAll('.recaudo-item');
             const isActive = element.classList.contains('active');
@@ -707,41 +738,76 @@
             document.getElementById('resultados').style.display = 'block';
         }
 
-        // Funciones para el modal de contraseña
-        function openPasswordModal() {
-            document.getElementById('passwordModal').style.display = 'block';
+        // --- Funciones para el modal de contraseña (Nómina y R&R) ---
+        
+        const modalElement = document.getElementById('passwordModal');
+
+        function openModal(title, text, accessKey) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalText').textContent = text;
+            currentAccess = accessKey; // Establecer el destino actual
+            
+            // Mostrar modal usando la clase is-visible (CSS optimizado)
+            modalElement.classList.add('is-visible');
+            
             document.getElementById('passwordInput').value = '';
             document.getElementById('errorMessage').style.display = 'none';
+        }
+        
+        function openRRPasswordModal() {
+            openModal('Acceso R&R', 'Ingrese la contraseña para acceder al portal de R&R:', 'RR');
+        }
+
+        function openNominaPasswordModal() {
+            openModal('Acceso Nómina', 'Ingrese la contraseña para acceder al portal de Nómina:', 'NOMINA');
         }
 
         function checkPassword() {
             const password = document.getElementById('passwordInput').value;
             const errorMessage = document.getElementById('errorMessage');
             
-            if (password === '313') {
+            let correctPassword = '';
+            let redirectUrl = '';
+            
+            // Definir contraseñas y URLs
+            if (currentAccess === 'RR') {
+                correctPassword = '313';
+                redirectUrl = 'https://novaklar.github.io/RR/';
+            } else if (currentAccess === 'NOMINA') {
+                correctPassword = '101'; // Contraseña de ejemplo para Nómina
+                redirectUrl = 'NLC.html';
+            } else {
+                errorMessage.textContent = 'Error de configuración. Contacte a soporte.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            if (password === correctPassword) {
                 // Contraseña correcta, redirigir
-                window.location.href = 'https://novaklar.github.io/RR/';
+                window.location.href = redirectUrl;
             } else {
                 // Contraseña incorrecta
+                errorMessage.textContent = 'Contraseña incorrecta. Intente nuevamente.';
                 errorMessage.style.display = 'block';
                 document.getElementById('passwordInput').value = '';
             }
         }
 
-        // Cerrar modal al hacer clic fuera de él
+        // Cerrar modal al hacer clic fuera de él y ajustando la visibilidad con la clase
         window.onclick = function(event) {
-            const modal = document.getElementById('passwordModal');
-            if (event.target == modal) {
-                modal.style.display = 'none';
+            if (event.target == modalElement) {
+                modalElement.classList.remove('is-visible');
             }
         }
 
         // Permitir presionar Enter para enviar la contraseña
         document.getElementById('passwordInput').addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
+                event.preventDefault(); // Evitar envío de formulario si lo hubiera
                 checkPassword();
             }
         });
     </script>
 </body>
 </html>
+
