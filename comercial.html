@@ -319,11 +319,16 @@
             grid-template-columns: 1fr 1fr;
             gap: 20px;
             margin-bottom: 30px;
+            /* AÑADIDO: Asegurar que la cuadrícula se ajuste al contenedor */
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .calculator-input {
             display: flex;
             flex-direction: column;
+            width: 100%; /* Asegurar que el input-field ocupe su columna */
+            box-sizing: border-box;
         }
 
         .calculator-input label {
@@ -340,6 +345,8 @@
             border: 1px solid #ddd;
             font-size: 1em;
             transition: border-color 0.3s;
+            width: 100%; /* Asegurar que el input ocupe el 100% de su contenedor */
+            box-sizing: border-box;
         }
 
         .calculator-input input:focus {
@@ -359,6 +366,8 @@
             font-weight: 700;
             cursor: pointer;
             transition: background-color 0.3s;
+            width: 100%; /* Asegurar que el botón ocupe el ancho completo */
+            box-sizing: border-box;
         }
 
         .calculator-button:hover {
@@ -404,11 +413,12 @@
 
         @media (max-width: 768px) {
             .calculator-form {
+                /* CORRECCIÓN: Forzar 1 columna y asegurar que el botón ocupe 1 columna */
                 grid-template-columns: 1fr;
             }
             
             .calculator-button {
-                grid-column: span 1;
+                grid-column: span 1; /* El botón ocupa solo una columna en móvil */
             }
         }
         
@@ -488,9 +498,8 @@
         /* Optimización de modal para dispositivos móviles */
         @media (max-width: 600px) {
             .modal-content {
-                /* AJUSTE: Reducir el ancho máximo para que no ocupe todo el espacio */
                 width: 85%; 
-                max-width: 320px; /* Nuevo límite máximo en móvil */
+                max-width: 320px; 
                 padding: 20px;
             }
         }
