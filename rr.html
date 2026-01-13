@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contrato de Planner R&R - Novaklar</title>
+    <style>
+        /* Estilos generales minimalistas */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: #f1efee;
+            color: #080a33;
+            line-height: 1.6;
+            font-size: 1rem;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Contenedor principal */
+        .container {
+            max-width: 100%;
+            padding: 1rem;
+            position: relative;
+        }
+
+        /* Header minimalista */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(8, 10, 51, 0.1);
+        }
+
+        .btn-regresar {
+            text-decoration: none;
+            color: #080a33;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border: 1px solid #080a33;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-regresar:hover {
+            background-color: #080a33;
+            color: #f1efee;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo {
+            height: 36px;
+            filter: brightness(0) saturate(100%) invert(8%) sepia(52%) saturate(1555%) hue-rotate(211deg) brightness(94%) contrast(99%);
+        }
+
+        .logo-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #080a33;
+        }
+
+        /* Título principal */
+        .page-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: #080a33;
+        }
+
+        /* Contenido del contrato - sin contenedores, directamente sobre el fondo */
+        .contrato-content {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        .contrato-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .contrato-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(8, 10, 51, 0.2);
+        }
+
+        .section-content {
+            font-size: 0.95rem;
+            text-align: justify;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-content p {
+            margin-bottom: 1rem;
+        }
+
+        .section-content strong {
+            font-weight: 600;
+        }
+
+        /* Lista de funciones */
+        .funciones-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .funciones-list li {
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .funciones-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #080a33;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Contenedor para elementos destacados */
+        .destacado-container {
+            background-color: rgba(8, 10, 51, 0.05);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid #080a33;
+        }
+
+        .destacado-titulo {
+            font-weight: 700;
+            color: #080a33;
+            margin-bottom: 0.75rem;
+            font-size: 1.05rem;
+        }
+
+        .destacado-contenido {
+            color: #080a33;
+            line-height: 1.5;
+        }
+
+        /* Elemento de plazo importante */
+        .plazo-importante {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 1rem;
+            background-color: rgba(8, 10, 51, 0.08);
+            border-radius: 6px;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(8, 10, 51, 0.15);
+        }
+
+        .plazo-icono {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #080a33;
+            min-width: 24px;
+        }
+
+        .plazo-texto {
+            flex: 1;
+            font-size: 0.95rem;
+        }
+
+        /* Responsabilidad clara */
+        .responsabilidad-clara {
+            background-color: rgba(8, 10, 51, 0.03);
+            padding: 1.25rem;
+            border-radius: 6px;
+            margin: 1.5rem 0;
+            border: 1px dashed rgba(8, 10, 51, 0.2);
+        }
+
+        /* Footer y botón de firma */
+        .footer {
+            text-align: center;
+            padding: 2rem 0 3rem;
+            border-top: 1px solid rgba(8, 10, 51, 0.1);
+            margin-top: 2rem;
+        }
+
+        .btn-firma {
+            display: inline-block;
+            background-color: #080a33;
+            color: #f1efee;
+            text-decoration: none;
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: 2px solid #080a33;
+        }
+
+        .btn-firma:hover {
+            background-color: transparent;
+            color: #080a33;
+        }
+
+        /* Responsive para móviles */
+        @media (max-width: 768px) {
+            body {
+                font-size: 0.95rem;
+                padding: 0.5rem;
+            }
+            
+            .container {
+                padding: 0.5rem;
+            }
+            
+            .header {
+                padding: 0.75rem 0;
+                margin-bottom: 1.5rem;
+            }
+            
+            .page-title {
+                font-size: 1.5rem;
+                margin-bottom: 2rem;
+            }
+            
+            .contrato-content {
+                padding: 0 0.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.1rem;
+            }
+            
+            .btn-firma {
+                padding: 0.875rem 2rem;
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .logo-text {
+                display: none;
+            }
+            
+            .destacado-container, .plazo-importante, .responsabilidad-clara {
+                padding: 1rem;
+                margin: 1.25rem 0;
+            }
+            
+            .funciones-list li {
+                padding-left: 1.25rem;
+                margin-bottom: 0.875rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.3rem;
+            }
+            
+            .btn-regresar {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.85rem;
+            }
+            
+            .section-content {
+                font-size: 0.9rem;
+            }
+            
+            .plazo-importante {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .plazo-icono {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header minimalista -->
+        <div class="header">
+            <a href="index.html" class="btn-regresar">Regresar</a>
+            <div class="logo-container">
+                <img src="https://raw.githubusercontent.com/novaklar/web/refs/heads/main/novaklar1.svg" alt="Novaklar Logo" class="logo">
+                <span class="logo-text">Novaklar Group</span>
+            </div>
+        </div>
+
+        <!-- Título principal -->
+        <h1 class="page-title">Contrato de Planner R&R</h1>
+
+        <!-- Contenido del contrato - directamente sobre el fondo -->
+        <div class="contrato-content">
+            <div class="contrato-header">
+                NOVAKLAR
+            </div>
+            
+            <p class="section-content">
+                Por medio del presente documento, la persona que suscribe en calidad de Planner R&R manifiesta su conformidad en prestar sus servicios a las empresas Novaklar y/o Hanabi, comprometiéndose a desempeñar sus funciones con responsabilidad, puntualidad, ética y compromiso.
+            </p>
+
+            <!-- PRIMERA -->
+            <div class="contrato-section">
+                <h2 class="section-title">PRIMERA – FUNCIONES DEL CARGO</h2>
+                <div class="section-content">
+                    <p>El Planner R&R se compromete a:</p>
+                    <ul class="funciones-list">
+                        <li>Ingresar diariamente a la plataforma asignada para revisar que todas las Asesoras Comerciales hayan registrado correctamente los datos requeridos.</li>
+                        <li>Elaborar un reporte diario que indique quiénes cumplieron con el registro y quiénes no, y compartirlo antes del mediodía en el grupo de WhatsApp del Departamento Comercial, correspondiente al día anterior.</li>
+                        <li>Mantener la información organizada y disponible para la revisión de los líderes de la empresa.</li>
+                        <li>Cumplir con cualquier otra función de supervisión o control que le sea asignada, siempre dentro del marco de sus responsabilidades.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SEGUNDA -->
+            <div class="contrato-section">
+                <h2 class="section-title">SEGUNDA – HORARIO Y DISPONIBILIDAD</h2>
+                <div class="section-content">
+                    <div class="plazo-importante">
+                        <div class="plazo-icono">⏰</div>
+                        <div class="plazo-texto">
+                            <strong>Entrega diaria:</strong> El Planner R&R se compromete a cumplir sus funciones todos los días hábiles, excepto el día de descanso previamente asignado, garantizando la entrega de los reportes antes del mediodía.
+                        </div>
+                    </div>
+                    
+                    <div class="responsabilidad-clara">
+                        <p><strong>Nota:</strong> La puntualidad en la entrega de reportes es fundamental para el correcto funcionamiento del Departamento Comercial. Los reportes deben corresponder siempre al día anterior de trabajo.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TERCERA -->
+            <div class="contrato-section">
+                <h2 class="section-title">TERCERA – CONDUCTA Y RESPONSABILIDAD</h2>
+                <div class="section-content">
+                    <div class="destacado-container">
+                        <div class="destacado-contenido">
+                            El Planner R&R deberá actuar con honestidad, responsabilidad y compromiso, manteniendo un trato respetuoso hacia los colaboradores y líderes de la empresa, y velando por el buen funcionamiento del Departamento Comercial.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CUARTA -->
+            <div class="contrato-section">
+                <h2 class="section-title">CUARTA – CONFIDENCIALIDAD</h2>
+                <div class="section-content">
+                    <p>El Planner R&R se obliga a mantener confidencial toda la información a la que tenga acceso, incluyendo datos de asesoras comerciales, estrategias de la empresa, procedimientos internos y cualquier otro dato sensible.</p>
+                    
+                    <div class="destacado-container">
+                        <div class="destacado-contenido">
+                            <strong>Confidencialidad permanente:</strong> Esta obligación se mantiene vigente incluso después de finalizada la relación con la empresa.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QUINTA -->
+            <div class="contrato-section">
+                <h2 class="section-title">QUINTA – TERMINACIÓN DEL CONTRATO</h2>
+                <div class="section-content">
+                    <p>El presente contrato podrá darse por terminado en cualquier momento, por decisión de la empresa o del Planner R&R, sin que ello genere obligaciones adicionales distintas a las aquí establecidas.</p>
+                </div>
+            </div>
+
+            <!-- SEXTA -->
+            <div class="contrato-section">
+                <h2 class="section-title">SEXTA – ACEPTACIÓN</h2>
+                <div class="section-content">
+                    <div class="destacado-container">
+                        <div class="destacado-contenido">
+                            La aceptación del presente contrato implica conocimiento y conformidad total con las condiciones aquí descritas.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer con botón de firma -->
+        <div class="footer">
+            <a href="https://forms.gle/ysRHnnokrDUDSrJQ8" class="btn-firma" target="_blank">Firmar Contrato</a>
+        </div>
+    </div>
+</body>
+</html>
