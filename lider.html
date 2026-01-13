@@ -3,128 +3,354 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contrato para Líder Operativo - Novaklar</title>
+    <title>Contrato de Administrador - Novaklar / Hanabi</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-
-        :root {
-            --primary-color: #006279; /* ¡COLOR REEMPLAZADO! */
-            --secondary-color: #333;
-            --background-color: #f4f7f6;
-            --card-background: #ffffff;
-            --text-color: #555;
-            --border-radius: 8px;
-            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--background-color);
+        /* Estilos generales minimalistas */
+        * {
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 800px;
-            padding: 2rem;
             box-sizing: border-box;
         }
 
-        header {
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: #f1efee;
+            color: #080a33;
+            line-height: 1.6;
+            font-size: 1rem;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Contenedor principal */
+        .container {
+            max-width: 100%;
+            padding: 1rem;
+            position: relative;
+        }
+
+        /* Header minimalista */
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 1rem 0;
             margin-bottom: 2rem;
-        }
-
-        .logo {
-            height: 50px;
+            border-bottom: 1px solid rgba(8, 10, 51, 0.1);
         }
 
         .btn-regresar {
-            padding: 0.75rem 1.5rem;
-            background-color: transparent;
-            color: var(--secondary-color);
-            border: 2px solid var(--secondary-color);
-            border-radius: var(--border-radius);
             text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            color: #080a33;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border: 1px solid #080a33;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
         }
 
         .btn-regresar:hover {
-            background-color: var(--secondary-color);
-            color: #fff;
+            background-color: #080a33;
+            color: #f1efee;
         }
 
-        .content-card {
-            background-color: var(--card-background);
-            padding: 3rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-        }
-
-        h1 {
-            font-size: 2.2rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 0.5rem;
-        }
-
-        p {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: var(--text-color);
-            margin-bottom: 1.5rem;
-            text-align: justify;
-        }
-
-        .footer {
+        .logo-container {
             display: flex;
-            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo {
+            height: 36px;
+            filter: brightness(0) saturate(100%) invert(8%) sepia(52%) saturate(1555%) hue-rotate(211deg) brightness(94%) contrast(99%);
+        }
+
+        .logo-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #080a33;
+        }
+
+        /* Título principal */
+        .page-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: #080a33;
+        }
+
+        /* Contenido del contrato - sin contenedores, directamente sobre el fondo */
+        .contrato-content {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        .contrato-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .contrato-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(8, 10, 51, 0.2);
+        }
+
+        .section-content {
+            font-size: 0.95rem;
+            text-align: justify;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-content p {
+            margin-bottom: 1rem;
+        }
+
+        .section-content strong {
+            font-weight: 600;
+        }
+
+        /* Lista de funciones */
+        .funciones-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .funciones-list li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .funciones-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #080a33;
+            font-weight: bold;
+        }
+
+        /* Footer y botón de firma */
+        .footer {
+            text-align: center;
+            padding: 2rem 0 3rem;
+            border-top: 1px solid rgba(8, 10, 51, 0.1);
             margin-top: 2rem;
         }
 
         .btn-firma {
-            padding: 1rem 2rem;
-            background-color: var(--primary-color);
-            color: #fff;
-            border: none;
-            border-radius: var(--border-radius);
+            display: inline-block;
+            background-color: #080a33;
+            color: #f1efee;
             text-decoration: none;
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
             font-weight: 600;
             font-size: 1rem;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            border: 2px solid #080a33;
         }
 
         .btn-firma:hover {
-            /* Tono de hover ajustado para el nuevo primary-color #006279 */
-            background-color: #004a5a; 
+            background-color: transparent;
+            color: #080a33;
+        }
+
+        /* Responsive para móviles */
+        @media (max-width: 768px) {
+            body {
+                font-size: 0.95rem;
+                padding: 0.5rem;
+            }
+            
+            .container {
+                padding: 0.5rem;
+            }
+            
+            .header {
+                padding: 0.75rem 0;
+                margin-bottom: 1.5rem;
+            }
+            
+            .page-title {
+                font-size: 1.5rem;
+                margin-bottom: 2rem;
+            }
+            
+            .contrato-content {
+                padding: 0 0.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.1rem;
+            }
+            
+            .btn-firma {
+                padding: 0.875rem 2rem;
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .logo-text {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.3rem;
+            }
+            
+            .btn-regresar {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.85rem;
+            }
+            
+            .section-content {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
+        <!-- Header minimalista -->
+        <div class="header">
             <a href="index.html" class="btn-regresar">Regresar</a>
-            <img src="https://raw.githubusercontent.com/novaklar/web/refs/heads/main/novaklar1.svg" alt="Novaklar Logo" class="logo">
-        </header>
-
-        <div class="content-card">
-            <h1>Contrato para Líder Operativo</h1>
-            <p>Por medio del presente documento, la persona que suscribe en calidad de líder operativo manifiesta su conformidad en desempeñar las funciones asignadas por la empresa <strong>Novaklar</strong> con el más alto grado de responsabilidad, eficiencia y compromiso, acatando en todo momento las directrices, políticas y horarios definidos por la organización. El líder operativo se compromete a cumplir el horario establecido, supervisar y monitorear las ventas realizadas por el equipo, verificar y solicitar el registro correspondiente de dichas ventas, así como el reporte monetario diario y la recolección de fondos, asegurando que toda transacción sea correctamente documentada y entregada a la empresa.</p>
-            <p>Asimismo, será responsable de coordinar, supervisar y garantizar el correcto desarrollo del proyecto de reclutamiento, incluyendo el registro de nuevos integrantes, la verificación de datos y el seguimiento del ranking interno. El líder operativo deberá abstenerse estrictamente de divulgar, compartir o filtrar información confidencial o estratégica de la empresa, manteniendo la más estricta reserva incluso después de la finalización de la relación contractual.</p>
-            <p>Está prohibido realizar ventas no autorizadas, fuera del horario establecido o sin el debido reporte a la empresa. En todo momento, el líder operativo deberá actuar con transparencia, honestidad, lealtad y profesionalismo, velando por el buen nombre de Novaklar, prestando un servicio cordial y eficiente a los clientes, manteniendo la disponibilidad de tiempo requerida por las operaciones de la compañía y cumpliendo cualquier otra función que le sea asignada conforme a las necesidades empresariales.</p>
-            
-            <div class="footer">
-                <a href="https://forms.gle/ysRHnnokrDUDSrJQ8" class="btn-firma" target="_blank">Firma</a>
+            <div class="logo-container">
+                <img src="https://raw.githubusercontent.com/novaklar/web/refs/heads/main/novaklar1.svg" alt="Novaklar Logo" class="logo">
+                <span class="logo-text">Novaklar Group</span>
             </div>
+        </div>
+
+        <!-- Título principal -->
+        <h1 class="page-title">Contrato de Administrador</h1>
+
+        <!-- Contenido del contrato - directamente sobre el fondo -->
+        <div class="contrato-content">
+            <div class="contrato-header">
+                NOVAKLAR / HANABI
+            </div>
+            
+            <p class="section-content">
+                Por medio del presente documento, la persona que suscribe en calidad de Administrador manifiesta su conformidad en asumir el cargo dentro de la empresa que le sea asignada por Novaklar Group, ya sea Novaklar o Hanabi, comprometiéndose a desempeñar sus funciones con el más alto grado de responsabilidad, compromiso, organización y profesionalismo.
+            </p>
+
+            <!-- PRIMERA -->
+            <div class="contrato-section">
+                <h2 class="section-title">PRIMERA – NATURALEZA DEL CARGO</h2>
+                <div class="section-content">
+                    <p>El cargo de Administrador constituye la máxima autoridad operativa dentro de la empresa asignada mientras esta opere de manera autónoma. El Administrador tendrá la última palabra en decisiones operativas, organizativas y de coordinación interna, siempre en concordancia con los lineamientos generales establecidos por la empresa.</p>
+                </div>
+            </div>
+
+            <!-- SEGUNDA -->
+            <div class="contrato-section">
+                <h2 class="section-title">SEGUNDA – FUNCIONES GENERALES</h2>
+                <div class="section-content">
+                    <p>Son funciones del Administrador, sin limitarse a ellas:</p>
+                    <ul class="funciones-list">
+                        <li>Velar por la correcta comunicación interna entre las distintas áreas, cargos y colaboradores.</li>
+                        <li>Supervisar que las operaciones se ejecuten de forma adecuada, oportuna y eficiente.</li>
+                        <li>Coordinar y administrar al personal asignado a su cargo, incluyendo, pero no limitándose a:
+                            <ul class="funciones-list" style="margin-top: 0.5rem; padding-left: 1rem;">
+                                <li>Asesores comerciales</li>
+                                <li>Reclutadores</li>
+                                <li>Afiliados</li>
+                            </ul>
+                        </li>
+                        <li>Organizar y disponer de horarios, cronogramas y planificación operativa, garantizando el cumplimiento de los objetivos establecidos.</li>
+                        <li>Supervisar que todas las áreas, departamentos y cargos bajo su responsabilidad funcionen en óptimas condiciones.</li>
+                    </ul>
+                    <p>En el caso específico de Novaklar, el Administrador deberá además monitorear el correcto funcionamiento de los cargos internos Planner M&T y Planner R&R.</p>
+                    <p>En el caso de Hanabi, las funciones específicas podrán variar según su estructura, manteniéndose siempre la responsabilidad general de supervisión y control.</p>
+                </div>
+            </div>
+
+            <!-- TERCERA -->
+            <div class="contrato-section">
+                <h2 class="section-title">TERCERA – SUPERVISIÓN Y RESPONSABILIDAD</h2>
+                <div class="section-content">
+                    <p>El Administrador no está obligado a ejecutar directamente todas las tareas operativas, pero sí es responsable de supervisar, controlar y garantizar que estas se lleven a cabo correctamente por el personal correspondiente.</p>
+                </div>
+            </div>
+
+            <!-- CUARTA -->
+            <div class="contrato-section">
+                <h2 class="section-title">CUARTA – CONDUCTA Y CONFIDENCIALIDAD</h2>
+                <div class="section-content">
+                    <p>El Administrador se compromete a actuar en todo momento con transparencia, lealtad, honestidad y respeto, velando por el buen nombre de la empresa.</p>
+                    <p>Queda estrictamente prohibida la divulgación, filtración o uso indebido de información confidencial, estratégica u operativa, obligación que se mantiene incluso después de la finalización de la relación contractual.</p>
+                </div>
+            </div>
+
+            <!-- QUINTA -->
+            <div class="contrato-section">
+                <h2 class="section-title">QUINTA – COMISIONES Y REMUNERACIÓN</h2>
+                <div class="section-content">
+                    <p>El Administrador recibirá una comisión equivalente al sesenta por ciento (60 %) de la ganancia generada por cada venta, conforme a las condiciones establecidas por la empresa.</p>
+                    <p>El esquema de comisiones podrá ser ajustado por la empresa según el desempeño y resultados obtenidos.</p>
+                </div>
+            </div>
+
+            <!-- SEXTA -->
+            <div class="contrato-section">
+                <h2 class="section-title">SEXTA – RECLUTADOS PREVIOS</h2>
+                <div class="section-content">
+                    <p>En caso de que el Administrador haya ocupado previamente el cargo de reclutador y cuente con personas registradas a su nombre, se establece que, si la relación contractual finaliza por renuncia o despido, todas las comisiones derivadas de dichas personas pasarán automáticamente a ser propiedad de la empresa, sin lugar a reclamación alguna.</p>
+                </div>
+            </div>
+
+            <!-- SÉPTIMA -->
+            <div class="contrato-section">
+                <h2 class="section-title">SÉPTIMA – ASCENSOS</h2>
+                <div class="section-content">
+                    <p>Al tratarse del cargo más alto dentro de la estructura operativa actual, no existe posibilidad de ascenso. Sin embargo, el Administrador podrá acceder a mejoras en sus comisiones conforme al desempeño general de la empresa o unidad asignada.</p>
+                </div>
+            </div>
+
+            <!-- OCTAVA -->
+            <div class="contrato-section">
+                <h2 class="section-title">OCTAVA – TERMINACIÓN DEL CONTRATO</h2>
+                <div class="section-content">
+                    <p>El presente contrato podrá darse por terminado en cualquier momento, ya sea por decisión del Administrador o de la empresa, sin que ello genere obligación adicional distinta a las aquí establecidas.</p>
+                </div>
+            </div>
+
+            <!-- NOVENA -->
+            <div class="contrato-section">
+                <h2 class="section-title">NOVENA – ACEPTACIÓN</h2>
+                <div class="section-content">
+                    <p>La firma del presente documento implica la aceptación total de las condiciones aquí descritas, reconociendo que el cargo de Administrador exige un alto nivel de responsabilidad, compromiso y liderazgo.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer con botón de firma -->
+        <div class="footer">
+            <a href="https://forms.gle/ysRHnnokrDUDSrJQ8" class="btn-firma" target="_blank">Firmar Contrato</a>
         </div>
     </div>
 </body>
