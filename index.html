@@ -45,21 +45,20 @@
             -moz-osx-font-smoothing:grayscale;
         }
 
+        /* Header: solid background and slightly reduced height */
         header{
             position:sticky;
             top:0;
             z-index:1000;
-            padding:10px 0;
+            padding:6px 0; /* reduced slightly from 10px */
             text-align:center;
-            background: transparent;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            background: #f1efee; /* solid background as requested */
         }
 
         /* Logo container: will hold two inline SVGs that alternate */
         .logo-container{
-            width:160px;
-            height:70px;
+            width:150px;
+            height:64px;
             margin:0 auto;
             position:relative;
             display:inline-block;
@@ -88,15 +87,12 @@
         .logo-inner svg{
             width:100%;
             height:100%;
-            max-height:70px;
-            max-width:160px;
+            max-height:64px;
+            max-width:150px;
             display:block;
         }
 
-        /* Specific CSS override for the Cloud logo:
-           - Change its color to #080a33 via CSS (does not modify original SVG file)
-           - Slightly reduce its rendered size to improve visual balance
-        */
+        /* Specific CSS override for the Cloud logo */
         .logo-inner.logo-cloud svg,
         .logo-inner.logo-cloud svg * {
             fill: #080a33 !important;
@@ -188,26 +184,141 @@
             padding:14px 18px;
             display:flex;
             flex-direction:column;
-            align-items:center;
+            align-items:center; /* overall card centered */
             text-align:center;
             border-bottom:1px solid rgba(0,0,0,0.06);
         }
         .employee-card:last-child{ border-bottom:none; }
-        .employee-name{ font-family:'Poppins-Bold', sans-serif; font-weight:700; margin-bottom:6px; color:#000; }
-        .employee-role{ display:flex; align-items:center; gap:8px; color: rgba(0,0,0,0.7); font-family:'Poppins-Regular', sans-serif; }
 
-        .status-dot{ width:10px; height:10px; border-radius:50%; display:inline-block; }
+        /* Name row: indicator aligned left next to name. Name on top; roles shown below */
+        .name-row{
+            display:flex;
+            align-items:center;
+            gap:10px;
+            justify-content:center; /* keep the pair centered within the card */
+            width:100%;
+            box-sizing:border-box;
+        }
 
-        /* legacy classes kept but colors will be set inline based on role+unit */
-        .dot-comercial{ background:#0d4c7f; box-shadow:0 0 8px rgba(13,76,127,0.35); }
-        .dot-reclutamiento{ background:#7fcfda; box-shadow:0 0 8px rgba(127,207,218,0.35); }
+        .employee-name{
+            font-family:'Poppins-Bold', sans-serif;
+            font-weight:700;
+            margin:0; /* name sits directly in the name-row */
+            color:#000;
+            text-align:left; /* text flows to right of icon */
+        }
 
-        /* Highlight primary role in multi-role rows */
+        /*
+         Simple point indicator with ripple effect (ripple implemented reliably):
+         - Keeps same size/space as previous (12x12)
+         - Positioned left next to name (no layout changes)
+         - Color controlled via inline CSS variables set by JS (per role)
+         - Ripple implemented with ::after, subtle, fluid, infinite
+         - Important fix: ensure the dot is on top (z-index:1) and ripple below (z-index:0) so ripple is visible
+        */
+        .status-dot{
+            width:12px;
+            height:12px;
+            min-width:12px;
+            min-height:12px;
+            display:inline-block;
+            border-radius:50%;
+            position:relative;
+            flex: 0 0 auto;
+            background: var(--dot-color, #0d4c7f);
+            box-shadow: 0 0 6px var(--dot-rgba, rgba(13,76,127,0.18));
+            z-index: 1; /* ensure dot sits above the ripple */
+        }
+
+        .status-dot::after{
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%) scale(1);
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: var(--dot-color, #0d4c7f);
+            box-shadow: 0 0 8px var(--dot-rgba, rgba(13,76,127,0.22));
+            opacity: 0.9;
+            z-index: 0; /* ripple underneath the dot */
+            pointer-events: none;
+            animation: ripple 2s infinite ease-out;
+            -webkit-animation: ripple 2s infinite ease-out;
+            transform-origin: center;
+            will-change: transform, opacity;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: translate(-50%,-50%) scale(1);
+                opacity: 0.9;
+            }
+            70% {
+                transform: translate(-50%,-50%) scale(2.2);
+                opacity: 0.15;
+            }
+            100% {
+                transform: translate(-50%,-50%) scale(2.6);
+                opacity: 0;
+            }
+        }
+        @-webkit-keyframes ripple {
+            0% {
+                -webkit-transform: translate(-50%,-50%) scale(1);
+                opacity: 0.9;
+            }
+            70% {
+                -webkit-transform: translate(-50%,-50%) scale(2.2);
+                opacity: 0.15;
+            }
+            100% {
+                -webkit-transform: translate(-50%,-50%) scale(2.6);
+                opacity: 0;
+            }
+        }
+
+        /* Roles: primary below the name; secondary below primary.
+           Always stacked vertically, centered horizontally.
+           No separators, never in a single line.
+        */
+        .employee-role{
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            gap:6px;
+            color: rgba(0,0,0,0.7);
+            font-family:'Poppins-Regular',sans-serif;
+            justify-content:center;
+            margin-top:8px;
+            width:100%;
+            box-sizing:border-box;
+        }
+
+        .role-item{
+            display:block;
+            text-align:center;
+            width:100%;
+        }
+
+        /* primary role emphasis */
         .employee-role .primary-role{
             font-family:'Poppins-Bold', sans-serif;
             font-weight:800;
             font-size:1.02em;
             color: #000;
+        }
+
+        /* On small screens: keep stacked roles and responsive sizes */
+        @media (max-width:720px){
+            .icon-button{ width:100%; max-width:420px; }
+            .portal-button{ width:100%; max-width:420px; }
+            .logo-container{ width:140px; height:60px; }
+
+            .employee-role{
+                gap:4px;
+            }
         }
 
         /* Calendar / schedule */
@@ -289,12 +400,6 @@
             font-family:'Poppins-Regular',sans-serif;
         }
 
-        /* Responsive */
-        @media (max-width:720px){
-            .icon-button{ width:100%; max-width:420px; }
-            .portal-button{ width:100%; max-width:420px; }
-            .logo-container{ width:140px; height:60px; }
-        }
     </style>
 </head>
 <body>
@@ -342,10 +447,6 @@
                         <label for="employee-select" style="font-family:'Poppins-Bold',sans-serif;color:#000;">Empleado:</label>
                         <select id="employee-select" style="padding:8px;border-radius:6px;border:1px solid rgba(0,0,0,0.14);background:#fff;">
                             <option value="" disabled selected>Seleccione</option>
-                            <option value="katherin">Katherin</option>
-                            <option value="neyereth">Neyereth</option>
-                            <option value="luz">Luz</option>
-                            <option value="ester">Ester</option>
                         </select>
                     </div>
                 </div>
@@ -377,10 +478,10 @@
                     Asesor comercial
                 </a>
 
-                <!-- Asesor de reclutamiento button -->
-                <a href="reclu.html" class="portal-button reclutamiento-portal" title="Asesor de reclutamiento">
+                <!-- Asesor de reclutamiento button name changed to "Reclutadores" (link & icon preserved) -->
+                <a href="reclu.html" class="portal-button reclutamiento-portal" title="Reclutadores">
                     <i class="fas fa-users" aria-hidden="true"></i>
-                    Asesor de reclutamiento
+                    Reclutadores
                 </a>
 
                 <!-- New Planner M&T -->
@@ -420,45 +521,29 @@
         document.addEventListener('DOMContentLoaded', function() {
             /* -------------------------
                Header logos rotating
-               - Cloud logo color adjusted via CSS (no modification of original SVG file).
-               - Cloud logo slightly reduced in size via CSS.
                ------------------------- */
             const logoContainer = document.getElementById('logo-container');
 
-            // URLs provided by the user
             const logoUrls = [
-                'https://raw.githubusercontent.com/novaklar/web/refs/heads/main/cloud.svg', // initial (cloud)
-                'https://raw.githubusercontent.com/novaklar/web/refs/heads/main/hanabi.svg' // secondary
+                'https://raw.githubusercontent.com/novaklar/web/refs/heads/main/cloud.svg',
+                'https://raw.githubusercontent.com/novaklar/web/refs/heads/main/hanabi.svg'
             ];
 
-            // We'll fetch the raw SVG markup and inject inline SVGs so we can recolor via CSS.
-            // Important: we NO LONGER replace fill/stroke in the fetched SVG text.
-            // Instead we add a wrapper class for the cloud logo and use CSS to override fills/strokes.
             async function loadAndInjectLogos() {
                 const fragments = [];
                 for (let i = 0; i < logoUrls.length; i++) {
                     try {
                         const res = await fetch(logoUrls[i]);
                         let svgText = await res.text();
-
-                        // Some raw SVGs might come with XML prolog or doctype, strip anything before <svg
                         const svgStart = svgText.indexOf('<svg');
                         if (svgStart > 0) svgText = svgText.substring(svgStart);
-
-                        // Ensure the root <svg ...> has aria-hidden and role attributes for accessibility
                         svgText = svgText.replace(/<svg([^>]*)>/, '<svg$1 role="img" aria-hidden="true">');
-
-                        // Create wrapper
                         const wrapper = document.createElement('div');
                         wrapper.classList.add('logo-inner');
-
-                        // Mark the first (cloud) logo so we can recolor and resize via CSS without editing the SVG file
                         if (i === 0) wrapper.classList.add('logo-cloud');
-
                         wrapper.innerHTML = svgText;
                         fragments.push(wrapper);
                     } catch (err) {
-                        // If fetch fails, fallback to an <img> with given URL (less control over color)
                         const wrapper = document.createElement('div');
                         wrapper.classList.add('logo-inner');
                         if (i === 0) wrapper.classList.add('logo-cloud');
@@ -468,14 +553,11 @@
                     }
                 }
 
-                // Inject into DOM
                 fragments.forEach((el, idx) => {
-                    // First element visible initially
                     if (idx === 0) el.classList.add('visible');
                     logoContainer.appendChild(el);
                 });
 
-                // Start rotation: alternate every 4 seconds with fade transition via CSS
                 if (fragments.length > 1) {
                     let current = 0;
                     setInterval(() => {
@@ -484,7 +566,7 @@
                         fragments[current].classList.remove('visible');
                         fragments[next].classList.add('visible');
                         current = next;
-                    }, 4000); // 4000ms = 4s as requested
+                    }, 4000);
                 }
             }
 
@@ -493,7 +575,7 @@
             /* -------------------------
                Buttons / Modal logic
                ------------------------- */
-            const comercialBtn = document.getElementById('comercial-btn'); // protected DTO comercial
+            const comercialBtn = document.getElementById('comercial-btn');
             const passwordModal = document.getElementById('password-modal');
             const passwordInput = document.getElementById('password-input');
             const confirmPasswordBtn = document.getElementById('confirm-password-btn');
@@ -503,7 +585,6 @@
             const CORRECT_PASSWORD = "200823";
             const LOCAL_STORAGE_KEY = "novaklar_comercial_access";
 
-            // Protected DTO comercial behavior (shows modal unless already unlocked)
             comercialBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -511,7 +592,6 @@
                     window.location.href = "comercial.html";
                     return;
                 }
-                // open modal
                 passwordModal.style.display = 'flex';
                 passwordModal.setAttribute('aria-hidden', 'false');
                 passwordInput.focus();
@@ -550,44 +630,61 @@
             });
 
             /* -------------------------
-               Fetch employees and render list
-               - Aggregate multiple cargos per person into one row
-               - Replace role "Líder comercial" by "Administrador"
-               - Apply colors per role+unidad (NK/HB) as requested
-               - Highlight primary role based on hierarchy:
-                 1. Administrador
-                 2. Planner
-                 3. Asesor comercial
-                 4. Asesor de reclutamiento
+               Fetch employees and render list (GViz)
+               Adjusted: use status-dot (ripple effect) instead of check.
+               Roles stacked vertically (primary first), indicator left of name.
                ------------------------- */
             (function loadEmployees() {
-                const spreadsheetId = '1l2Ge_RZ698FQgRbaPxGUd8a2SLN_CA2t4rPlVWA3Mw';
-                const queryUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:json&tq=SELECT B, C`;
+                const spreadsheetId = '1l2Ge_RZ698FQgRbaPxGUd8aZ2SLN_CA2t4rPlVWA3Mw';
+                const queryUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:json&tq=select%20B,C,D,E,F`;
                 const employeesList = document.getElementById('employeesList');
+                const employeeSelect = document.getElementById('employee-select');
 
-                // Helper: determine base role and unit
-                function parseRoleUnit(rawRole) {
-                    if (!rawRole) return { role: '', unit: null };
-                    let role = rawRole.trim();
-                    // Normalize some known variants
-                    if (/Líder\s+comercial/i.test(role)) {
-                        role = role.replace(/Líder\s+comercial/i, 'Administrador');
-                    }
-                    // Detect unit tokens NK or HB (case-insensitive)
-                    const unitMatch = role.match(/\b(NK|HB)\b/i);
-                    const unit = unitMatch ? unitMatch[0].toUpperCase() : null;
-                    // Remove unit token from the visible role (but keep original role text for display)
-                    const baseRole = role.replace(/\b(NK|HB)\b/i, '').replace(/\s+$/, '').trim();
-                    // For planners, unify to 'Planner' as base
-                    const normalizedBase = (/planner/i.test(baseRole)) ? 'Planner' :
-                                           (/administrador/i.test(baseRole)) ? 'Administrador' :
-                                           (/asesor\s+comercial/i.test(baseRole)) ? 'Asesor comercial' :
-                                           (/asesor\s+de\s+reclutamiento/i.test(baseRole)) ? 'Asesor de reclutamiento' :
-                                           baseRole;
-                    return { role: normalizedBase, unit: unit, display: role };
+                function dayNameToGetDay(dayName) {
+                    if (!dayName) return null;
+                    const v = dayName.toString().trim().toLowerCase();
+                    if (v.startsWith('lun')) return 1;
+                    if (v.startsWith('mar')) return 2;
+                    if (v.startsWith('mi') || v.startsWith('mié') || v.startsWith('mie') ) return 3;
+                    if (v.startsWith('jue')) return 4;
+                    if (v.startsWith('vie')) return 5;
+                    if (v.startsWith('sáb') || v.startsWith('sab')) return 6;
+                    if (v.startsWith('dom')) return 0;
+                    if (v === 'monday') return 1;
+                    if (v === 'tuesday') return 2;
+                    if (v === 'wednesday') return 3;
+                    if (v === 'thursday') return 4;
+                    if (v === 'friday') return 5;
+                    if (v === 'saturday') return 6;
+                    if (v === 'sunday') return 0;
+                    return null;
                 }
 
-                // Ranking for hierarchy: lower number = higher priority
+                function parseRoleUnit(rawRole) {
+                    if (!rawRole) return null;
+                    let text = rawRole.toString().trim();
+                    if (!text) return null;
+                    text = text.replace(/Líder\s+comercial/ig, 'Administrador');
+                    const unitMatch = text.match(/\b(NK|HB)\b/i);
+                    const unit = unitMatch ? unitMatch[0].toUpperCase() : null;
+                    let base = text;
+                    if (/planner/i.test(text)) {
+                        base = 'Planner';
+                    } else if (/administrador/i.test(text)) {
+                        base = 'Administrador';
+                    } else if (/asesor\s+comercial/i.test(text)) {
+                        base = 'Asesor comercial';
+                    } else if (/reclutador/i.test(text)) {
+                        base = 'Asesor de reclutamiento';
+                    } else if (/asesor\s+de\s+reclutamiento/i.test(text)) {
+                        base = 'Asesor de reclutamiento';
+                    } else {
+                        if (/comercial/i.test(text)) base = 'Asesor comercial';
+                    }
+                    const display = text;
+                    return { role: base, unit: unit, display: display };
+                }
+
                 const roleRank = {
                     'Administrador': 1,
                     'Planner': 2,
@@ -595,9 +692,7 @@
                     'Asesor de reclutamiento': 4
                 };
 
-                // Determine color per role+unit per spec
                 function getColorForRoleAndUnit(role, unit) {
-                    // Default unit to 'NK' when not provided
                     const u = unit ? unit.toUpperCase() : 'NK';
                     if (role === 'Administrador') {
                         return (u === 'HB') ? '#c0caff' : '#7fcfda';
@@ -611,58 +706,88 @@
                     if (role === 'Asesor de reclutamiento') {
                         return (u === 'HB') ? '#061bb0' : '#0d4c7f';
                     }
-                    // fallback
                     return '#0d4c7f';
                 }
 
-                // Convert HEX to rgba for box-shadow
                 function hexToRgba(hex, alpha) {
                     const h = hex.replace('#', '');
-                    const bigint = parseInt(h.length === 3 ? h.split('').map(c => c + c).join('') : h, 16);
+                    const full = h.length === 3 ? h.split('').map(c => c + c).join('') : h;
+                    const bigint = parseInt(full, 16);
                     const r = (bigint >> 16) & 255;
                     const g = (bigint >> 8) & 255;
                     const b = bigint & 255;
                     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
                 }
 
+                function slugify(name) {
+                    return name.toString().trim().toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_-]/g, '');
+                }
+
+                const employeesMap = {};
+
                 fetch(queryUrl)
                     .then(r => r.text())
                     .then(text => {
-                        // parse the JSON from Google spreadsheets gviz response
-                        const jsonString = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
+                        const jsonStart = text.indexOf('{');
+                        const jsonEnd = text.lastIndexOf('}');
+                        if (jsonStart < 0 || jsonEnd < 0) throw new Error('Respuesta GViz inesperada');
+                        const jsonString = text.substring(jsonStart, jsonEnd + 1);
                         const data = JSON.parse(jsonString);
                         const rows = (data.table && data.table.rows) || [];
 
-                        // Aggregate roles by name
-                        const map = {}; // name -> array of role display strings (as they appear) + parsed info
                         rows.forEach(row => {
                             const name = row.c?.[0]?.v?.toString()?.trim();
-                            let rawRole = row.c?.[1]?.v?.toString()?.trim();
-                            if (!name || !rawRole) return;
+                            const colC = row.c?.[1]?.v;
+                            const colD = row.c?.[2]?.v;
+                            const colE = row.c?.[3]?.v;
+                            const colF = row.c?.[4]?.v;
 
-                            // Normalize Líder comercial -> Administrador (in rawRole)
-                            rawRole = rawRole.replace(/Líder\s+comercial/ig, 'Administrador');
+                            if (!name) return;
 
-                            // Some entries might include multiple roles separated by commas or slashes -> split them
-                            // But preserve the original tokens including unit markers
-                            const parts = rawRole.split(/\s*[,\/]\s*/).filter(Boolean);
+                            const slug = slugify(name);
+                            if (!employeesMap[slug]) {
+                                employeesMap[slug] = { name: name, roles: [], descansoDays: [] };
+                            }
 
-                            parts.forEach(p => {
-                                const parsed = parseRoleUnit(p);
-                                if (!map[name]) map[name] = [];
-                                // Avoid duplicate identical role+unit entries
-                                const exists = map[name].some(item => item.display.toLowerCase() === parsed.display.toLowerCase());
-                                if (!exists) map[name].push(parsed);
+                            [colC, colD, colE].forEach(raw => {
+                                if (!raw) return;
+                                const textRaw = raw.toString().trim();
+                                if (!textRaw) return;
+                                if (/^no aplica$/i.test(textRaw)) return;
+                                const parts = textRaw.split(/\s*[,\/]\s*/).filter(Boolean);
+                                parts.forEach(p => {
+                                    const parsed = parseRoleUnit(p);
+                                    if (!parsed) return;
+                                    const exists = employeesMap[slug].roles.some(r => r.display?.toLowerCase() === parsed.display?.toLowerCase());
+                                    if (!exists) employeesMap[slug].roles.push(parsed);
+                                });
                             });
+
+                            if (colF) {
+                                const txt = colF.toString().trim();
+                                if (txt) {
+                                    const parts = txt.split(/\s*[,\/]\s*/).filter(Boolean);
+                                    parts.forEach(p => {
+                                        const dayNum = dayNameToGetDay(p);
+                                        if (dayNum !== null && !employeesMap[slug].descansoDays.includes(dayNum)) {
+                                            employeesMap[slug].descansoDays.push(dayNum);
+                                        }
+                                    });
+                                }
+                            }
                         });
 
-                        // Now convert map to array of employees
-                        const employees = Object.keys(map).map(name => ({ name, roles: map[name] }));
+                        const employees = Object.keys(employeesMap).map(k => employeesMap[k]);
 
-                        // Render
+                        employeesList.innerHTML = '';
+                        employeeSelect.innerHTML = '<option value="" disabled selected>Seleccione</option>';
+
                         employees.forEach(emp => {
                             const card = document.createElement('div');
                             card.className = 'employee-card';
+
+                            const nameRow = document.createElement('div');
+                            nameRow.className = 'name-row';
 
                             const nameEl = document.createElement('div');
                             nameEl.className = 'employee-name';
@@ -671,85 +796,102 @@
                             const roleEl = document.createElement('div');
                             roleEl.className = 'employee-role';
 
+                            // New indicator element: simple dot with ripple effect
                             const dot = document.createElement('span');
                             dot.className = 'status-dot';
+                            dot.setAttribute('aria-hidden', 'true');
 
-                            // Choose primary role by hierarchy ranking:
-                            // If multiple roles have same highest rank, prefer NK unit if present, else HB.
-                            let primary = emp.roles[0];
+                            // Determine primary role by hierarchy ranking:
+                            let primary = emp.roles[0] || null;
                             emp.roles.forEach(r => {
                                 const rankR = roleRank[r.role] || 99;
-                                const rankP = roleRank[primary.role] || 99;
+                                const rankP = roleRank[primary?.role] || 99;
                                 if (rankR < rankP) {
                                     primary = r;
                                 } else if (rankR === rankP) {
-                                    // tie-breaker: prefer NK over HB if roles have unit info
-                                    if ((r.unit === 'NK' && primary.unit !== 'NK')) {
+                                    if ((r.unit === 'NK') && (primary.unit !== 'NK')) {
                                         primary = r;
                                     }
                                 }
                             });
 
-                            // Determine color for dot based on primary role+unit
-                            const color = getColorForRoleAndUnit(primary.role, primary.unit);
-                            dot.style.background = color;
-                            dot.style.boxShadow = `0 0 8px ${hexToRgba(color, 0.35)}`;
+                            if (!primary && emp.roles.length === 0) {
+                                // fallback grey dot
+                                dot.style.setProperty('--dot-color', '#cccccc');
+                                dot.style.setProperty('--dot-rgba', 'rgba(0,0,0,0.08)');
+                                dot.style.background = '#cccccc';
+                                dot.style.boxShadow = `0 0 6px rgba(0,0,0,0.08)`;
 
-                            roleEl.appendChild(dot);
+                                nameRow.appendChild(dot);
+                                nameRow.appendChild(nameEl);
+                                card.appendChild(nameRow);
 
-                            // Create role text nodes: show all roles, highlight primary
-                            // Display each role using its original display string if present; if not, build a readable label
-                            const roleTextContainer = document.createElement('div');
-                            roleTextContainer.style.display = 'inline-flex';
-                            roleTextContainer.style.flexWrap = 'wrap';
-                            roleTextContainer.style.gap = '6px';
-                            emp.roles.forEach((r, idx) => {
                                 const span = document.createElement('span');
-                                // Use display (which includes unit token if provided), otherwise construct label
-                                const displayLabel = r.display || (r.role + (r.unit ? ' ' + r.unit : ''));
-                                span.textContent = displayLabel;
-                                if (r.role === primary.role && ( (r.unit || null) === (primary.unit || null) || r.display.toLowerCase() === primary.display.toLowerCase() )) {
-                                    span.classList.add('primary-role');
-                                } else {
-                                    span.style.opacity = '0.95';
-                                }
-                                // Join roles with slash if there are multiple (visual separator taken care by gap)
-                                roleTextContainer.appendChild(span);
-                                if (idx < emp.roles.length - 1) {
-                                    const sep = document.createElement('span');
-                                    sep.textContent = '/';
-                                    sep.style.opacity = '0.6';
-                                    roleTextContainer.appendChild(sep);
-                                }
-                            });
+                                span.className = 'role-item';
+                                span.textContent = 'No aplica';
+                                span.style.opacity = '0.8';
+                                roleEl.appendChild(span);
+                                card.appendChild(roleEl);
+                            } else {
+                                const others = emp.roles.filter(r => !(r.role === primary.role && r.display.toLowerCase() === primary.display.toLowerCase()));
+                                const orderedRoles = [primary, ...others];
 
-                            roleEl.appendChild(roleTextContainer);
+                                const color = getColorForRoleAndUnit(primary.role, primary.unit);
+                                dot.style.setProperty('--dot-color', color);
+                                dot.style.setProperty('--dot-rgba', hexToRgba(color, 0.22));
+                                dot.style.background = color;
+                                dot.style.boxShadow = `0 0 6px ${hexToRgba(color, 0.22)}`;
 
-                            card.appendChild(nameEl);
-                            card.appendChild(roleEl);
+                                // Build vertical role list (primary first, then secondary) centered
+                                orderedRoles.forEach((r) => {
+                                    const span = document.createElement('span');
+                                    span.className = 'role-item';
+                                    const displayLabel = r.display || (r.role + (r.unit ? ' ' + r.unit : ''));
+                                    span.textContent = displayLabel;
+                                    if (r.role === primary.role && ((r.unit || null) === (primary.unit || null) || r.display.toLowerCase() === primary.display.toLowerCase())) {
+                                        span.classList.add('primary-role');
+                                    } else {
+                                        span.style.opacity = '0.95';
+                                    }
+                                    roleEl.appendChild(span);
+                                });
+
+                                // Compose card: nameRow (dot + name), then roleEl (stacked)
+                                nameRow.appendChild(dot);
+                                nameRow.appendChild(nameEl);
+                                card.appendChild(nameRow);
+
+                                card.appendChild(roleEl);
+                            }
+
                             employeesList.appendChild(card);
+
+                            const opt = document.createElement('option');
+                            opt.value = (function(n){ return n.toString().trim().toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_-]/g, ''); })(emp.name);
+                            opt.textContent = emp.name;
+                            employeeSelect.appendChild(opt);
                         });
 
-                        // If no employees found, keep existing friendly fallback
+                        window.__novaklar_employees_map = employeesMap;
+
                         if (employees.length === 0) {
                             const fallback = document.createElement('div');
                             fallback.className = 'employee-card';
                             fallback.textContent = 'No se encontraron empleados.';
-                            document.getElementById('employeesList').appendChild(fallback);
+                            employeesList.appendChild(fallback);
                         }
                     })
                     .catch(err => {
-                        console.error('Error fetching employees:', err);
-                        // Optionally, show a friendly message
+                        console.error('Error fetching employees (GViz):', err);
                         const fallback = document.createElement('div');
                         fallback.className = 'employee-card';
                         fallback.textContent = 'No se pudieron cargar los empleados en este momento.';
-                        document.getElementById('employeesList').appendChild(fallback);
+                        employeesList.appendChild(fallback);
                     });
             })();
 
             /* -------------------------
-               Calendar / Schedule logic (kept mostly as originally provided)
+               Calendar / Schedule logic
                ------------------------- */
             const showCalendarBtn = document.getElementById('show-calendar-btn');
             const calendarWrapper = document.getElementById('calendar-wrapper');
@@ -757,12 +899,10 @@
             const currentMonthEl = document.getElementById('current-month');
             const employeeSelect = document.getElementById('employee-select');
 
-            const descansoData = {
-                katherin: [3,5],
-                neyereth: [3,5],
-                luz: [1,4],
-                ester: [6,0]
-            };
+            function getDescansoDaysForSlug(slug) {
+                const map = window.__novaklar_employees_map || {};
+                return (map[slug] && map[slug].descansoDays) ? map[slug].descansoDays : [];
+            }
 
             showCalendarBtn.addEventListener('click', function(e){
                 e.stopPropagation();
@@ -782,7 +922,7 @@
                 }
             });
 
-            function generateCalendar(selectedEmployee) {
+            function generateCalendar(selectedSlug) {
                 calendarEl.innerHTML = `
                     <div class="day-name">Lun</div>
                     <div class="day-name">Mar</div>
@@ -808,13 +948,14 @@
                     calendarEl.appendChild(emptyDay);
                 }
 
+                const descansoDays = selectedSlug ? getDescansoDaysForSlug(selectedSlug) : [];
+
                 for (let i = 1; i <= daysInMonth; i++) {
                     const dayEl = document.createElement('div');
                     dayEl.classList.add('day');
                     dayEl.textContent = i;
 
                     const dayOfWeek = new Date(year, month, i).getDay();
-                    const descansoDays = (descansoData[selectedEmployee] || []);
                     if (descansoDays.includes(dayOfWeek)) {
                         dayEl.classList.add('day-off');
                         dayEl.title = 'Día de descanso';
@@ -824,7 +965,6 @@
             }
             generateCalendar('');
 
-            /* End DOMContentLoaded */
         });
     </script>
 </body>
