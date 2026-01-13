@@ -3,127 +3,402 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contrato para Asesor de Ventas - Novaklar</title>
+    <title>Contrato de Asesor Comercial - Novaklar / Hanabi</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-
-        :root {
-            --primary-color: #006279; /* ¡COLOR REEMPLAZADO! */
-            --secondary-color: #333;
-            --background-color: #f4f7f6;
-            --card-background: #ffffff;
-            --text-color: #555;
-            --border-radius: 8px;
-            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--background-color);
+        /* Estilos generales minimalistas */
+        * {
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 800px;
-            padding: 2rem;
             box-sizing: border-box;
         }
 
-        header {
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: #f1efee;
+            color: #080a33;
+            line-height: 1.6;
+            font-size: 1rem;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Contenedor principal */
+        .container {
+            max-width: 100%;
+            padding: 1rem;
+            position: relative;
+        }
+
+        /* Header minimalista */
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 1rem 0;
             margin-bottom: 2rem;
-        }
-
-        .logo {
-            height: 50px;
+            border-bottom: 1px solid rgba(8, 10, 51, 0.1);
         }
 
         .btn-regresar {
-            padding: 0.75rem 1.5rem;
-            background-color: transparent;
-            color: var(--secondary-color);
-            border: 2px solid var(--secondary-color);
-            border-radius: var(--border-radius);
             text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            color: #080a33;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border: 1px solid #080a33;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
         }
 
         .btn-regresar:hover {
-            background-color: var(--secondary-color);
-            color: #fff;
+            background-color: #080a33;
+            color: #f1efee;
         }
 
-        .content-card {
-            background-color: var(--card-background);
-            padding: 3rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-        }
-
-        h1 {
-            font-size: 2.2rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 0.5rem;
-        }
-
-        p {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: var(--text-color);
-            margin-bottom: 1.5rem;
-            text-align: justify;
-        }
-
-        .footer {
+        .logo-container {
             display: flex;
-            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo {
+            height: 36px;
+            filter: brightness(0) saturate(100%) invert(8%) sepia(52%) saturate(1555%) hue-rotate(211deg) brightness(94%) contrast(99%);
+        }
+
+        .logo-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #080a33;
+        }
+
+        /* Título principal */
+        .page-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: #080a33;
+        }
+
+        /* Contenido del contrato - sin contenedores, directamente sobre el fondo */
+        .contrato-content {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        .contrato-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .contrato-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(8, 10, 51, 0.2);
+        }
+
+        .section-content {
+            font-size: 0.95rem;
+            text-align: justify;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-content p {
+            margin-bottom: 1rem;
+        }
+
+        .section-content strong {
+            font-weight: 600;
+        }
+
+        /* Lista de funciones */
+        .funciones-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .funciones-list li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .funciones-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #080a33;
+            font-weight: bold;
+        }
+
+        /* Horario destacado */
+        .horario-container {
+            background-color: rgba(8, 10, 51, 0.05);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid #080a33;
+        }
+
+        .horario-dia {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(8, 10, 51, 0.1);
+        }
+
+        .horario-dia:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .dias {
+            font-weight: 600;
+            color: #080a33;
+        }
+
+        .horas {
+            color: #080a33;
+            font-weight: 500;
+        }
+
+        /* Advertencias importantes */
+        .advertencia {
+            background-color: rgba(8, 10, 51, 0.08);
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1.5rem 0;
+            border-left: 3px solid #080a33;
+            font-size: 0.9rem;
+        }
+
+        /* Footer y botón de firma */
+        .footer {
+            text-align: center;
+            padding: 2rem 0 3rem;
+            border-top: 1px solid rgba(8, 10, 51, 0.1);
             margin-top: 2rem;
         }
 
         .btn-firma {
-            padding: 1rem 2rem;
-            background-color: var(--primary-color);
-            color: #fff;
-            border: none;
-            border-radius: var(--border-radius);
+            display: inline-block;
+            background-color: #080a33;
+            color: #f1efee;
             text-decoration: none;
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
             font-weight: 600;
             font-size: 1rem;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            border: 2px solid #080a33;
         }
 
         .btn-firma:hover {
-            background-color: #004a5a; /* Tono de hover ajustado para el nuevo primary-color #006279 */
+            background-color: transparent;
+            color: #080a33;
+        }
+
+        /* Responsive para móviles */
+        @media (max-width: 768px) {
+            body {
+                font-size: 0.95rem;
+                padding: 0.5rem;
+            }
+            
+            .container {
+                padding: 0.5rem;
+            }
+            
+            .header {
+                padding: 0.75rem 0;
+                margin-bottom: 1.5rem;
+            }
+            
+            .page-title {
+                font-size: 1.5rem;
+                margin-bottom: 2rem;
+            }
+            
+            .contrato-content {
+                padding: 0 0.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.1rem;
+            }
+            
+            .btn-firma {
+                padding: 0.875rem 2rem;
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .logo-text {
+                display: none;
+            }
+            
+            .horario-container {
+                padding: 1rem;
+            }
+            
+            .horario-dia {
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.3rem;
+            }
+            
+            .btn-regresar {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.85rem;
+            }
+            
+            .section-content {
+                font-size: 0.9rem;
+            }
+            
+            .advertencia {
+                padding: 0.875rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
+        <!-- Header minimalista -->
+        <div class="header">
             <a href="index.html" class="btn-regresar">Regresar</a>
-            <img src="https://raw.githubusercontent.com/novaklar/web/refs/heads/main/novaklar1.svg" alt="Novaklar Logo" class="logo">
-        </header>
-
-        <div class="content-card">
-            <h1>Contrato para Asesor de Ventas</h1>
-            <p>Mediante la aceptación de este contrato, la persona que suscribe en calidad de asesor de ventas acuerda cumplir de manera íntegra y diligente todas las funciones, directrices y horarios establecidos por la empresa <strong>Novaklar</strong>, desempeñando sus labores con la mayor eficiencia, ética y compromiso. El asesor de ventas será responsable de ejecutar las operaciones comerciales asignadas, absteniéndose estrictamente de realizar ventas no autorizadas, ventas bajo cuerda, fuera del horario establecido o sin el debido conocimiento y aprobación de la empresa.</p>
-            <p>Toda venta realizada deberá ser reportada en su totalidad mediante el registro correspondiente y acompañada del reporte monetario diario, el cual deberá ser remitido puntualmente a la empresa junto con los fondos recolectados en el turno asignado.</p>
-            <p>El asesor de ventas se obliga a actuar con total transparencia y veracidad en la información suministrada, manteniendo la confidencialidad sobre cualquier dato o proceso interno de la empresa, incluso después de la finalización del presente vínculo contractual. Asimismo, deberá ofrecer un servicio de atención al cliente caracterizado por la amabilidad, el respeto y la eficiencia, preservar la buena imagen de la marca, mantenerse disponible para cumplir con los requerimientos operativos y asumir cualquier otra tarea relacionada con su cargo que le sea asignada de acuerdo con las necesidades de Novaklar.</p>
-            
-            <div class="footer">
-                <a href="https://forms.gle/ysRHnnokrDUDSrJQ8" class="btn-firma" target="_blank">Firma</a>
+            <div class="logo-container">
+                <img src="https://raw.githubusercontent.com/novaklar/web/refs/heads/main/novaklar1.svg" alt="Novaklar Logo" class="logo">
+                <span class="logo-text">Novaklar Group</span>
             </div>
+        </div>
+
+        <!-- Título principal -->
+        <h1 class="page-title">Contrato de Asesor Comercial</h1>
+
+        <!-- Contenido del contrato - directamente sobre el fondo -->
+        <div class="contrato-content">
+            <div class="contrato-header">
+                NOVAKLAR / HANABI
+            </div>
+            
+            <p class="section-content">
+                Por medio del presente documento, la persona que suscribe en calidad de Asesor Comercial manifiesta su conformidad en prestar sus servicios a las empresas Novaklar y/o Hanabi, comprometiéndose a desempeñar sus funciones con responsabilidad, puntualidad, ética y profesionalismo.
+            </p>
+
+            <!-- PRIMERA -->
+            <div class="contrato-section">
+                <h2 class="section-title">PRIMERA – FUNCIONES DEL CARGO</h2>
+                <div class="section-content">
+                    <p>El Asesor Comercial se compromete a:</p>
+                    <ul class="funciones-list">
+                        <li>Ejecutar las operaciones comerciales asignadas conforme a los lineamientos de la empresa.</li>
+                        <li>Ofrecer un servicio al cliente respetuoso, claro y eficiente, velando por una experiencia positiva antes, durante y después de la venta.</li>
+                        <li>Gestionar de manera adecuada los casos de garantía, procurando una solución oportuna y manteniendo informadas a las partes correspondientes.</li>
+                        <li>Mantener una comunicación adecuada y respetuosa con los proveedores, siguiendo siempre las instrucciones establecidas por la empresa.</li>
+                        <li>Mantener comunicación constante con sus líderes directos, en especial con el Administrador y el CEO.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SEGUNDA -->
+            <div class="contrato-section">
+                <h2 class="section-title">SEGUNDA – HORARIO Y DISPONIBILIDAD</h2>
+                <div class="section-content">
+                    <p>El Asesor Comercial se compromete a cumplir el siguiente horario de atención:</p>
+                    
+                    <div class="horario-container">
+                        <div class="horario-dia">
+                            <span class="dias">Lunes a sábado:</span>
+                            <span class="horas">9:00 a. m. a 9:00 p. m.</span>
+                        </div>
+                        <div class="horario-dia">
+                            <span class="dias">Domingos y festivos:</span>
+                            <span class="horas">9:00 a. m. a 7:00 p. m.</span>
+                        </div>
+                    </div>
+                    
+                    <p>Asimismo, tendrá derecho a un día compensatorio a la semana, el cual será asignado conforme a las necesidades operativas de la empresa.</p>
+                    
+                    <div class="advertencia">
+                        <strong>IMPORTANTE:</strong> Queda estrictamente prohibido realizar ventas fuera del horario establecido, ventas no autorizadas o ventas sin el debido reporte.
+                    </div>
+                </div>
+            </div>
+
+            <!-- TERCERA -->
+            <div class="contrato-section">
+                <h2 class="section-title">TERCERA – REPORTES Y TRANSPARENCIA</h2>
+                <div class="section-content">
+                    <p>Toda venta realizada deberá ser reportada en su totalidad conforme a los mecanismos definidos por la empresa.</p>
+                    <p>El Asesor Comercial se obliga a actuar con total transparencia y veracidad en la información suministrada, absteniéndose de realizar prácticas irregulares o no autorizadas.</p>
+                </div>
+            </div>
+
+            <!-- CUARTA -->
+            <div class="contrato-section">
+                <h2 class="section-title">CUARTA – CONFIDENCIALIDAD</h2>
+                <div class="section-content">
+                    <p>El Asesor Comercial se compromete a no divulgar, compartir ni utilizar indebidamente información sensible o estratégica, incluyendo de manera especial la información relacionada con proveedores, procesos internos, precios o cualquier otro dato confidencial.</p>
+                    <p>Esta obligación se mantiene vigente incluso después de finalizada la relación con la empresa.</p>
+                </div>
+            </div>
+
+            <!-- QUINTA -->
+            <div class="contrato-section">
+                <h2 class="section-title">QUINTA – CONDUCTA</h2>
+                <div class="section-content">
+                    <p>El Asesor Comercial deberá actuar en todo momento con honestidad, respeto y compromiso, velando por el buen nombre de Novaklar y Hanabi, y evitando cualquier conducta que pueda afectar la imagen o el funcionamiento de las empresas.</p>
+                </div>
+            </div>
+
+            <!-- SEXTA -->
+            <div class="contrato-section">
+                <h2 class="section-title">SEXTA – TERMINACIÓN DEL CONTRATO</h2>
+                <div class="section-content">
+                    <p>El presente contrato podrá darse por terminado en cualquier momento, por decisión del Asesor Comercial o de la empresa, sin que ello genere obligación adicional distinta a las aquí establecidas.</p>
+                </div>
+            </div>
+
+            <!-- SÉPTIMA -->
+            <div class="contrato-section">
+                <h2 class="section-title">SÉPTIMA – ACEPTACIÓN</h2>
+                <div class="section-content">
+                    <p>La aceptación del presente contrato implica el conocimiento y conformidad total con las condiciones aquí descritas.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer con botón de firma -->
+        <div class="footer">
+            <a href="https://forms.gle/ysRHnnokrDUDSrJQ8" class="btn-firma" target="_blank">Firmar Contrato</a>
         </div>
     </div>
 </body>
