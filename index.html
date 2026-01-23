@@ -25,13 +25,15 @@
 
         :root{
             --accent-dark: #080a33; /* used for logos and portal bg */
-            --portal-bg: #080a33;
-            --portal-text: #f1efee;
+            --portal-bg: #000000; /* updated: portal buttons black */
+            --portal-text: #ffffff; /* portal text/icons white */
             --page-bg: #f1efee;
-            --reclutamiento-bg: #7fcfda;
-            --reclutamiento-text: #0d4c7f;
-            --comercial-bg: #0d4c7f;
-            --comercial-text: #7fcfda;
+            --reclutamiento-bg: #106b63; /* updated per request */
+            --reclutamiento-text: #ffffff;
+            --comercial-gradient-from: #eec55b;
+            --comercial-gradient-to: #f8e48b;
+            --comercial-icon: #106b63;
+            --footer-bg: #106b63; /* footer color requested */
         }
 
         /* General styles */
@@ -55,10 +57,10 @@
             background: #f1efee; /* solid background as requested */
         }
 
-        /* Logo container: will hold two inline SVGs that alternate */
+        /* Logo container: will hold three inline SVGs that alternate */
         .logo-container{
             width:150px;
-            height:64px;
+            height:54px; /* slightly reduced height to avoid very large logos */
             margin:0 auto;
             position:relative;
             display:inline-block;
@@ -87,21 +89,32 @@
         .logo-inner svg{
             width:100%;
             height:100%;
-            max-height:64px;
+            max-height:54px;
             max-width:150px;
             display:block;
         }
 
-        /* Specific CSS override for the Cloud logo */
-        .logo-inner.logo-cloud svg,
-        .logo-inner.logo-cloud svg * {
-            fill: #080a33 !important;
-            stroke: #080a33 !important;
+        /* Specific sizes for each logo to keep novagroup from being too large */
+        .logo-inner.logo-novagroup svg,
+        .logo-inner.logo-novagroup svg * {
+            width:78%;
+            height:78%;
+            max-height:44px;
+            fill: currentColor;
         }
-        .logo-inner.logo-cloud svg{
-            width:85%;
-            height:85%;
-            transform-origin:center;
+        .logo-inner.logo-hanabi svg,
+        .logo-inner.logo-hanabi svg * {
+            width:78%;
+            height:78%;
+            max-height:44px;
+            fill: currentColor;
+        }
+        .logo-inner.logo-novaklar svg,
+        .logo-inner.logo-novaklar svg * {
+            width:78%;
+            height:78%;
+            max-height:44px;
+            fill: currentColor;
         }
 
         main{
@@ -145,27 +158,32 @@
 
         .icon-button i{ font-size:2.2em; }
 
-        /* Reclutamiento button (DTO reclutamiento) */
+        /* Reclutamiento button (DTO reclutamiento) - updated color and gradient icon */
         .icon-button.reclutamiento{
             background: var(--reclutamiento-bg);
             color: var(--reclutamiento-text);
             border: 1px solid var(--reclutamiento-bg);
         }
+        /* icon gradient for reclutamiento - text becomes white, icon has gradient fill */
+        .icon-button.reclutamiento i {
+            background: linear-gradient(90deg, #eec55b, #f8e48b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            font-size:2.4em;
+        }
+        .icon-button.reclutamiento span { color: #fff; }
 
-        /* Comercial protected button (still uses modal access) */
+        /* Comercial protected button (click-based passcode) - gradient background and icon color */
         .icon-button.comercial.protected{
-            background: var(--comercial-bg);
-            color: var(--comercial-text);
-            border: 1px solid var(--comercial-bg);
+            background: linear-gradient(90deg, var(--comercial-gradient-from), var(--comercial-gradient-to));
+            color: #ffffff;
+            border: 1px solid rgba(0,0,0,0.06);
             cursor:pointer;
         }
-
-        /* New commercial CH button (plain link to ch.html) */
-        .icon-button.comercial.ch {
-            background: #c0caff; /* requested */
-            color: #061bb0; /* requested */
-            border: 1px solid #c0caff;
-        }
+        /* comercial icon color */
+        .icon-button.comercial.protected i { color: var(--comercial-icon); font-size:2.4em; }
 
         .icon-button:hover{ transform: translateY(-6px); box-shadow:0 10px 20px rgba(0,0,0,0.12); }
 
@@ -184,8 +202,8 @@
             padding:14px 18px;
             display:flex;
             flex-direction:column;
-            align-items:center; /* overall card centered */
-            text-align:center;
+            align-items:flex-start; /* changed: align contents to the left */
+            text-align:left; /* changed: left align text */
             border-bottom:1px solid rgba(0,0,0,0.06);
         }
         .employee-card:last-child{ border-bottom:none; }
@@ -195,7 +213,7 @@
             display:flex;
             align-items:center;
             gap:10px;
-            justify-content:center; /* keep the pair centered within the card */
+            justify-content:flex-start; /* changed: left-align the name+dot pair */
             width:100%;
             box-sizing:border-box;
         }
@@ -280,17 +298,17 @@
         }
 
         /* Roles: primary below the name; secondary below primary.
-           Always stacked vertically, centered horizontally.
+           Always stacked vertically, left-aligned.
            No separators, never in a single line.
         */
         .employee-role{
             display:flex;
             flex-direction:column;
-            align-items:center;
+            align-items:flex-start; /* changed: left align roles */
             gap:6px;
             color: rgba(0,0,0,0.7);
             font-family:'Poppins-Regular',sans-serif;
-            justify-content:center;
+            justify-content:flex-start;
             margin-top:8px;
             width:100%;
             box-sizing:border-box;
@@ -298,16 +316,19 @@
 
         .role-item{
             display:block;
-            text-align:center;
+            text-align:left; /* changed: left align each role line */
             width:100%;
+            font-family:'Poppins-Regular', sans-serif;
+            font-weight:400; /* ensure roles are regular weight */
+            color: rgba(0,0,0,0.78);
         }
 
-        /* primary role emphasis */
+        /* primary role no longer bold — keep same style as other roles but slightly darker color */
         .employee-role .primary-role{
-            font-family:'Poppins-Bold', sans-serif;
-            font-weight:800;
-            font-size:1.02em;
-            color: #000;
+            font-family:'Poppins-Regular', sans-serif;
+            font-weight:400;
+            font-size:1em;
+            color: #000; /* a little darker for clarity but not bold */
         }
 
         /* On small screens: keep stacked roles and responsive sizes */
@@ -373,8 +394,8 @@
             width:250px;
             height:120px;
             text-align:center;
-            background: var(--portal-bg); /* Requirement: all portal buttons background #080a33 */
-            color: var(--portal-text); /* Requirement: buttons text/icons #f1efee */
+            background: var(--portal-bg); /* updated: black */
+            color: var(--portal-text); /* updated: white */
             border: none;
         }
         .portal-button i{ font-size:2.2em; color:inherit; margin-bottom:8px; }
@@ -385,17 +406,72 @@
         .modal-overlay{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; background: rgba(0,0,0,0.45); z-index:2000; }
         .modal-content{ width:90%; max-width:420px; background:#fff; padding:24px; border-radius:14px; box-shadow:0 10px 40px rgba(0,0,0,0.25); text-align:center; color:#000; }
         .modal-content h3{ margin:0 0 8px 0; font-family:'Poppins-Bold',sans-serif; font-size:1.2em; }
-        .modal-input{ width:100%; padding:10px 12px; border-radius:8px; border:1px solid rgba(0,0,0,0.12); box-sizing:border-box; margin-top:8px; }
+        .modal-instruction{ margin-bottom:10px; color: rgba(0,0,0,0.8); }
+
+        /* Sequence display (non-input) */
+        .pass-display{
+            min-height:44px;
+            display:flex;
+            gap:8px;
+            align-items:center;
+            justify-content:center;
+            padding:8px;
+            border-radius:8px;
+            background: #f7f7f7;
+            border: 1px solid rgba(0,0,0,0.06);
+            margin: 10px 0 8px 0;
+            font-family:'Poppins-Bold',sans-serif;
+            font-size:1.1em;
+            letter-spacing:1px;
+            color:#000;
+            user-select:none;
+        }
+
+        .pass-display .digit {
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            width:34px;
+            height:34px;
+            border-radius:6px;
+            background: rgba(0,0,0,0.03);
+            box-shadow: inset 0 -2px 0 rgba(0,0,0,0.02);
+            font-weight:700;
+        }
+
+        .pass-buttons{
+            display:flex;
+            gap:8px;
+            flex-wrap:wrap;
+            justify-content:center;
+            margin-top:8px;
+        }
+
+        .pass-btn{
+            background: #fff;
+            border:1px solid rgba(0,0,0,0.08);
+            padding:12px 14px;
+            border-radius:8px;
+            font-family:'Poppins-Bold',sans-serif;
+            cursor:pointer;
+            min-width:46px;
+            min-height:46px;
+            font-size:1.05em;
+            box-shadow:0 6px 14px rgba(0,0,0,0.04);
+        }
+        .pass-btn:active{ transform: translateY(1px); }
+
         .modal-buttons{ display:flex; gap:12px; justify-content:center; margin-top:14px; flex-wrap:wrap; }
         .modal-btn{ padding:10px 18px; border-radius:8px; border:none; cursor:pointer; font-family:'Poppins-Bold',sans-serif; }
         .modal-btn.confirm-btn{ background:#0d4c7f; color:#fff; }
         .modal-btn.cancel-btn{ background: rgba(0,0,0,0.06); color:#000; }
 
+        /* Footer */
         footer{
             margin-top:40px;
             padding:18px 12px;
             text-align:center;
-            background:#0d0d1a;
+            background: var(--footer-bg);
             color: #f1efee; /* Requirement: footer text color #f1efee */
             font-family:'Poppins-Regular',sans-serif;
         }
@@ -405,29 +481,25 @@
 <body>
     <header>
         <div class="logo-container" aria-hidden="false" id="logo-container">
-            <!-- JS will inject inline SVG markup here for both logos and alternate them -->
+            <!-- JS will inject inline SVG markup here for all logos and alternate them -->
         </div>
     </header>
 
     <main>
         <div class="icon-buttons-container">
-            <!-- DTO reclutamiento (renamed) -->
+            <!-- DTO reclutamiento (updated colors & icon gradient) -->
             <a href="https://novaklar.github.io/reclutamiento/" class="icon-button reclutamiento" id="reclutamiento-btn" aria-label="DTO reclutamiento">
                 <i class="fas fa-user-plus" aria-hidden="true"></i>
                 <span>DTO<br>reclutamiento</span>
             </a>
 
-            <!-- DTO comercial protected (renamed) — keeps the password modal behavior -->
+            <!-- DTO comercial protected (click-based passcode) -->
             <a href="#" id="comercial-btn" class="icon-button comercial protected" aria-label="DTO comercial (protegido)">
                 <i class="fas fa-chart-bar" aria-hidden="true"></i>
                 <span>DTO<br>comercial</span>
             </a>
 
-            <!-- New DTO comercial linking to ch.html with requested colors -->
-            <a href="ch.html" class="icon-button comercial ch" id="comercial-ch-btn" aria-label="DTO comercial">
-                <i class="fas fa-chart-bar" aria-hidden="true"></i>
-                <span>DTO<br>comercial</span>
-            </a>
+            <!-- removed the lavender ch.html button as requested -->
         </div>
 
         <h2 class="section-title">Empleados activos</h2>
@@ -503,15 +575,28 @@
         <p>&copy; 2025 Novaklar. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- Password modal for protected commercial button -->
+    <!-- Click-based passcode modal for protected commercial button -->
     <div id="password-modal" class="modal-overlay" aria-hidden="true">
         <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
             <h3 id="modal-title">Acceso al Departamento Comercial</h3>
-            <p>Introduce la contraseña para continuar:</p>
-            <input type="password" id="password-input" class="modal-input" placeholder="Contraseña" aria-label="Contraseña"/>
-            <div id="modal-error-message" style="color:#ff4d4d;margin-top:6px;min-height:18px;"></div>
+            <p class="modal-instruction">Introduce la secuencia de acceso haciendo clic en los números (solo mediante clic).</p>
+
+            <!-- Visible, non-editable display for the entered sequence (no inputs) -->
+            <div id="pass-display" class="pass-display" aria-live="polite" aria-atomic="true" aria-label="Secuencia introducida"></div>
+
+            <!-- Numeric buttons 1..5 -->
+            <div class="pass-buttons" role="group" aria-label="Teclado de acceso">
+                <button class="pass-btn" data-digit="1" aria-label="Número 1">1</button>
+                <button class="pass-btn" data-digit="2" aria-label="Número 2">2</button>
+                <button class="pass-btn" data-digit="3" aria-label="Número 3">3</button>
+                <button class="pass-btn" data-digit="4" aria-label="Número 4">4</button>
+                <button class="pass-btn" data-digit="5" aria-label="Número 5">5</button>
+            </div>
+
+            <div id="modal-error-message" style="color:#ff4d4d;margin-top:8px;min-height:18px;"></div>
+
             <div class="modal-buttons">
-                <button id="confirm-password-btn" class="modal-btn confirm-btn">Acceder</button>
+                <button id="validate-pass-btn" class="modal-btn confirm-btn">Validar</button>
                 <button id="cancel-password-btn" class="modal-btn cancel-btn">Cancelar</button>
             </div>
         </div>
@@ -520,13 +605,15 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             /* -------------------------
-               Header logos rotating
+               Header logos rotating (order: novagroup, hanabi, novaklar)
+               reduced novagroup size via CSS classes
                ------------------------- */
             const logoContainer = document.getElementById('logo-container');
 
             const logoUrls = [
-                'https://raw.githubusercontent.com/novaklar/web/refs/heads/main/cloud.svg',
-                'https://raw.githubusercontent.com/novaklar/web/refs/heads/main/hanabi.svg'
+                'https://raw.githubusercontent.com/novaklar/Personal/refs/heads/main/novagroup.svg', // first (default)
+                'https://raw.githubusercontent.com/novaklar/Personal/refs/heads/main/hanabi.svg',
+                'https://raw.githubusercontent.com/novaklar/Personal/refs/heads/main/novaklar.svg'
             ];
 
             async function loadAndInjectLogos() {
@@ -540,13 +627,18 @@
                         svgText = svgText.replace(/<svg([^>]*)>/, '<svg$1 role="img" aria-hidden="true">');
                         const wrapper = document.createElement('div');
                         wrapper.classList.add('logo-inner');
-                        if (i === 0) wrapper.classList.add('logo-cloud');
+                        // add specific classes for sizing/styling
+                        if (i === 0) wrapper.classList.add('logo-novagroup');
+                        if (i === 1) wrapper.classList.add('logo-hanabi');
+                        if (i === 2) wrapper.classList.add('logo-novaklar');
                         wrapper.innerHTML = svgText;
                         fragments.push(wrapper);
                     } catch (err) {
                         const wrapper = document.createElement('div');
                         wrapper.classList.add('logo-inner');
-                        if (i === 0) wrapper.classList.add('logo-cloud');
+                        if (i === 0) wrapper.classList.add('logo-novagroup');
+                        if (i === 1) wrapper.classList.add('logo-hanabi');
+                        if (i === 2) wrapper.classList.add('logo-novaklar');
                         wrapper.innerHTML = '<img src="' + logoUrls[i] + '" alt="" style="width:100%;height:100%;object-fit:contain;"/>';
                         fragments.push(wrapper);
                         console.error('Error loading SVG:', logoUrls[i], err);
@@ -554,7 +646,7 @@
                 }
 
                 fragments.forEach((el, idx) => {
-                    if (idx === 0) el.classList.add('visible');
+                    if (idx === 0) el.classList.add('visible'); // show first (novagroup) by default
                     logoContainer.appendChild(el);
                 });
 
@@ -573,55 +665,115 @@
             loadAndInjectLogos();
 
             /* -------------------------
-               Buttons / Modal logic
+               Click-based passcode system (connected to comercial-btn)
+               - No inputs, only clickable buttons 1..5
+               - Display is a non-editable div/span sequence
+               - Correct sequence: 5512
+               - Always requires entry (no localStorage persistence)
                ------------------------- */
             const comercialBtn = document.getElementById('comercial-btn');
             const passwordModal = document.getElementById('password-modal');
-            const passwordInput = document.getElementById('password-input');
-            const confirmPasswordBtn = document.getElementById('confirm-password-btn');
-            const cancelPasswordBtn = document.getElementById('cancel-password-btn');
+            const passDisplay = document.getElementById('pass-display');
             const modalErrorMessage = document.getElementById('modal-error-message');
+            const validateBtn = document.getElementById('validate-pass-btn');
+            const cancelBtn = document.getElementById('cancel-password-btn');
+            const passButtons = Array.from(document.querySelectorAll('.pass-btn'));
 
-            const CORRECT_PASSWORD = "200823";
-            const LOCAL_STORAGE_KEY = "novaklar_comercial_access";
+            const CORRECT_SEQUENCE = "5512";
+            // keep current sequence in memory as array of digits
+            let currentSequence = [];
 
-            comercialBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
-                if (stored === CORRECT_PASSWORD) {
-                    window.location.href = "comercial.html";
-                    return;
-                }
+            function openModal() {
+                // Always open modal and require the pattern (do not auto-redirect)
                 passwordModal.style.display = 'flex';
                 passwordModal.setAttribute('aria-hidden', 'false');
-                passwordInput.focus();
-            });
-
-            function handlePasswordCheck() {
-                const val = passwordInput.value || '';
-                if (val === CORRECT_PASSWORD) {
-                    localStorage.setItem(LOCAL_STORAGE_KEY, val);
-                    window.location.href = "comercial.html";
-                } else {
-                    modalErrorMessage.textContent = "Contraseña incorrecta. Inténtalo de nuevo.";
-                    passwordInput.value = "";
-                    passwordInput.focus();
-                }
+                // reset UI
+                resetSequence();
+                modalErrorMessage.textContent = '';
             }
-
-            confirmPasswordBtn.addEventListener('click', handlePasswordCheck);
-            passwordInput.addEventListener('keydown', function(ev) {
-                if (ev.key === 'Enter') handlePasswordCheck();
-            });
 
             function closeModal() {
                 passwordModal.style.display = 'none';
                 passwordModal.setAttribute('aria-hidden', 'true');
-                passwordInput.value = "";
-                modalErrorMessage.textContent = "";
+                resetSequence();
+                modalErrorMessage.textContent = '';
             }
 
-            cancelPasswordBtn.addEventListener('click', function() {
+            function resetSequence() {
+                currentSequence = [];
+                passDisplay.innerHTML = ''; // remove digit spans
+            }
+
+            function pushDigit(d) {
+                if (typeof d !== 'string') d = String(d);
+                // limit length to avoid overflow (optional, but reasonable)
+                if (currentSequence.length >= 10) return;
+                currentSequence.push(d);
+                const span = document.createElement('span');
+                span.className = 'digit';
+                span.textContent = d;
+                passDisplay.appendChild(span);
+                modalErrorMessage.textContent = '';
+            }
+
+            function validateSequence() {
+                const seq = currentSequence.join('');
+                if (seq === CORRECT_SEQUENCE) {
+                    // success (no persistence)
+                    modalErrorMessage.style.color = '#0d8a3b';
+                    modalErrorMessage.textContent = 'Acceso concedido. Redirigiendo...';
+                    setTimeout(() => {
+                        closeModal();
+                        window.location.href = "comercial.html";
+                    }, 450);
+                } else {
+                    // failure
+                    modalErrorMessage.style.color = '#ff4d4d';
+                    modalErrorMessage.textContent = 'Secuencia incorrecta. Inténtalo de nuevo.';
+                    // briefly shake the display then clear
+                    passDisplay.animate([
+                        { transform: 'translateX(0px)' },
+                        { transform: 'translateX(-6px)' },
+                        { transform: 'translateX(6px)' },
+                        { transform: 'translateX(0px)' }
+                    ], { duration: 300, iterations: 1 });
+                    setTimeout(() => {
+                        modalErrorMessage.textContent = '';
+                        resetSequence();
+                    }, 700);
+                }
+            }
+
+            comercialBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                openModal();
+            });
+
+            passButtons.forEach(btn => {
+                btn.addEventListener('click', function(ev) {
+                    const d = btn.getAttribute('data-digit');
+                    pushDigit(d);
+                });
+                // support touchstart to make sure mobile taps are snappy
+                btn.addEventListener('touchstart', function(ev) {
+                    // prevent the simulated mouse event from double-invoking
+                    ev.preventDefault();
+                    const d = btn.getAttribute('data-digit');
+                    pushDigit(d);
+                }, { passive: false });
+            });
+
+            validateBtn.addEventListener('click', function() {
+                validateSequence();
+            });
+
+            // also support touch for validate
+            validateBtn.addEventListener('touchstart', function(ev) {
+                ev.preventDefault();
+                validateSequence();
+            }, { passive: false });
+
+            cancelBtn.addEventListener('click', function() {
                 closeModal();
             });
 
@@ -631,8 +783,7 @@
 
             /* -------------------------
                Fetch employees and render list (GViz)
-               Adjusted: use status-dot (ripple effect) instead of check.
-               Roles stacked vertically (primary first), indicator left of name.
+               (unchanged logic aside from reusing existing globals)
                ------------------------- */
             (function loadEmployees() {
                 const spreadsheetId = '1l2Ge_RZ698FQgRbaPxGUd8aZ2SLN_CA2t4rPlVWA3Mw';
@@ -842,7 +993,7 @@
                                 dot.style.background = color;
                                 dot.style.boxShadow = `0 0 6px ${hexToRgba(color, 0.22)}`;
 
-                                // Build vertical role list (primary first, then secondary) centered
+                                // Build vertical role list (primary first, then secondary) left-aligned
                                 orderedRoles.forEach((r) => {
                                     const span = document.createElement('span');
                                     span.className = 'role-item';
