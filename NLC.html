@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Líder Comercial - Nómina Designada por Cargo</title>
+    <title>Nómina Admin - Calculadora de Comisiones</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <style>
         /* Fuentes Personalizadas */
         @font-face {
@@ -25,28 +24,29 @@
             font-style: normal;
         }
 
-        /* Paleta de Colores Actualizada (sin gradientes) */
+        /* Nueva Paleta de Colores */
         :root {
-            --primary: #006279; /* Teal principal */
-            --secondary: #59d8b6; /* Cian/Verde secundario */
-            --accent: #006279; /* Mismo que primary para consistencia en la sombra */
+            --primary: #106b63;      /* Verde azulado principal */
+            --secondary: #eec55b;    /* Dorado principal */
+            --accent: #f8e48b;       /* Dorado claro */
             --light: #f8ffef;
-            --dark: #006279;
+            --dark: #0a554e;
             --text: #333333;
-            --shadow: 0 4px 12px rgba(0, 98, 121, 0.15); /* Sombra basada en Primary */
-            --timestamp-bg: #e6fffb; /* Fondo claro basado en Secondary */
-            --light-bg-header: #f7fbfc; /* Color de fondo general del body */
+            --shadow: 0 4px 12px rgba(16, 107, 99, 0.15);
+            --light-bg: #f7fcfb;
+            --nova-color: #0d4c7f;
+            --nomina-color: #106b63;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
+            font-family: 'Poppins-Regular', sans-serif;
         }
         
         body {
-            background-color: var(--light-bg-header);
+            background-color: var(--light-bg);
             color: var(--text);
             line-height: 1.6;
             font-size: 16px;
@@ -59,8 +59,7 @@
         }
 
         header {
-            /* Volviendo a color sólido para el header */
-            background-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
             color: white;
             padding: 20px 15px;
             text-align: center;
@@ -70,24 +69,16 @@
             position: relative;
         }
         
-        /* Eliminamos el estilo de la imagen del header ya que no hay logo en el original */
-        /* header img {
-            max-width: 70px;
-            height: auto;
-            margin-bottom: 10px;
-        } */
-        
         .back-button {
             position: relative;
             left: 0;
             margin-bottom: 15px;
-            /* Invertimos colores para el botón de regreso */
-            background-color: var(--secondary);
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
             color: var(--primary);
             border: none;
             padding: 12px 20px;
             border-radius: 50px;
-            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
+            font-family: 'Poppins-Bold', sans-serif;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -99,13 +90,12 @@
         }
         
         .back-button:hover {
-            background-color: #4ac7a4; /* Tono de hover de color secundario */
             transform: scale(1.05);
-            color: white;
+            box-shadow: 0 4px 12px rgba(238, 197, 91, 0.3);
         }
         
         h1 {
-            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
+            font-family: 'Poppins-Bold', sans-serif;
             margin: 0;
             font-size: 1.8rem;
             font-weight: 700;
@@ -113,7 +103,7 @@
         }
         
         h2 {
-            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
+            font-family: 'Poppins-Regular', sans-serif;
             margin: 8px 0 0;
             font-weight: 400;
             font-size: 1.1rem;
@@ -123,212 +113,354 @@
         .card {
             background-color: white;
             border-radius: 10px;
-            padding: 20px 15px;
+            padding: 25px;
             margin-bottom: 25px;
             box-shadow: var(--shadow);
             transition: transform 0.3s ease;
             overflow: hidden;
+            border: 1px solid rgba(16, 107, 99, 0.1);
         }
         
         .card:hover {
             transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(16, 107, 99, 0.2);
         }
         
         .card-title {
-            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
-            font-size: 1.3rem;
+            font-family: 'Poppins-Bold', sans-serif;
+            font-size: 1.6rem;
             margin-top: 0;
+            margin-bottom: 30px;
             color: var(--primary);
-            padding-bottom: 12px;
-            border-bottom: 2px solid var(--light-bg-header);
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--accent);
+            text-align: center;
+            position: relative;
+        }
+        
+        .card-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 100%);
+            border-radius: 2px;
+        }
+        
+        /* Estilos para la Calculadora */
+        .calculator-form {
             display: flex;
-            align-items: center;
-            gap: 10px;
+            flex-direction: column;
+            gap: 25px;
+            max-width: 500px;
+            margin: 0 auto;
         }
         
-        .card-title i {
-            font-size: 1.1rem;
-        }
-        
-        table {
+        .calculator-input {
+            display: flex;
+            flex-direction: column;
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-            font-size: 0.9rem;
         }
         
-        th, td {
-            padding: 12px 10px;
-            text-align: left;
-            border-bottom: 1px solid #eaeaea;
-        }
-        
-        th {
-            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
-            background-color: #e6fffb; /* Fondo más claro basado en Secondary */
+        .calculator-input label {
+            font-family: 'Poppins-Bold', sans-serif;
             font-weight: 700;
-            color: var(--dark);
-            font-size: 0.9rem;
-        }
-        
-        tr:hover {
-            background-color: #f0fdfc;
-        }
-        
-        .stats-container {
+            margin-bottom: 10px;
+            color: var(--text);
+            font-size: 1.1rem;
             display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 25px;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-align: center;
         }
         
-        .stat-card {
-            /* Volviendo a color sólido para las stat-card */
-            background-color: var(--primary);
-            color: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: var(--shadow);
-            display: flex;
-            flex-direction: column;
+        .calculator-input label i {
+            color: var(--primary);
+        }
+        
+        .input-with-icon {
+            position: relative;
             width: 100%;
         }
         
-        .stat-title {
-            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
-            font-size: 1rem;
-            margin-top: 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .input-with-icon input {
+            font-family: 'Poppins-Regular', sans-serif;
+            padding: 18px 20px 18px 50px;
+            border-radius: 12px;
+            border: 2px solid rgba(16, 107, 99, 0.2);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            width: 100%;
+            background-color: #f8f9fa;
+            color: var(--text);
+            text-align: center;
             font-weight: 500;
         }
         
-        .stat-value {
-            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
-            font-size: 1.8rem;
-            margin: 12px 0;
+        .input-with-icon input:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(238, 197, 91, 0.2);
+            background-color: white;
+        }
+        
+        .input-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .calculator-button {
+            font-family: 'Poppins-Bold', sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 1.2rem;
             font-weight: 700;
-            word-break: break-word;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 10px;
+            box-shadow: 0 4px 12px rgba(16, 107, 99, 0.2);
+            width: 100%;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
-        .stat-period {
-            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
-            font-size: 0.85rem;
-            opacity: 0.9;
-            margin-top: auto;
-            padding-top: 10px;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        .calculator-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(16, 107, 99, 0.3);
         }
         
-        .loading {
-            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
+        .calculator-button:active {
+            transform: translateY(0);
+        }
+        
+        .calculator-results {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            border: 2px solid rgba(16, 107, 99, 0.1);
+            display: none;
+            margin-top: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .results-header {
+            font-family: 'Poppins-Bold', sans-serif;
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 25px;
             text-align: center;
-            padding: 20px;
-            font-style: italic;
-            color: #777;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--accent);
         }
         
-        .table-controls {
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .results-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+        }
+        
+        .result-card {
+            border-radius: 10px;
+            padding: 25px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+            border: 2px solid;
         }
         
-        .search-box {
-            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 50px;
-            width: 100%;
-            font-size: 1rem;
+        .result-card:hover {
+            transform: translateY(-5px);
         }
         
-        .pagination {
-            display: flex;
-            gap: 5px;
-            justify-content: center;
-            flex-wrap: wrap;
+        .result-card.nova {
+            background: linear-gradient(135deg, rgba(13, 76, 127, 0.05) 0%, rgba(13, 76, 127, 0.1) 100%);
+            border-color: var(--nova-color);
         }
         
-        .pagination button {
-            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
-            background-color: var(--light-bg-header);
-            border: 1px solid #ddd;
-            padding: 8px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 0.9rem;
-            min-width: 40px;
-        }
-        
-        .pagination button:hover {
-            background-color: var(--secondary);
-            color: var(--primary);
-        }
-        
-        .pagination button.active {
-            background-color: var(--primary);
-            color: white;
+        .result-card.nomina {
+            background: linear-gradient(135deg, rgba(16, 107, 99, 0.05) 0%, rgba(16, 107, 99, 0.1) 100%);
             border-color: var(--primary);
         }
         
-        footer {
-            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
-            text-align: center;
-            margin-top: 30px;
-            padding: 15px;
-            color: #777;
-            font-size: 0.85rem;
-        }
-        
-        /* Estilos para las secciones de timestamp y nombre */
-        .timestamp-section {
-            background-color: var(--timestamp-bg);
-            padding: 10px;
-            border-radius: 5px;
+        .result-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             margin-bottom: 15px;
         }
         
-        .week-header {
-            font-family: 'Poppins-Bold', sans-serif; /* Aplicado Poppins-Bold */
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 8px;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .result-label {
+            font-family: 'Poppins-Bold', sans-serif;
+            font-size: 1.2rem;
+            color: var(--text);
         }
         
-        .week-header i {
+        .percentage-badge {
+            font-family: 'Poppins-Bold', sans-serif;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+        
+        .percentage-badge.nova {
+            background: linear-gradient(135deg, var(--nova-color) 0%, #0a3a63 100%);
+            color: white;
+            box-shadow: 0 2px 8px rgba(13, 76, 127, 0.2);
+        }
+        
+        .percentage-badge.nomina {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            color: white;
+            box-shadow: 0 2px 8px rgba(16, 107, 99, 0.2);
+        }
+        
+        .result-value {
+            font-family: 'Poppins-Bold', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 15px 0;
+            text-align: center;
+        }
+        
+        .result-value.nova {
+            color: var(--nova-color);
+            text-shadow: 0 2px 4px rgba(13, 76, 127, 0.1);
+        }
+        
+        .result-value.nomina {
+            color: var(--primary);
+            text-shadow: 0 2px 4px rgba(16, 107, 99, 0.1);
+        }
+        
+        .result-detail {
+            font-family: 'Poppins-Regular', sans-serif;
+            font-size: 0.95rem;
+            color: #666;
+            text-align: center;
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+        
+        .total-summary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 30px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(16, 107, 99, 0.2);
+        }
+        
+        .total-label {
+            font-family: 'Poppins-Regular', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+        
+        .total-value {
+            font-family: 'Poppins-Bold', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .info-card {
+            background: linear-gradient(135deg, rgba(238, 197, 91, 0.1) 0%, rgba(248, 228, 139, 0.05) 100%);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            border-left: 4px solid var(--secondary);
+            text-align: center;
+        }
+        
+        .info-card h3 {
+            font-family: 'Poppins-Bold', sans-serif;
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .info-card h3 i {
             color: var(--secondary);
         }
         
-        .affiliate-item {
-            font-family: 'Poppins-Regular', sans-serif; /* Aplicado Poppins-Regular */
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #eaeaea;
+        .info-card p {
+            font-family: 'Poppins-Regular', sans-serif;
+            color: #555;
+            line-height: 1.6;
+            margin: 0 0 15px 0;
         }
         
-        .affiliate-item:last-child {
-            border-bottom: none;
-        }
-        
-        .affiliate-name {
-            font-weight: 500;
-        }
-        
-        .affiliate-date {
-            color: #666;
+        footer {
+            font-family: 'Poppins-Regular', sans-serif;
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #777;
             font-size: 0.85rem;
+            border-top: 1px solid rgba(16, 107, 99, 0.1);
         }
         
-        /* Estilos específicos para móviles */
+        /* Badge de distribución */
+        .distribution-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 5px;
+            font-size: 0.8rem;
+            color: var(--primary);
+            background: rgba(238, 197, 91, 0.1);
+            padding: 6px 12px;
+            border-radius: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .distribution-badge .nova-percent {
+            color: var(--nova-color);
+            font-weight: bold;
+        }
+        
+        .distribution-badge .nomina-percent {
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        /* Responsive Design */
         @media (max-width: 768px) {
             .container {
                 padding: 10px;
@@ -348,50 +480,31 @@
             }
             
             .card {
-                padding: 15px 10px;
+                padding: 20px;
                 margin-bottom: 20px;
             }
             
             .card-title {
-                font-size: 1.2rem;
+                font-size: 1.4rem;
+                margin-bottom: 25px;
             }
             
-            table {
-                font-size: 0.85rem;
+            .calculator-button {
+                padding: 16px;
+                font-size: 1.1rem;
+                max-width: 100%;
             }
             
-            th, td {
-                padding: 10px 8px;
+            .calculator-form {
+                max-width: 100%;
             }
             
-            .stat-card {
-                padding: 15px;
+            .result-value {
+                font-size: 1.8rem;
             }
             
-            .stat-title {
-                font-size: 0.95rem;
-            }
-            
-            .stat-value {
-                font-size: 1.5rem;
-                margin: 10px 0;
-            }
-            
-            .table-controls {
-                gap: 10px;
-            }
-            
-            #timeline {
-                height: 250px !important;
-            }
-            
-            .stats-container {
-                margin-bottom: 20px;
-            }
-            
-            .affiliate-item {
-                flex-direction: column;
-                gap: 5px;
+            .total-value {
+                font-size: 2rem;
             }
         }
         
@@ -404,77 +517,35 @@
                 font-size: 0.9rem;
             }
             
+            .card {
+                padding: 15px;
+            }
+            
             .card-title {
+                font-size: 1.3rem;
+                margin-bottom: 20px;
+            }
+            
+            .calculator-input label {
+                font-size: 1rem;
+            }
+            
+            .input-with-icon input {
+                padding: 16px 15px 16px 45px;
                 font-size: 1.1rem;
             }
             
-            table {
+            .result-value {
+                font-size: 1.6rem;
+            }
+            
+            .percentage-badge {
+                padding: 5px 12px;
                 font-size: 0.8rem;
             }
             
-            th, td {
-                padding: 8px 6px;
-            }
-            
-            .stat-value {
-                font-size: 1.3rem;
-            }
-            
-            .pagination button {
-                padding: 6px 10px;
-                font-size: 0.8rem;
-                min-width: 35px;
-            }
-            
-            #timeline {
-                height: 200px !important;
-            }
-            
-            .stats-container {
-                margin-bottom: 15px;
-            }
-        }
-        
-        /* Mejoras para tablas en móviles */
-        .table-container {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            margin-top: 10px;
-        }
-        
-        /* Separación adicional entre secciones en móviles */
-        @media (max-width: 768px) {
-            .section-spacer {
-                height: 15px;
-            }
-        }
-        
-        /* Mejoras de accesibilidad */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-            
-            .card:hover {
-                transform: none;
-            }
-            
-            .back-button:hover {
-                transform: none;
-            }
-        }
-        
-        /* Mejora de contraste para mejor legibilidad */
-        @media (prefers-contrast: high) {
-            :root {
-                --light: #ffffff;
-                --timestamp-bg: #e0e0e0;
-            }
-            
-            th {
-                background-color: #e0e0e0;
+            .results-header {
+                font-size: 1.2rem;
             }
         }
     </style>
@@ -485,319 +556,181 @@
             <button class="back-button" onclick="window.location.href='comercial.html'">
                 <i class="fas fa-arrow-left"></i> Regresar
             </button>
-            <h1>Líder Comercial</h1>
-            <h2>Nómina Designada por Cargo</h2>
+            <h1>Nómina Admin</h1>
+            <h2>Calculadora de Comisiones</h2>
         </header>
 
-        <div class="stats-container">
-            <div class="stat-card">
-                <h3 class="stat-title"><i class="fas fa-calendar-week"></i> Ganancias Acumuladas Semanales</h3>
-                <div class="stat-value" id="weeklyEarnings">Cargando...</div>
-                <div class="stat-period" id="weekRange"></div>
-            </div>
-            <div class="stat-card">
-                <h3 class="stat-title"><i class="fas fa-chart-line"></i> Ganancia Total Histórica</h3>
-                <div class="stat-value" id="totalEarnings">Cargando...</div>
-                <div class="stat-period">Desde el inicio de registros</div>
-            </div>
-        </div>
-
-        <div class="section-spacer"></div>
-
         <div class="card">
-            <h3 class="card-title"><i class="fas fa-users"></i> Afiliados Registrados</h3>
-            <div class="table-controls">
-                <input type="text" class="search-box" placeholder="Buscar afiliado..." id="searchInput">
-                <div class="pagination" id="pagination"></div>
+            <h3 class="card-title">Calculadora</h3>
+            
+            <div class="calculator-form">
+                <div class="calculator-input">
+                    <label for="gananciaVenta"><i class="fas fa-money-bill-wave"></i> Ganancia × venta</label>
+                    <div class="input-with-icon">
+                        <input 
+                            type="number" 
+                            id="gananciaVenta" 
+                            placeholder="Ejemplo: 9000" 
+                            min="0" 
+                            inputmode="numeric"
+                            step="100"
+                            onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                        >
+                        <div class="input-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="calculator-button" onclick="calcularComision()" id="calcularBtn">
+                    <i class="fas fa-calculator"></i> Calcular Comisión
+                </button>
             </div>
-            <div class="table-container">
-                <div id="affiliatesByWeek"></div>
+            
+            <div class="calculator-results" id="resultados">
+                <h4 class="results-header">Distribución de Comisión</h4>
+                
+                <div class="results-grid">
+                    <div class="result-card nova">
+                        <div class="result-header">
+                            <span class="result-label">Nova</span>
+                            <span class="percentage-badge nova">40%</span>
+                        </div>
+                        <div class="result-value nova" id="comisionNova">$0</div>
+                        <p class="result-detail">Porcentaje correspondiente a la empresa para cubrir costos operativos, marketing y desarrollo.</p>
+                    </div>
+                    
+                    <div class="result-card nomina">
+                        <div class="result-header">
+                            <span class="result-label">Nómina</span>
+                            <span class="percentage-badge nomina">60%</span>
+                        </div>
+                        <div class="result-value nomina" id="comisionNomina">$0</div>
+                        <p class="result-detail">Porcentaje destinado al equipo comercial como incentivo por cada venta realizada.</p>
+                    </div>
+                </div>
+                
+                <div class="total-summary">
+                    <div class="total-label">Total de Ganancia</div>
+                    <div class="total-value" id="totalGanancia">$0</div>
+                </div>
             </div>
-        </div>
-
-        <div class="card">
-            <h3 class="card-title"><i class="fas fa-history"></i> Historial de Registros</h3>
-            <div id="timeline" style="height: 300px;"></div>
+            
+            <div class="info-card">
+                <h3><i class="fas fa-info-circle"></i> ¿Cómo funciona?</h3>
+                <p>
+                    La calculadora distribuye automáticamente la ganancia por venta en dos partes: 
+                    <strong>40% para Nova</strong> (gestión empresarial) y <strong>60% para Nómina</strong> (incentivo comercial). 
+                    Ingresa el monto total obtenido por venta para ver el desglose detallado.
+                </p>
+                <div class="distribution-badge">
+                    <span>Distribución:</span>
+                    <span class="nova-percent">40% Nova</span>
+                    <span>-</span>
+                    <span class="nomina-percent">60% Nómina</span>
+                </div>
+            </div>
         </div>
         
         <footer>
             <p>Sistema de Gestión Comercial &copy; 2025 | Desarrollado para el equipo de ventas</p>
+            <p style="margin-top: 5px; font-size: 0.8rem; color: var(--primary);">
+                <i class="fas fa-palette" style="color: var(--secondary);"></i>
+                Paleta: #106b63 • #eec55b • #f8e48b
+            </p>
         </footer>
     </div>
 
-    <script type="text/javascript">
-        // La lógica de JavaScript (uso de Google Charts, manipulación de fechas y datos) permanece igual
-        // para garantizar la funcionalidad de la hoja de cálculo.
-        google.charts.load('current', {'packages':['table', 'corechart']});
-        google.charts.setOnLoadCallback(loadSheetData);
-
-        function loadSheetData() {
-            // Asegúrate de usar la URL de tu hoja de cálculo real
-            const query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1m5K5ApzpAakZVMxRfefy_xbs2_2XUGOeHf6y4hEoyVQ/gviz/tq?headers=1');
-            query.send(handleQueryResponse);
+    <script>
+        function formatCurrency(number) {
+            return '$' + number.toLocaleString('es-CO');
         }
 
-        function handleQueryResponse(response) {
-            if (response.isError()) {
-                console.error('Error en la consulta: ' + response.getMessage() + ' ' + response.getDetailedMessage());
-                document.getElementById('weeklyEarnings').textContent = 'Error al cargar datos';
-                document.getElementById('totalEarnings').textContent = 'Error al cargar datos';
+        function calcularComision() {
+            const gananciaInput = document.getElementById('gananciaVenta');
+            const ganancia = parseFloat(gananciaInput.value) || 0;
+            
+            // Validación del input
+            if (ganancia <= 0) {
+                gananciaInput.style.borderColor = '#ff4444';
+                gananciaInput.style.backgroundColor = '#fff0f0';
+                gananciaInput.focus();
+                
+                // Reset del estilo después de 1.5 segundos
+                setTimeout(() => {
+                    gananciaInput.style.borderColor = 'rgba(16, 107, 99, 0.2)';
+                    gananciaInput.style.backgroundColor = '#f8f9fa';
+                }, 1500);
                 return;
             }
-
-            const data = response.getDataTable();
             
-            // Procesar datos para mostrar afiliados por semana
-            displayAffiliatesByWeek(data);
+            // Cálculo de las comisiones
+            const comisionNova = ganancia * 0.40; // 40% para Nova
+            const comisionNomina = ganancia * 0.60; // 60% para Nómina
             
-            // Calcular y mostrar ganancias
-            calculateEarnings(data);
+            // Mostrar resultados formateados
+            document.getElementById('comisionNova').textContent = formatCurrency(comisionNova);
+            document.getElementById('comisionNomina').textContent = formatCurrency(comisionNomina);
+            document.getElementById('totalGanancia').textContent = formatCurrency(ganancia);
             
-            // Dibujar gráfico de timeline
-            drawTimelineChart(data);
-        }
-
-        function displayAffiliatesByWeek(data) {
-            const numRows = data.getNumberOfRows();
-            const affiliatesByWeek = {};
+            // Mostrar la sección de resultados con animación
+            const resultados = document.getElementById('resultados');
+            resultados.style.display = 'block';
             
-            // Agrupar afiliados por semana
-            for (let i = 0; i < numRows; i++) {
-                const timestamp = new Date(data.getValue(i, 0)); // Columna 0 es timestamp
-                const name = data.getValue(i, 1); // Columna 1 es nombre
-                
-                // Obtener el lunes de la semana a la que pertenece este registro
-                const weekStart = getFirstDayOfWeek(timestamp);
-                const weekKey = weekStart.toISOString().split('T')[0]; // Usar como clave
-                
-                if (!affiliatesByWeek[weekKey]) {
-                    affiliatesByWeek[weekKey] = {
-                        start: weekStart,
-                        end: getLastDayOfWeek(timestamp),
-                        affiliates: []
-                    };
-                }
-                
-                affiliatesByWeek[weekKey].affiliates.push({
-                    name: name,
-                    date: timestamp
-                });
-            }
-            
-            // Ordenar semanas por fecha (más reciente primero)
-            const sortedWeeks = Object.keys(affiliatesByWeek).sort().reverse();
-            
-            // Crear HTML para mostrar afiliados por semana
-            let html = '';
-            
-            for (const weekKey of sortedWeeks) {
-                const week = affiliatesByWeek[weekKey];
-                const weekStartStr = formatDate(week.start);
-                const weekEndStr = formatDate(week.end);
-                
-                html += `
-                <div class="timestamp-section">
-                    <div class="week-header">
-                        <i class="fas fa-calendar-alt"></i>
-                        Semana del ${weekStartStr} al ${weekEndStr}
-                    </div>
-                `;
-                
-                // Ordenar afiliados de la semana por fecha (más reciente primero)
-                week.affiliates.sort((a, b) => b.date - a.date);
-                
-                for (const affiliate of week.affiliates) {
-                    const dateStr = formatDate(affiliate.date);
-                    html += `
-                    <div class="affiliate-item">
-                        <span class="affiliate-name">${affiliate.name}</span>
-                        <span class="affiliate-date">${dateStr}</span>
-                    </div>
-                    `;
-                }
-                
-                html += `</div>`;
-            }
-            
-            document.getElementById('affiliatesByWeek').innerHTML = html;
-        }
-
-        function formatDate(date) {
-            return date.toLocaleDateString('es-ES', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric'
+            // Scroll suave a los resultados
+            resultados.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'nearest'
             });
+            
+            // Cambiar temporalmente el botón para indicar éxito
+            const calcularBtn = document.getElementById('calcularBtn');
+            const originalText = calcularBtn.innerHTML;
+            calcularBtn.innerHTML = '<i class="fas fa-check"></i> ¡Calculado!';
+            calcularBtn.style.background = 'linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%)';
+            calcularBtn.style.color = 'var(--primary)';
+            
+            setTimeout(() => {
+                calcularBtn.innerHTML = originalText;
+                calcularBtn.style.background = '';
+                calcularBtn.style.color = '';
+            }, 1500);
         }
 
-        function calculateEarnings(data) {
-            const numRows = data.getNumberOfRows();
-            const valorPorPersona = 1000; // COP
-            
-            // Calcular ganancia total
-            const gananciaTotal = numRows * valorPorPersona;
-            document.getElementById('totalEarnings').textContent = formatearMoneda(gananciaTotal) + ' COP';
-            
-            // Calcular ganancia semanal (esta semana)
-            const hoy = new Date();
-            const inicioSemana = getFirstDayOfWeek(hoy);
-            const finSemana = getLastDayOfWeek(hoy);
-            
-            let registrosSemanales = 0;
-            for (let i = 0; i < numRows; i++) {
-                const timestamp = new Date(data.getValue(i, 0)); // Columna 0 es timestamp
-                if (timestamp >= inicioSemana && timestamp <= finSemana) {
-                    registrosSemanales++;
-                }
+        // Permitir calcular con la tecla Enter
+        document.getElementById('gananciaVenta').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                calcularComision();
             }
-            
-            // Mostrar el rango de la semana actual
-            const options = { day: 'numeric', month: 'long' };
-            const semanaStr = `${inicioSemana.toLocaleDateString('es-ES', options)} - ${finSemana.toLocaleDateString('es-ES', options)}`;
-            document.getElementById('weekRange').textContent = `Semana actual: ${semanaStr}`;
-            
-            const gananciaSemanal = registrosSemanales * valorPorPersona;
-            document.getElementById('weeklyEarnings').textContent = formatearMoneda(gananciaSemanal) + ' COP';
-        }
+        });
 
-        function getFirstDayOfWeek(date) {
-            const day = date.getDay(); // 0 (Domingo) a 6 (Sábado)
-            const diff = date.getDate() - day + (day === 0 ? -6 : 1); // Ajustar cuando es domingo
-            const firstDay = new Date(date);
-            firstDay.setDate(diff);
-            firstDay.setHours(0, 0, 0, 0);
-            return firstDay;
-        }
+        // Mejorar la experiencia de entrada
+        document.getElementById('gananciaVenta').addEventListener('focus', function() {
+            this.style.backgroundColor = '#ffffff';
+            this.style.borderColor = 'var(--secondary)';
+        });
 
-        function getLastDayOfWeek(date) {
-            const firstDay = getFirstDayOfWeek(new Date(date));
-            const lastDay = new Date(firstDay);
-            lastDay.setDate(firstDay.getDate() + 6);
-            lastDay.setHours(23, 59, 59, 999);
-            return lastDay;
-        }
-
-        function drawTimelineChart(data) {
-            // Agrupar registros por fecha para el gráfico de timeline
-            const numRows = data.getNumberOfRows();
-            const registrosPorFecha = {};
-            
-            for (let i = 0; i < numRows; i++) {
-                const timestamp = new Date(data.getValue(i, 0));
-                const fechaStr = timestamp.toISOString().split('T')[0]; // Formato YYYY-MM-DD
-                
-                if (!registrosPorFecha[fechaStr]) {
-                    registrosPorFecha[fechaStr] = 0;
-                }
-                registrosPorFecha[fechaStr]++;
+        document.getElementById('gananciaVenta').addEventListener('blur', function() {
+            if (this.value === '') {
+                this.style.backgroundColor = '#f8f9fa';
+                this.style.borderColor = 'rgba(16, 107, 99, 0.2)';
             }
-            
-            // Preparar datos para el gráfico
-            const chartData = new google.visualization.DataTable();
-            chartData.addColumn('date', 'Fecha');
-            chartData.addColumn('number', 'Registros');
-            chartData.addColumn('number', 'Ganancia (COP)');
-            
-            const fechas = Object.keys(registrosPorFecha).sort();
-            for (const fecha of fechas) {
-                const registros = registrosPorFecha[fecha];
-                const partesFecha = fecha.split('-');
-                const año = parseInt(partesFecha[0]);
-                const mes = parseInt(partesFecha[1]) - 1; // Los meses en JS son 0-indexados
-                const dia = parseInt(partesFecha[2]);
-                
-                chartData.addRow([new Date(año, mes, dia), registros, registros * 1000]);
-            }
-            
-            // Ajustar opciones para móviles
-            const isMobile = window.innerWidth <= 768;
-            const options = {
-                title: 'Registros y Ganancias por Fecha',
-                height: isMobile ? 250 : 300,
-                // Colores del gráfico ajustados a la nueva paleta
-                colors: [getComputedStyle(document.documentElement).getPropertyValue('--primary'), getComputedStyle(document.documentElement).getPropertyValue('--secondary')],
-                hAxis: {
-                    title: 'Fecha',
-                    format: isMobile ? 'MMM' : 'dd MMM',
-                    textStyle: {
-                        fontSize: isMobile ? 10 : 12
-                    }
-                },
-                vAxis: {
-                    title: 'Registros',
-                    textStyle: {
-                        fontSize: isMobile ? 10 : 12
-                    }
-                },
-                series: {
-                    0: { targetAxisIndex: 0 },
-                    1: { 
-                        targetAxisIndex: 1,
-                        type: 'line',
-                    }
-                },
-                vAxes: {
-                    0: { title: 'Registros' },
-                    1: { title: 'Ganancia (COP)' }
-                },
-                chartArea: {
-                    width: isMobile ? '80%' : '85%',
-                    height: isMobile ? '65%' : '70%',
-                    left: isMobile ? 70 : 80
-                },
-                titleTextStyle: {
-                    fontSize: isMobile ? 14 : 16
-                },
-                legend: {
-                    textStyle: {
-                        fontSize: isMobile ? 10 : 12
-                    }
-                }
-            };
-            
-            const chart = new google.visualization.ColumnChart(document.getElementById('timeline'));
-            chart.draw(chartData, options);
-            
-            // Redibujar el gráfico cuando cambie el tamaño de la ventana
-            window.addEventListener('resize', function() {
-                // Hay que volver a obtener las opciones para que el responsive funcione correctamente
-                const newIsMobile = window.innerWidth <= 768;
-                const newOptions = { ...options, 
-                    height: newIsMobile ? 250 : 300,
-                    hAxis: { ...options.hAxis, textStyle: { fontSize: newIsMobile ? 10 : 12 } },
-                    vAxis: { ...options.vAxis, textStyle: { fontSize: newIsMobile ? 10 : 12 } },
-                    chartArea: { ...options.chartArea, width: newIsMobile ? '80%' : '85%', height: newIsMobile ? '65%' : '70%', left: newIsMobile ? 70 : 80 }
-                };
-                chart.draw(chartData, newOptions);
-            });
-        }
+        });
 
-        function formatearMoneda(monto) {
-            return new Intl.NumberFormat('es-CO').format(monto);
-        }
-        
-        // Funcionalidad de búsqueda
-        document.getElementById('searchInput').addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            const sections = document.querySelectorAll('.timestamp-section');
+        // Auto-seleccionar el contenido al hacer clic
+        document.getElementById('gananciaVenta').addEventListener('click', function() {
+            this.select();
+        });
+
+        // Inicializar con un ejemplo
+        document.addEventListener('DOMContentLoaded', function() {
+            // Establecer un valor de ejemplo
+            document.getElementById('gananciaVenta').value = '9000';
             
-            sections.forEach(section => {
-                const affiliates = section.querySelectorAll('.affiliate-item');
-                let sectionVisible = false;
-                
-                affiliates.forEach(affiliate => {
-                    const name = affiliate.querySelector('.affiliate-name').textContent.toLowerCase();
-                    if (name.includes(searchTerm)) {
-                        affiliate.style.display = 'flex';
-                        sectionVisible = true;
-                    } else {
-                        affiliate.style.display = 'none';
-                    }
-                });
-                
-                // Mostrar u ocultar la sección según si hay resultados
-                section.style.display = sectionVisible ? 'block' : 'none';
-            });
+            // Mostrar el footer con un efecto sutil
+            setTimeout(() => {
+                document.querySelector('footer').style.opacity = '1';
+            }, 500);
         });
     </script>
 </body>
