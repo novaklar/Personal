@@ -522,7 +522,7 @@ Calcular Comisión
 </div>
 <div class="calculator-results" id="resultados">
 <div class="result-item">
-<span class="result-label">Comisión (35%):</span>
+<span class="result-label">Comisión (45%):</span>
 <span class="result-value" id="comision-promotor">$0</span>
 </div>
 </div>
@@ -710,8 +710,7 @@ if (ev.target === passwordModal) closeModal();
 });
 });
 function formatCurrency(number) {
-let rounded = Math.round(number / 500) * 500;
-return '$' + rounded.toLocaleString('es-CO', { maximumFractionDigits: 0 });
+return '$' + number.toLocaleString('es-CO');
 }
 function calcularComision() {
 const gananciaInput = document.getElementById('ganancia');
@@ -724,7 +723,7 @@ gananciaInput.style.borderColor = '#ddd';
 }, 1500);
 return;
 }
-const comision = ganancia * 0.35;
+const comision = ganancia * 0.45;
 document.getElementById('comision-promotor').textContent = formatCurrency(comision);
 document.getElementById('resultados').style.display = 'block';
 }
