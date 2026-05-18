@@ -37,7 +37,6 @@
             --comercial-icon: #15797f;
             --footer-bg: #15797f;
             --indicator-color: #15797f;
-            --indicator-dot: #000000;
             --badge-green: #15797f;
             --badge-green-light: rgba(21,121,127,0.08);
             --badge-green-medium: rgba(21,121,127,0.15);
@@ -163,19 +162,8 @@
             text-align: center;
             color: #1a1a1a;
             letter-spacing: -0.5px;
-            position: relative;
             display: inline-block;
             width: 100%;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 48px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--golden-glow), var(--indicator-color));
-            margin: 8px auto 0;
-            border-radius: 2px;
         }
 
         .icon-buttons-container {
@@ -277,7 +265,7 @@
             text-shadow: 0 2px 8px rgba(21,121,127,0.15);
         }
 
-        /* Sección empleados - Rediseño con badges verdes e indicadores negros */
+        /* Sección empleados - Sin indicadores y sin línea decorativa */
         .employees-section { 
             margin-top: 28px;
             background: linear-gradient(135deg, #ffffff 0%, #fffef9 100%);
@@ -287,17 +275,6 @@
             border: 1px solid rgba(248,228,139,0.2);
             position: relative;
             overflow: hidden;
-        }
-
-        .employees-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--golden-glow), var(--indicator-color), var(--golden-glow), transparent);
-            border-radius: 3px 3px 0 0;
         }
 
         .employees-list {
@@ -428,29 +405,6 @@
             border-color: rgba(21,121,127,0.4);
             color: #0a4a4f;
             box-shadow: 0 2px 6px rgba(21,121,127,0.2);
-        }
-
-        /* Indicador negro */
-        .status-dot {
-            width: 7px;
-            height: 7px;
-            min-width: 7px;
-            min-height: 7px;
-            display: inline-block;
-            border-radius: 50%;
-            position: relative;
-            background: #000000;
-            box-shadow: 0 0 0 2px rgba(0,0,0,0.15), 0 0 8px rgba(0,0,0,0.3);
-            animation: elegantPulse 2.5s infinite;
-        }
-
-        @keyframes elegantPulse {
-            0%, 100% {
-                box-shadow: 0 0 0 0 rgba(0,0,0,0.4), 0 0 0 2px rgba(0,0,0,0.15);
-            }
-            50% {
-                box-shadow: 0 0 0 8px rgba(0,0,0,0), 0 0 0 4px rgba(0,0,0,0.3);
-            }
         }
 
         /* Horario */
@@ -1167,9 +1121,6 @@
                                 badge.className = 'role-badge';
                                 if (index === 0) { 
                                     badge.classList.add('primary'); 
-                                    const dot = document.createElement('span'); 
-                                    dot.className = 'status-dot'; 
-                                    badge.appendChild(dot); 
                                 }
                                 const roleText = document.createElement('span');
                                 roleText.textContent = role.display || role.role;
