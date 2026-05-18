@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contrato de Administrador - Novaklar / Hanabi</title>
+    <title>Contrato de Gerente - Novaft</title>
     <style>
         /* Estilos generales minimalistas */
         * {
@@ -14,7 +14,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background-color: #f1efee;
+            background-color: #f4f6fc;
             color: #080a33;
             line-height: 1.6;
             font-size: 1rem;
@@ -52,7 +52,7 @@
 
         .btn-regresar:hover {
             background-color: #080a33;
-            color: #f1efee;
+            color: #f4f6fc;
         }
 
         .logo-container {
@@ -64,12 +64,6 @@
         .logo {
             height: 36px;
             filter: brightness(0) saturate(100%) invert(8%) sepia(52%) saturate(1555%) hue-rotate(211deg) brightness(94%) contrast(99%);
-        }
-
-        .logo-text {
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: #080a33;
         }
 
         /* Título principal */
@@ -139,9 +133,10 @@
         }
 
         .funciones-list li {
-            margin-bottom: 0.8rem;
+            margin-bottom: 1rem;
             position: relative;
             padding-left: 1.5rem;
+            line-height: 1.5;
         }
 
         .funciones-list li::before {
@@ -150,6 +145,61 @@
             left: 0;
             color: #080a33;
             font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Contenedor para elementos destacados */
+        .destacado-container {
+            background-color: rgba(8, 10, 51, 0.04);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid #080a33;
+        }
+
+        .destacado-titulo {
+            font-weight: 700;
+            color: #080a33;
+            margin-bottom: 0.75rem;
+            font-size: 1.05rem;
+        }
+
+        .destacado-contenido {
+            color: #080a33;
+            line-height: 1.5;
+        }
+
+        /* Elemento de plazo importante */
+        .plazo-importante {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 1rem;
+            background-color: rgba(8, 10, 51, 0.06);
+            border-radius: 6px;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(8, 10, 51, 0.12);
+        }
+
+        .plazo-icono {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #080a33;
+            min-width: 24px;
+        }
+
+        .plazo-texto {
+            flex: 1;
+            font-size: 0.95rem;
+        }
+
+        /* Responsabilidad clara */
+        .responsabilidad-clara {
+            background-color: rgba(8, 10, 51, 0.03);
+            padding: 1.25rem;
+            border-radius: 6px;
+            margin: 1.5rem 0;
+            border: 1px dashed rgba(8, 10, 51, 0.2);
         }
 
         /* Footer y botón de firma */
@@ -163,7 +213,7 @@
         .btn-firma {
             display: inline-block;
             background-color: #080a33;
-            color: #f1efee;
+            color: #f4f6fc;
             text-decoration: none;
             padding: 1rem 2.5rem;
             border-radius: 4px;
@@ -213,8 +263,14 @@
                 max-width: 300px;
             }
             
-            .logo-text {
-                display: none;
+            .destacado-container, .plazo-importante, .responsabilidad-clara {
+                padding: 1rem;
+                margin: 1.25rem 0;
+            }
+            
+            .funciones-list li {
+                padding-left: 1.25rem;
+                margin-bottom: 0.875rem;
             }
         }
 
@@ -231,6 +287,15 @@
             .section-content {
                 font-size: 0.9rem;
             }
+            
+            .plazo-importante {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .plazo-icono {
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -240,39 +305,39 @@
         <div class="header">
             <a href="index.html" class="btn-regresar">Regresar</a>
             <div class="logo-container">
-                <img src="https://raw.githubusercontent.com/novaklar/web/refs/heads/main/novaklar1.svg" alt="Novaklar Logo" class="logo">
-                <span class="logo-text">Novaklar Group</span>
+                <img src="https://raw.githubusercontent.com/novaklar/Personal/refs/heads/main/Novaft.svg" alt="Novaft Logo" class="logo">
             </div>
         </div>
 
         <!-- Título principal -->
-        <h1 class="page-title">Contrato de Administrador</h1>
+        <h1 class="page-title">Contrato de Gerente</h1>
 
         <!-- Contenido del contrato - directamente sobre el fondo -->
         <div class="contrato-content">
             <div class="contrato-header">
-                NOVAKLAR / HANABI
+                NOVAFT
             </div>
             
             <p class="section-content">
-                Por medio del presente documento, la persona que suscribe en calidad de Administrador manifiesta su conformidad en asumir el cargo dentro de la empresa que le sea asignada por Novaklar Group, ya sea Novaklar o Hanabi, comprometiéndose a desempeñar sus funciones con el más alto grado de responsabilidad, compromiso, organización y profesionalismo.
+                Por medio del presente documento, la persona que suscribe en calidad de Gerente manifiesta su conformidad en asumir el cargo dentro de la empresa que le sea asignada por Novaft, ya sea Novaklar o cualquier otra marca perteneciente al grupo, comprometiéndose a desempeñar sus funciones con el más alto grado de responsabilidad, compromiso, organización y profesionalismo, integrando las labores de liderazgo comercial y planificación de registro y reportes.
             </p>
 
             <!-- PRIMERA -->
             <div class="contrato-section">
                 <h2 class="section-title">PRIMERA – NATURALEZA DEL CARGO</h2>
                 <div class="section-content">
-                    <p>El cargo de Administrador constituye la máxima autoridad operativa dentro de la empresa asignada mientras esta opere de manera autónoma. El Administrador tendrá la última palabra en decisiones operativas, organizativas y de coordinación interna, siempre en concordancia con los lineamientos generales establecidos por la empresa.</p>
+                    <p>El cargo de Gerente constituye la máxima autoridad operativa dentro de la empresa asignada por Novaft. El Gerente tendrá la última palabra en decisiones operativas, organizativas y de coordinación interna, siempre en concordancia con los lineamientos generales establecidos por Novaft como empresa matriz.</p>
+                    <p>Novaft actúa como casa matriz, por lo que el Gerente desempeñará sus funciones en Novaklar o en cualquier otra marca que forme parte de su estructura corporativa, según la asignación que se determine.</p>
                 </div>
             </div>
 
             <!-- SEGUNDA -->
             <div class="contrato-section">
-                <h2 class="section-title">SEGUNDA – FUNCIONES GENERALES</h2>
+                <h2 class="section-title">SEGUNDA – FUNCIONES GENERALES DE LIDERAZGO Y ADMINISTRACIÓN</h2>
                 <div class="section-content">
-                    <p>Son funciones del Administrador, sin limitarse a ellas:</p>
+                    <p>Son funciones del Gerente, sin limitarse a ellas:</p>
                     <ul class="funciones-list">
-                        <li>Velar por la correcta comunicación interna entre las distintas áreas, cargos y colaboradores.</li>
+                        <li>Velar por la correcta comunicación interna entre las distintas áreas, cargos y colaboradores de la marca asignada.</li>
                         <li>Supervisar que las operaciones se ejecuten de forma adecuada, oportuna y eficiente.</li>
                         <li>Coordinar y administrar al personal asignado a su cargo, incluyendo, pero no limitándose a:
                             <ul class="funciones-list" style="margin-top: 0.5rem; padding-left: 1rem;">
@@ -281,69 +346,101 @@
                                 <li>Afiliados</li>
                             </ul>
                         </li>
-                        <li>Organizar y disponer de horarios, cronogramas y planificación operativa, garantizando el cumplimiento de los objetivos establecidos.</li>
-                        <li>Supervisar que todas las áreas, departamentos y cargos bajo su responsabilidad funcionen en óptimas condiciones.</li>
+                        <li>Organizar y disponer de horarios, cronogramas y planificación operativa, garantizando el cumplimiento de los objetivos establecidos por Novaft para la marca correspondiente.</li>
+                        <li>Supervisar que todas las áreas, departamentos y cargos bajo su responsabilidad funcionen en óptimas condiciones, incluyendo el correcto funcionamiento de los cargos internos Planner M&T y Planner R&R.</li>
                     </ul>
-                    <p>En el caso específico de Novaklar, el Administrador deberá además monitorear el correcto funcionamiento de los cargos internos Planner M&T y Planner R&R.</p>
-                    <p>En el caso de Hanabi, las funciones específicas podrán variar según su estructura, manteniéndose siempre la responsabilidad general de supervisión y control.</p>
                 </div>
             </div>
 
             <!-- TERCERA -->
             <div class="contrato-section">
-                <h2 class="section-title">TERCERA – SUPERVISIÓN Y RESPONSABILIDAD</h2>
+                <h2 class="section-title">TERCERA – FUNCIONES DE PLANIFICACIÓN DE REGISTRO Y REPORTES (R&R)</h2>
                 <div class="section-content">
-                    <p>El Administrador no está obligado a ejecutar directamente todas las tareas operativas, pero sí es responsable de supervisar, controlar y garantizar que estas se lleven a cabo correctamente por el personal correspondiente.</p>
+                    <p>Adicionalmente, el Gerente asume las siguientes responsabilidades de control y seguimiento:</p>
+                    <ul class="funciones-list">
+                        <li>Ingresar diariamente a la plataforma asignada para revisar que todas las Asesoras Comerciales hayan registrado correctamente los datos requeridos.</li>
+                        <li>Elaborar un reporte diario que indique quiénes cumplieron con el registro y quiénes no, y compartirlo antes del mediodía en el grupo de WhatsApp del Departamento Comercial, correspondiente al día anterior.</li>
+                        <li>Mantener la información organizada y disponible para la revisión de los líderes de Novaft.</li>
+                        <li>Cumplir con cualquier otra función de supervisión o control que le sea asignada, siempre dentro del marco de sus responsabilidades.</li>
+                    </ul>
+
+                    <div class="plazo-importante">
+                        <div class="plazo-icono">⏰</div>
+                        <div class="plazo-texto">
+                            <strong>Entrega diaria:</strong> El Gerente se compromete a cumplir sus funciones de planificación y reportes todos los días hábiles, excepto el día de descanso previamente asignado, garantizando la entrega de los reportes antes del mediodía.
+                        </div>
+                    </div>
+                    
+                    <div class="responsabilidad-clara">
+                        <p><strong>Nota:</strong> La puntualidad en la entrega de reportes es fundamental para el correcto funcionamiento del Departamento Comercial. Los reportes deben corresponder siempre al día anterior de trabajo.</p>
+                    </div>
                 </div>
             </div>
 
             <!-- CUARTA -->
             <div class="contrato-section">
-                <h2 class="section-title">CUARTA – CONDUCTA Y CONFIDENCIALIDAD</h2>
+                <h2 class="section-title">CUARTA – SUPERVISIÓN Y RESPONSABILIDAD</h2>
                 <div class="section-content">
-                    <p>El Administrador se compromete a actuar en todo momento con transparencia, lealtad, honestidad y respeto, velando por el buen nombre de la empresa.</p>
-                    <p>Queda estrictamente prohibida la divulgación, filtración o uso indebido de información confidencial, estratégica u operativa, obligación que se mantiene incluso después de la finalización de la relación contractual.</p>
+                    <p>El Gerente no está obligado a ejecutar directamente todas las tareas operativas, pero sí es responsable de supervisar, controlar y garantizar que estas se lleven a cabo correctamente por el personal correspondiente dentro de la marca asignada.</p>
                 </div>
             </div>
 
             <!-- QUINTA -->
             <div class="contrato-section">
-                <h2 class="section-title">QUINTA – COMISIONES Y REMUNERACIÓN</h2>
+                <h2 class="section-title">QUINTA – CONDUCTA Y CONFIDENCIALIDAD</h2>
                 <div class="section-content">
-                    <p>El Administrador recibirá una comisión equivalente al sesenta por ciento (60 %) de la ganancia generada por cada venta, conforme a las condiciones establecidas por la empresa.</p>
-                    <p>El esquema de comisiones podrá ser ajustado por la empresa según el desempeño y resultados obtenidos.</p>
+                    <p>El Gerente se compromete a actuar en todo momento con transparencia, lealtad, honestidad y respeto, velando por el buen nombre de la marca asignada y de Novaft como casa matriz. Deberá mantener un trato respetuoso hacia los colaboradores y líderes, velando por el buen funcionamiento del Departamento Comercial.</p>
+                    
+                    <div class="destacado-container">
+                        <div class="destacado-contenido">
+                            <strong>Confidencialidad permanente:</strong> Queda estrictamente prohibida la divulgación, filtración o uso indebido de información confidencial, estratégica u operativa de Novaft y sus marcas, incluyendo datos de asesoras comerciales, estrategias de la empresa, procedimientos internos y cualquier otro dato sensible. Esta obligación se mantiene vigente incluso después de finalizada la relación contractual.
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- SEXTA -->
             <div class="contrato-section">
-                <h2 class="section-title">SEXTA – RECLUTADOS PREVIOS</h2>
+                <h2 class="section-title">SEXTA – COMISIONES Y REMUNERACIÓN</h2>
                 <div class="section-content">
-                    <p>En caso de que el Administrador haya ocupado previamente el cargo de reclutador y cuente con personas registradas a su nombre, se establece que, si la relación contractual finaliza por renuncia o despido, todas las comisiones derivadas de dichas personas pasarán automáticamente a ser propiedad de la empresa, sin lugar a reclamación alguna.</p>
+                    <p>El Gerente recibirá una comisión equivalente al sesenta por ciento (60 %) de la ganancia generada por cada venta, conforme a las condiciones establecidas por Novaft para la marca en la que se desempeñe.</p>
+                    <p>El esquema de comisiones podrá ser ajustado por Novaft según el desempeño y resultados obtenidos.</p>
                 </div>
             </div>
 
             <!-- SÉPTIMA -->
             <div class="contrato-section">
-                <h2 class="section-title">SÉPTIMA – ASCENSOS</h2>
+                <h2 class="section-title">SÉPTIMA – RECLUTADOS PREVIOS</h2>
                 <div class="section-content">
-                    <p>Al tratarse del cargo más alto dentro de la estructura operativa actual, no existe posibilidad de ascenso. Sin embargo, el Administrador podrá acceder a mejoras en sus comisiones conforme al desempeño general de la empresa o unidad asignada.</p>
+                    <p>En caso de que el Gerente haya ocupado previamente el cargo de reclutador y cuente con personas registradas a su nombre, se establece que, si la relación contractual finaliza por renuncia o despido, todas las comisiones derivadas de dichas personas pasarán automáticamente a ser propiedad de Novaft, sin lugar a reclamación alguna.</p>
                 </div>
             </div>
 
             <!-- OCTAVA -->
             <div class="contrato-section">
-                <h2 class="section-title">OCTAVA – TERMINACIÓN DEL CONTRATO</h2>
+                <h2 class="section-title">OCTAVA – ASCENSOS</h2>
                 <div class="section-content">
-                    <p>El presente contrato podrá darse por terminado en cualquier momento, ya sea por decisión del Administrador o de la empresa, sin que ello genere obligación adicional distinta a las aquí establecidas.</p>
+                    <p>Al tratarse del cargo más alto dentro de la estructura operativa actual, no existe posibilidad de ascenso. Sin embargo, el Gerente podrá acceder a mejoras en sus comisiones conforme al desempeño general de la marca asignada.</p>
                 </div>
             </div>
 
             <!-- NOVENA -->
             <div class="contrato-section">
-                <h2 class="section-title">NOVENA – ACEPTACIÓN</h2>
+                <h2 class="section-title">NOVENA – TERMINACIÓN DEL CONTRATO</h2>
                 <div class="section-content">
-                    <p>La firma del presente documento implica la aceptación total de las condiciones aquí descritas, reconociendo que el cargo de Administrador exige un alto nivel de responsabilidad, compromiso y liderazgo.</p>
+                    <p>El presente contrato podrá darse por terminado en cualquier momento, ya sea por decisión del Gerente o de Novaft, sin que ello genere obligación adicional distinta a las aquí establecidas.</p>
+                </div>
+            </div>
+
+            <!-- DÉCIMA -->
+            <div class="contrato-section">
+                <h2 class="section-title">DÉCIMA – ACEPTACIÓN</h2>
+                <div class="section-content">
+                    <div class="destacado-container">
+                        <div class="destacado-contenido">
+                            La firma del presente documento implica la aceptación total de las condiciones aquí descritas, reconociendo que el cargo de Gerente exige un alto nivel de responsabilidad, compromiso y liderazgo, y que sus servicios serán prestados en la marca que Novaft le asigne.
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
