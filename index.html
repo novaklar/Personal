@@ -37,6 +37,10 @@
             --comercial-icon: #15797f;
             --footer-bg: #15797f;
             --indicator-color: #15797f;
+            --indicator-dot: #000000;
+            --badge-green: #15797f;
+            --badge-green-light: rgba(21,121,127,0.08);
+            --badge-green-medium: rgba(21,121,127,0.15);
             --golden-light: #fef9e7;
             --golden-soft: #fdf0c8;
             --golden-glow: #f8e48b;
@@ -273,7 +277,7 @@
             text-shadow: 0 2px 8px rgba(21,121,127,0.15);
         }
 
-        /* Sección empleados - Rediseño con amarillo */
+        /* Sección empleados - Rediseño con badges verdes e indicadores negros */
         .employees-section { 
             margin-top: 28px;
             background: linear-gradient(135deg, #ffffff 0%, #fffef9 100%);
@@ -399,6 +403,7 @@
             align-items: center;
         }
 
+        /* Badges verdes */
         .role-badge {
             display: inline-flex;
             align-items: center;
@@ -408,23 +413,24 @@
             font-size: 0.78em;
             font-family: 'Poppins', 'Poppins-Regular', sans-serif;
             font-weight: 500;
-            background: linear-gradient(135deg, #fef9e7 0%, #fdf0c8 100%);
-            color: #7a6d1e;
-            border: 1px solid rgba(248,228,139,0.3);
+            background: linear-gradient(135deg, #e8f4f5 0%, #d4eaec 100%);
+            color: #0d5c61;
+            border: 1px solid rgba(21,121,127,0.25);
             transition: all 0.3s ease;
             white-space: nowrap;
-            box-shadow: 0 1px 3px rgba(248,228,139,0.15);
+            box-shadow: 0 1px 3px rgba(21,121,127,0.1);
         }
 
         .role-badge.primary {
-            background: linear-gradient(135deg, #fdf0c8 0%, #fceba3 100%);
+            background: linear-gradient(135deg, #d4eaec 0%, #b8dde0 100%);
             font-family: 'Poppins', 'Poppins-Bold', sans-serif;
             font-weight: 700;
-            border-color: var(--golden-glow);
-            color: #5c5215;
-            box-shadow: 0 2px 6px rgba(248,228,139,0.25);
+            border-color: rgba(21,121,127,0.4);
+            color: #0a4a4f;
+            box-shadow: 0 2px 6px rgba(21,121,127,0.2);
         }
 
+        /* Indicador negro */
         .status-dot {
             width: 7px;
             height: 7px;
@@ -433,17 +439,17 @@
             display: inline-block;
             border-radius: 50%;
             position: relative;
-            background: var(--indicator-color);
-            box-shadow: 0 0 0 2px rgba(21,121,127,0.2), 0 0 8px rgba(21,121,127,0.4);
+            background: #000000;
+            box-shadow: 0 0 0 2px rgba(0,0,0,0.15), 0 0 8px rgba(0,0,0,0.3);
             animation: elegantPulse 2.5s infinite;
         }
 
         @keyframes elegantPulse {
             0%, 100% {
-                box-shadow: 0 0 0 0 rgba(21,121,127,0.5), 0 0 0 2px rgba(21,121,127,0.2);
+                box-shadow: 0 0 0 0 rgba(0,0,0,0.4), 0 0 0 2px rgba(0,0,0,0.15);
             }
             50% {
-                box-shadow: 0 0 0 8px rgba(21,121,127,0), 0 0 0 4px rgba(21,121,127,0.4);
+                box-shadow: 0 0 0 8px rgba(0,0,0,0), 0 0 0 4px rgba(0,0,0,0.3);
             }
         }
 
@@ -1159,7 +1165,12 @@
                             emp.roles.forEach((role, index) => {
                                 const badge = document.createElement('span');
                                 badge.className = 'role-badge';
-                                if (index === 0) { badge.classList.add('primary'); const dot = document.createElement('span'); dot.className = 'status-dot'; badge.appendChild(dot); }
+                                if (index === 0) { 
+                                    badge.classList.add('primary'); 
+                                    const dot = document.createElement('span'); 
+                                    dot.className = 'status-dot'; 
+                                    badge.appendChild(dot); 
+                                }
                                 const roleText = document.createElement('span');
                                 roleText.textContent = role.display || role.role;
                                 badge.appendChild(roleText);
