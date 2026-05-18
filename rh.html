@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contrato de Planner RH - Novaft</title>
+    <style>
+        /* Estilos generales minimalistas */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: #f4f6fc;
+            color: #080a33;
+            line-height: 1.6;
+            font-size: 1rem;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Contenedor principal */
+        .container {
+            max-width: 100%;
+            padding: 1rem;
+            position: relative;
+        }
+
+        /* Header minimalista */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(8, 10, 51, 0.1);
+        }
+
+        .btn-regresar {
+            text-decoration: none;
+            color: #080a33;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border: 1px solid #080a33;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-regresar:hover {
+            background-color: #080a33;
+            color: #f4f6fc;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo {
+            height: 36px;
+            filter: brightness(0) saturate(100%) invert(8%) sepia(52%) saturate(1555%) hue-rotate(211deg) brightness(94%) contrast(99%);
+        }
+
+        /* Título principal */
+        .page-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: #080a33;
+        }
+
+        /* Contenido del contrato - sin contenedores, directamente sobre el fondo */
+        .contrato-content {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        .contrato-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .contrato-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(8, 10, 51, 0.2);
+        }
+
+        .section-content {
+            font-size: 0.95rem;
+            text-align: justify;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-content p {
+            margin-bottom: 1rem;
+        }
+
+        .section-content strong {
+            font-weight: 600;
+        }
+
+        /* Lista de funciones */
+        .funciones-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .funciones-list li {
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .funciones-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #080a33;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Contenedor para elementos destacados */
+        .destacado-container {
+            background-color: rgba(8, 10, 51, 0.04);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid #080a33;
+        }
+
+        .destacado-titulo {
+            font-weight: 700;
+            color: #080a33;
+            margin-bottom: 0.75rem;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .destacado-icono {
+            font-size: 1.2rem;
+        }
+
+        .destacado-contenido {
+            color: #080a33;
+            line-height: 1.5;
+        }
+
+        /* Elemento de responsabilidad clave */
+        .responsabilidad-clave {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 1.25rem;
+            background-color: rgba(8, 10, 51, 0.06);
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border: 2px solid rgba(8, 10, 51, 0.2);
+        }
+
+        .responsabilidad-icono {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #080a33;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .responsabilidad-texto {
+            flex: 1;
+            font-size: 0.95rem;
+        }
+
+        /* Sección de enlace */
+        .enlace-container {
+            background-color: rgba(8, 10, 51, 0.03);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(8, 10, 51, 0.15);
+            border-top: 3px solid #080a33;
+        }
+
+        .enlace-titulo {
+            font-weight: 700;
+            color: #080a33;
+            margin-bottom: 0.75rem;
+            font-size: 1.05rem;
+        }
+
+        /* Advertencias importantes */
+        .advertencia {
+            background-color: rgba(8, 10, 51, 0.06);
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1.5rem 0;
+            border-left: 3px solid #080a33;
+            font-size: 0.9rem;
+        }
+
+        /* Footer y botón de firma */
+        .footer {
+            text-align: center;
+            padding: 2rem 0 3rem;
+            border-top: 1px solid rgba(8, 10, 51, 0.1);
+            margin-top: 2rem;
+        }
+
+        .btn-firma {
+            display: inline-block;
+            background-color: #080a33;
+            color: #f4f6fc;
+            text-decoration: none;
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: 2px solid #080a33;
+        }
+
+        .btn-firma:hover {
+            background-color: transparent;
+            color: #080a33;
+        }
+
+        /* Responsive para móviles */
+        @media (max-width: 768px) {
+            body {
+                font-size: 0.95rem;
+                padding: 0.5rem;
+            }
+            
+            .container {
+                padding: 0.5rem;
+            }
+            
+            .header {
+                padding: 0.75rem 0;
+                margin-bottom: 1.5rem;
+            }
+            
+            .page-title {
+                font-size: 1.5rem;
+                margin-bottom: 2rem;
+            }
+            
+            .contrato-content {
+                padding: 0 0.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.1rem;
+            }
+            
+            .btn-firma {
+                padding: 0.875rem 2rem;
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .destacado-container, .responsabilidad-clave, .enlace-container {
+                padding: 1rem;
+                margin: 1.25rem 0;
+            }
+            
+            .funciones-list li {
+                padding-left: 1.25rem;
+                margin-bottom: 0.875rem;
+            }
+            
+            .destacado-titulo {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.25rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.3rem;
+            }
+            
+            .btn-regresar {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.85rem;
+            }
+            
+            .section-content {
+                font-size: 0.9rem;
+            }
+            
+            .responsabilidad-clave {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .responsabilidad-icono {
+                text-align: center;
+            }
+            
+            .advertencia {
+                padding: 0.875rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header minimalista -->
+        <div class="header">
+            <a href="index.html" class="btn-regresar">Regresar</a>
+            <div class="logo-container">
+                <img src="https://raw.githubusercontent.com/novaklar/Personal/refs/heads/main/Novaft.svg" alt="Novaft Logo" class="logo">
+            </div>
+        </div>
+
+        <!-- Título principal -->
+        <h1 class="page-title">Contrato de Planner RH</h1>
+
+        <!-- Contenido del contrato - directamente sobre el fondo -->
+        <div class="contrato-content">
+            <div class="contrato-header">
+                NOVAFT
+            </div>
+            
+            <p class="section-content">
+                Por medio del presente documento, la persona que suscribe en calidad de Planner de Recursos Humanos (en adelante, el "Planner RH") manifiesta su conformidad en prestar sus servicios a la empresa que le sea asignada por Novaft, ya sea Novaklar o cualquier otra marca perteneciente al grupo, comprometiéndose a desempeñar sus funciones con responsabilidad, puntualidad, ética, compromiso y liderazgo.
+            </p>
+
+            <!-- PRIMERA -->
+            <div class="contrato-section">
+                <h2 class="section-title">PRIMERA – FUNCIONES DEL CARGO</h2>
+                <div class="section-content">
+                    <p>El Planner RH se compromete a:</p>
+                    <ul class="funciones-list">
+                        <li>Coordinar, gestionar y optimizar el departamento de reclutamiento en su totalidad, asegurando su correcto funcionamiento y alineación con los objetivos de la empresa.</li>
+                        <li>Diseñar, ejecutar y supervisar planes de acción y mejora continua para el área de reclutamiento, evaluando su efectividad y realizando los ajustes necesarios.</li>
+                        <li>Supervisar y hacer seguimiento al desempeño de los Reclutadores a su cargo, garantizando que cumplan con sus funciones y metas establecidas.</li>
+                        <li>Aplicar y velar por el cumplimiento de las políticas, lineamientos y estrategias definidas por la empresa en materia de reclutamiento.</li>
+                        <li>Estar al tanto de la situación de todos los Afiliados de la empresa, monitoreando su actividad, desempeño y permanencia, como parte de la gestión integral del talento humano.</li>
+                        <li>Velar por el bienestar y seguimiento del personal humano en general, incluyendo Reclutadores y Afiliados, fomentando un ambiente de trabajo colaborativo y productivo.</li>
+                    </ul>
+                    
+                    <div class="responsabilidad-clave">
+                        <div class="responsabilidad-icono">👥</div>
+                        <div class="responsabilidad-texto">
+                            <strong>Responsabilidad clave:</strong> El Planner RH es el responsable directo de la gestión del talento humano en lo referente al departamento de reclutamiento y los Afiliados, debiendo garantizar que los procesos de captación, seguimiento, desarrollo y retención funcionen de manera eficiente y alineada con los objetivos estratégicos de Novaft.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEGUNDA -->
+            <div class="contrato-section">
+                <h2 class="section-title">SEGUNDA – COORDINACIÓN DE PAGOS A RECLUTADORES</h2>
+                <div class="section-content">
+                    <div class="enlace-container">
+                        <div class="enlace-titulo">💰 Función de Enlace para Pagos</div>
+                        <p>El Planner RH no administra directamente el fondo de reclutamiento ni realiza los pagos a los Reclutadores, ya que dicha función corresponde al Gerente. Sin embargo, deberá:</p>
+                        <ul class="funciones-list" style="margin-top: 0.75rem;">
+                            <li>Mantener comunicación continua con los Asesores de Venta, quienes son los encargados de disponer y recaudar los recursos que conforman el fondo de reclutamiento.</li>
+                            <li>Verificar y hacer seguimiento a que los Asesores de Venta cumplan con el recaudo del fondo de reclutamiento conforme a los mecanismos definidos por la empresa.</li>
+                            <li>Informar al Gerente sobre el estado del recaudo y cualquier novedad relacionada con el fondo, para que este proceda con los pagos correspondientes.</li>
+                            <li>Confirmar que los Reclutadores hayan recibido su respectivo pago por parte del Gerente, reportando cualquier irregularidad o retraso.</li>
+                            <li>Servir como puente de comunicación entre los Reclutadores, los Asesores de Venta y el Gerente en todo lo relacionado con el fondo de reclutamiento y los pagos.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="advertencia">
+                        <strong>IMPORTANTE:</strong> El Planner RH deberá actuar con total transparencia en la verificación y seguimiento del proceso. No está autorizado a manipular, retener o disponer directamente de los recursos del fondo de reclutamiento.
+                    </div>
+                </div>
+            </div>
+
+            <!-- TERCERA -->
+            <div class="contrato-section">
+                <h2 class="section-title">TERCERA – HORARIO Y DISPONIBILIDAD</h2>
+                <div class="section-content">
+                    <div class="destacado-container">
+                        <div class="destacado-titulo">
+                            <span class="destacado-icono">⏰</span>
+                            <span>Disponibilidad y Compromiso</span>
+                        </div>
+                        <div class="destacado-contenido">
+                            El Planner RH deberá cumplir con sus funciones de forma coherente y constante, garantizando la coordinación del departamento de reclutamiento, el seguimiento a los Afiliados y la comunicación con los Asesores de Venta y el Gerente de manera oportuna.
+                        </div>
+                    </div>
+                    
+                    <p>El horario será acordado según las necesidades operativas de la empresa, asegurando disponibilidad para consultas y coordinación con el Gerente, los Reclutadores a su cargo, los Afiliados y los Asesores de Venta.</p>
+                    <p>El Planner RH tendrá derecho a un día de descanso a la semana, el cual será asignado conforme a las necesidades operativas de la empresa.</p>
+                </div>
+            </div>
+
+            <!-- CUARTA -->
+            <div class="contrato-section">
+                <h2 class="section-title">CUARTA – RESPONSABILIDAD Y CONDUCTA</h2>
+                <div class="section-content">
+                    <div class="destacado-container">
+                        <div class="destacado-titulo">
+                            <span class="destacado-icono">📋</span>
+                            <span>Conducta Profesional</span>
+                        </div>
+                        <div class="destacado-contenido">
+                            El Planner RH deberá actuar con honestidad, responsabilidad, ética y compromiso, manteniendo un trato respetuoso hacia los Reclutadores, Afiliados, Asesores de Venta, colaboradores y líderes de la empresa, velando por el buen desempeño del departamento de reclutamiento, el bienestar del talento humano y el cumplimiento de los objetivos organizacionales.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QUINTA -->
+            <div class="contrato-section">
+                <h2 class="section-title">QUINTA – CONFIDENCIALIDAD</h2>
+                <div class="section-content">
+                    <div class="destacado-container">
+                        <div class="destacado-titulo">
+                            <span class="destacado-icono">🔒</span>
+                            <span>Confidencialidad Obligatoria</span>
+                        </div>
+                        <div class="destacado-contenido">
+                            El Planner RH se compromete a mantener confidencial toda la información a la que tenga acceso, incluyendo datos de Reclutadores, Afiliados, Asesores de Venta, estrategias de reclutamiento, información de pagos, métricas internas, procesos y cualquier otra información sensible o estratégica de Novaft y sus marcas.
+                        </div>
+                    </div>
+                    
+                    <div class="responsabilidad-clave">
+                        <div class="responsabilidad-icono">⚖️</div>
+                        <div class="responsabilidad-texto">
+                            <strong>Confidencialidad permanente:</strong> Esta obligación se mantiene vigente incluso después de finalizada la relación con la empresa.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEXTA -->
+            <div class="contrato-section">
+                <h2 class="section-title">SEXTA – COMISIONES Y REMUNERACIÓN</h2>
+                <div class="section-content">
+                    <p>El Planner RH recibirá una compensación por sus servicios, la cual será establecida por Novaft conforme a las políticas internas y al desempeño del departamento de reclutamiento.</p>
+                    <p>El esquema de remuneración podrá ser ajustado por Novaft según el desempeño, resultados obtenidos y cumplimiento de objetivos del área.</p>
+                </div>
+            </div>
+
+            <!-- SÉPTIMA -->
+            <div class="contrato-section">
+                <h2 class="section-title">SÉPTIMA – ASCENSOS</h2>
+                <div class="section-content">
+                    <p>El Planner RH, en razón de la naturaleza estratégica de su cargo, podrá acceder a mejoras en sus condiciones de remuneración conforme al desempeño general del departamento de reclutamiento y al cumplimiento de los objetivos establecidos por Novaft.</p>
+                </div>
+            </div>
+
+            <!-- OCTAVA -->
+            <div class="contrato-section">
+                <h2 class="section-title">OCTAVA – TERMINACIÓN DEL CONTRATO</h2>
+                <div class="section-content">
+                    <p>El presente contrato podrá darse por terminado en cualquier momento, por decisión del Planner RH o de Novaft, sin que ello genere obligaciones adicionales distintas a las aquí establecidas.</p>
+                </div>
+            </div>
+
+            <!-- NOVENA -->
+            <div class="contrato-section">
+                <h2 class="section-title">NOVENA – ACEPTACIÓN</h2>
+                <div class="section-content">
+                    <div class="destacado-container">
+                        <div class="destacado-titulo">
+                            <span class="destacado-icono">✅</span>
+                            <span>Aceptación Formal</span>
+                        </div>
+                        <div class="destacado-contenido">
+                            La aceptación del presente contrato implica conocimiento y conformidad total con las condiciones aquí descritas, reconociendo que el cargo de Planner RH exige un alto nivel de responsabilidad, compromiso, liderazgo y transparencia en la gestión del talento humano, la supervisión del departamento de reclutamiento y la coordinación con las demás áreas, y que sus servicios serán prestados en la marca que Novaft le asigne.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer con botón de firma -->
+        <div class="footer">
+            <a href="https://forms.gle/ysRHnnokrDUDSrJQ8" class="btn-firma" target="_blank">Firmar Contrato</a>
+        </div>
+    </div>
+</body>
+</html>
