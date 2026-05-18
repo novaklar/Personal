@@ -2,11 +2,14 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="theme-color" content="#15797f"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
     <title>Novaft Portal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
     <style>
         @font-face {
@@ -23,7 +26,7 @@
             font-style: normal;
         }
 
-        :root{
+        :root {
             --accent-dark: #080a33;
             --portal-bg: #000000;
             --portal-text: #ffffff;
@@ -34,205 +37,359 @@
             --comercial-icon: #15797f;
             --footer-bg: #15797f;
             --indicator-color: #15797f;
+            --golden-light: #fef9e7;
+            --golden-soft: #fdf0c8;
+            --golden-glow: #f8e48b;
+            --card-bg: #ffffff;
+            --card-hover: #fffdf5;
+            --border-color: rgba(0,0,0,0.06);
+            --shadow-elegant: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.06);
+            --shadow-card: 0 2px 8px rgba(21,121,127,0.08), 0 8px 24px rgba(248,228,139,0.12);
+            --shadow-elevated: 0 8px 32px rgba(0,0,0,0.12);
+            --radius-sm: 12px;
+            --radius-md: 16px;
+            --radius-lg: 20px;
+            --radius-xl: 24px;
+            --spacing-xs: 8px;
+            --spacing-sm: 12px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
         }
 
-        html,body{
-            margin:0;
-            padding:0;
-            font-family: 'Poppins-Regular', sans-serif;
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', 'Poppins-Regular', sans-serif;
             background-color: var(--page-bg);
-            color: #000;
-            -webkit-font-smoothing:antialiased;
-            -moz-osx-font-smoothing:grayscale;
+            color: #1a1a1a;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        header{
-            position:sticky;
-            top:0;
-            z-index:1000;
-            padding:6px 0;
-            text-align:center;
-            background: #f1efee;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        /* Fondo decorativo sutil */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 30%, rgba(248,228,139,0.08) 0%, transparent 60%),
+                        radial-gradient(circle at 30% 70%, rgba(21,121,127,0.05) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
         }
 
-        .logo-container{
-            width:150px;
-            height:54px;
-            margin:0 auto;
-            position:relative;
-            display:inline-block;
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 12px 16px;
+            text-align: center;
+            background: rgba(241,239,238,0.85);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            box-shadow: 0 1px 0 rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.03);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 64px;
+            transition: all 0.3s ease;
         }
 
-        .logo-inner{
-            position:absolute;
-            top:50%;
-            left:50%;
-            transform:translate(-50%,-50%);
-            width:100%;
-            height:100%;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            transition: opacity 1s ease;
-            opacity:0;
-            pointer-events:none;
+        .logo-container {
+            width: 150px;
+            height: 52px;
+            position: relative;
+            display: inline-block;
         }
 
-        .logo-inner.visible{
-            opacity:1;
-            pointer-events:auto;
+        .logo-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            pointer-events: none;
         }
 
-        .logo-inner svg{
-            width:100%;
-            height:100%;
-            max-height:54px;
-            max-width:150px;
-            display:block;
+        .logo-inner.visible {
+            opacity: 1;
+            pointer-events: auto;
         }
 
-        .logo-inner.logo-novaklar svg,
-        .logo-inner.logo-novaklar svg * {
-            width:78%;
-            height:78%;
-            max-height:44px;
-            fill: currentColor;
-        }
-        .logo-inner.logo-nova svg,
-        .logo-inner.logo-nova svg * {
-            width:78%;
-            height:78%;
-            max-height:44px;
-            fill: currentColor;
+        .logo-inner svg {
+            width: 100%;
+            height: 100%;
+            max-height: 52px;
+            max-width: 150px;
+            display: block;
         }
 
-        main{
-            padding:30px 20px;
-            max-width:1200px;
-            margin:0 auto;
+        main {
+            padding: 24px 16px 40px;
+            max-width: 680px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+            z-index: 1;
         }
 
-        .section-title{
-            font-family:'Poppins-Bold', sans-serif;
-            font-size:2em;
-            margin:20px 0;
-            text-align:center;
-            color:#000;
+        .section-title {
+            font-family: 'Poppins', 'Poppins-Bold', sans-serif;
+            font-size: 1.7em;
+            font-weight: 800;
+            margin: 28px 0 20px;
+            text-align: center;
+            color: #1a1a1a;
+            letter-spacing: -0.5px;
+            position: relative;
+            display: inline-block;
+            width: 100%;
         }
 
-        .icon-buttons-container{
-            display:flex;
-            justify-content:center;
-            gap:20px;
-            flex-wrap:wrap;
-            margin-bottom:30px;
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 48px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--golden-glow), var(--indicator-color));
+            margin: 8px auto 0;
+            border-radius: 2px;
         }
 
-        .icon-button{
-            font-family:'Poppins-Bold', sans-serif;
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            justify-content:center;
-            width:180px;
-            height:140px;
-            border-radius:12px;
-            text-decoration:none;
-            font-weight:700;
-            transition: transform .25s, box-shadow .25s, opacity .25s;
-            box-shadow:0 4px 8px rgba(0,0,0,0.08);
-            gap:8px;
-            text-align:center;
+        .icon-buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin: 32px 0;
+            padding: 0 4px;
         }
 
-        .icon-button i{ font-size:2.2em; }
+        .icon-button {
+            font-family: 'Poppins', 'Poppins-Bold', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            min-width: 155px;
+            max-width: 210px;
+            height: 140px;
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: var(--shadow-elegant);
+            gap: 12px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
 
-        .icon-button.reclutamiento{
-            background: var(--reclutamiento-bg);
+        .icon-button::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .icon-button:active::before {
+            opacity: 1;
+        }
+
+        .icon-button:active {
+            transform: scale(0.95);
+            transition: transform 0.15s ease;
+        }
+
+        .icon-button i { 
+            font-size: 2.2em;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .icon-button:active i {
+            transform: scale(1.1);
+        }
+
+        .icon-button span {
+            position: relative;
+            z-index: 1;
+            font-size: 0.9em;
+            line-height: 1.3;
+            font-weight: 600;
+        }
+
+        .icon-button.reclutamiento {
+            background: linear-gradient(135deg, #0d6368 0%, var(--reclutamiento-bg) 50%, #1a8a91 100%);
             color: var(--reclutamiento-text);
-            border: 1px solid var(--reclutamiento-bg);
+            border: none;
+            box-shadow: 0 4px 16px rgba(21,121,127,0.2);
         }
+
         .icon-button.reclutamiento i {
-            background: var(--comercial-solid);
+            background: linear-gradient(135deg, #ffe066, var(--golden-glow));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             color: transparent;
-            font-size:2.4em;
+            font-size: 2.4em;
+            filter: drop-shadow(0 2px 4px rgba(248,228,139,0.3));
         }
-        .icon-button.reclutamiento span { color: #fff; }
 
-        .icon-button.comercial.protected{
-            background: var(--comercial-solid);
-            color: #000000;
-            border: 1px solid rgba(0,0,0,0.06);
-            cursor:pointer;
+        .icon-button.comercial.protected {
+            background: linear-gradient(135deg, #fceba3 0%, var(--comercial-solid) 50%, #fdf4cc 100%);
+            color: #1a1a1a;
+            border: 2px solid rgba(248,228,139,0.3);
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(248,228,139,0.3);
         }
-        .icon-button.comercial.protected i { color: var(--comercial-icon); font-size:2.4em; }
 
-        .icon-button:hover{ transform: translateY(-6px); box-shadow:0 10px 20px rgba(0,0,0,0.12); }
+        .icon-button.comercial.protected i { 
+            color: var(--comercial-icon);
+            font-size: 2.4em;
+            text-shadow: 0 2px 8px rgba(21,121,127,0.15);
+        }
 
-        /* Employees section - redesigned */
-        .employees-section{ 
-            margin-top:30px;
-            background: white;
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        /* Sección empleados - Rediseño con amarillo */
+        .employees-section { 
+            margin-top: 28px;
+            background: linear-gradient(135deg, #ffffff 0%, #fffef9 100%);
+            border-radius: var(--radius-xl);
+            padding: 24px 20px;
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(248,228,139,0.2);
+            position: relative;
+            overflow: hidden;
         }
-        .employees-list{
-            display:grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap:12px;
-            border-radius:8px;
+
+        .employees-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--golden-glow), var(--indicator-color), var(--golden-glow), transparent);
+            border-radius: 3px 3px 0 0;
         }
-        .employee-card{
-            padding:18px 20px;
-            display:flex;
-            flex-direction:row;
-            align-items:center;
-            text-align:left;
-            border-radius: 12px;
-            background: #fafafa;
-            border: 1px solid rgba(0,0,0,0.04);
-            transition: all 0.3s ease;
+
+        .employees-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
-        .employee-card:hover {
-            background: #f5f5f5;
-            transform: translateX(4px);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            border-color: var(--indicator-color);
+
+        .employee-card {
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-align: left;
+            border-radius: var(--radius-md);
+            background: linear-gradient(135deg, #fafaf8 0%, #fffef7 100%);
+            border: 1px solid rgba(248,228,139,0.15);
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .employee-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--golden-glow), var(--indicator-color));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .employee-card:active {
+            transform: scale(0.98);
+            background: linear-gradient(135deg, #fefcf0 0%, #fef9e0 100%);
+            border-color: var(--golden-glow);
+            box-shadow: 0 4px 16px rgba(248,228,139,0.2);
+        }
+
+        .employee-card:active::after {
+            opacity: 1;
         }
 
         .employee-avatar {
             width: 48px;
             height: 48px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--indicator-color), #0d4c7f);
+            border-radius: 14px;
+            background: linear-gradient(135deg, #f8e48b 0%, #e6c84d 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-family: 'Poppins-Bold', sans-serif;
-            font-size: 1.2em;
+            color: #1a1a1a;
+            font-family: 'Poppins', 'Poppins-Bold', sans-serif;
+            font-size: 1.1em;
+            font-weight: 700;
             flex-shrink: 0;
-            margin-right: 16px;
+            box-shadow: 0 3px 10px rgba(248,228,139,0.3), inset 0 1px 0 rgba(255,255,255,0.5);
+            border: 2px solid rgba(248,228,139,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .employee-avatar::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4) 0%, transparent 60%);
+            pointer-events: none;
         }
 
         .employee-info {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 8px;
             flex: 1;
+            min-width: 0;
         }
 
-        .employee-name{
-            font-family:'Poppins-Bold', sans-serif;
-            font-weight:700;
-            margin:0;
-            color:#000;
-            font-size: 1.05em;
+        .employee-name {
+            font-family: 'Poppins', 'Poppins-Bold', sans-serif;
+            font-weight: 700;
+            margin: 0;
+            color: #1a1a1a;
+            font-size: 0.95em;
+            letter-spacing: -0.3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            position: relative;
         }
 
         .employee-roles {
@@ -248,212 +405,459 @@
             gap: 6px;
             padding: 5px 12px;
             border-radius: 20px;
-            font-size: 0.82em;
-            font-family: 'Poppins-Regular', sans-serif;
-            background: rgba(21,121,127,0.1);
-            color: var(--indicator-color);
-            border: 1px solid rgba(21,121,127,0.15);
-            transition: all 0.2s ease;
+            font-size: 0.78em;
+            font-family: 'Poppins', 'Poppins-Regular', sans-serif;
+            font-weight: 500;
+            background: linear-gradient(135deg, #fef9e7 0%, #fdf0c8 100%);
+            color: #7a6d1e;
+            border: 1px solid rgba(248,228,139,0.3);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            box-shadow: 0 1px 3px rgba(248,228,139,0.15);
         }
 
         .role-badge.primary {
-            background: rgba(21,121,127,0.15);
-            font-family: 'Poppins-Bold', sans-serif;
-            font-weight: 600;
-            border-color: rgba(21,121,127,0.25);
+            background: linear-gradient(135deg, #fdf0c8 0%, #fceba3 100%);
+            font-family: 'Poppins', 'Poppins-Bold', sans-serif;
+            font-weight: 700;
+            border-color: var(--golden-glow);
+            color: #5c5215;
+            box-shadow: 0 2px 6px rgba(248,228,139,0.25);
         }
 
-        .role-badge:hover {
-            background: rgba(21,121,127,0.2);
-            transform: translateY(-1px);
-        }
-
-        .status-dot{
-            width:8px;
-            height:8px;
-            min-width:8px;
-            min-height:8px;
-            display:inline-block;
-            border-radius:50%;
-            position:relative;
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            min-width: 7px;
+            min-height: 7px;
+            display: inline-block;
+            border-radius: 50%;
+            position: relative;
             background: var(--indicator-color);
-            box-shadow: 0 0 8px rgba(21,121,127,0.4);
-            animation: pulse 2s infinite;
+            box-shadow: 0 0 0 2px rgba(21,121,127,0.2), 0 0 8px rgba(21,121,127,0.4);
+            animation: elegantPulse 2.5s infinite;
         }
 
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(21,121,127,0.5);
+        @keyframes elegantPulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(21,121,127,0.5), 0 0 0 2px rgba(21,121,127,0.2);
             }
-            70% {
-                box-shadow: 0 0 0 8px rgba(21,121,127,0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(21,121,127,0);
+            50% {
+                box-shadow: 0 0 0 8px rgba(21,121,127,0), 0 0 0 4px rgba(21,121,127,0.4);
             }
         }
 
-        @media (max-width:720px){
-            .icon-button{ width:100%; max-width:420px; }
-            .portal-button{ width:100%; max-width:420px; }
-            .logo-container{ width:140px; height:60px; }
-            
-            .employees-list {
-                grid-template-columns: 1fr;
-            }
-            
-            .employee-card {
-                flex-direction: row;
-                align-items: center;
-            }
-            
-            .employee-roles {
-                flex-wrap: wrap;
-            }
+        /* Horario */
+        .schedule-container { 
+            text-align: center; 
+            margin-top: 32px; 
         }
 
-        .schedule-container{ text-align:center; margin-top:30px; }
-        .schedule-button{
-            font-family:'Poppins-Bold', sans-serif;
-            padding:18px 30px;
-            border-radius:8px;
-            border:1px solid rgba(0,0,0,0.08);
-            background: white;
-            color:#000;
-            cursor:pointer;
-            font-weight:700;
-            display:inline-flex;
-            align-items:center;
-            gap:10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
+        .schedule-button {
+            font-family: 'Poppins', 'Poppins-Bold', sans-serif;
+            padding: 16px 28px;
+            border-radius: var(--radius-md);
+            border: 2px solid rgba(248,228,139,0.3);
+            background: linear-gradient(135deg, #ffffff 0%, #fffef7 100%);
+            color: #1a1a1a;
+            cursor: pointer;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 12px rgba(248,228,139,0.15);
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-size: 0.95em;
+            width: 100%;
+            max-width: 420px;
+            justify-content: center;
         }
-        .schedule-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+
+        .schedule-button i {
+            color: var(--comercial-icon);
         }
-        .calendar-wrapper{
-            display:none;
-            margin-top:16px;
-            padding:18px;
-            max-width:680px;
-            margin-left:auto;
-            margin-right:auto;
-            background: white;
-            border-radius:12px;
-            border:1px solid rgba(0,0,0,0.06);
+
+        .schedule-button:active {
+            transform: scale(0.96);
+            background: linear-gradient(135deg, #fefcf0 0%, #fef9e0 100%);
+            border-color: var(--golden-glow);
+            box-shadow: 0 4px 20px rgba(248,228,139,0.3);
+        }
+
+        .calendar-wrapper {
+            display: none;
+            margin-top: 16px;
+            padding: 20px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            background: linear-gradient(135deg, #ffffff 0%, #fffef9 100%);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(248,228,139,0.2);
+            box-shadow: var(--shadow-elegant);
+        }
+
+        .calendar { 
+            display: grid; 
+            grid-template-columns: repeat(7, 1fr); 
+            gap: 4px;
+            font-size: 0.85em;
+        }
+
+        .day-name { 
+            font-family: 'Poppins', 'Poppins-Bold', sans-serif; 
+            padding: 8px 0; 
+            color: rgba(0,0,0,0.55); 
+            font-size: 0.78em;
+            font-weight: 700;
+        }
+
+        .day { 
+            padding: 8px 4px; 
+            border-radius: 8px; 
+            background: rgba(248,228,139,0.06); 
+            font-size: 0.85em;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .day.day-off { 
+            background: linear-gradient(135deg, rgba(220,53,69,0.1) 0%, rgba(220,53,69,0.05) 100%);
+            color: #8B0000; 
+            font-weight: 700; 
+            box-shadow: 0 0 6px rgba(220,53,69,0.1); 
+        }
+
+        /* Portal buttons */
+        .portal-section { 
+            margin-top: 40px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+        }
+
+        .button-container { 
+            display: flex; 
+            flex-direction: column;
+            gap: 12px; 
+            width: 100%;
+            max-width: 440px;
+            padding: 0 4px;
+        }
+
+        .portal-button {
+            font-family: 'Poppins', 'Poppins-Bold', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 18px 22px;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95em;
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
             box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-        }
-        .calendar { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; }
-
-        .day-name{ font-family:'Poppins-Bold',sans-serif; padding:8px 0; color: rgba(0,0,0,0.65); border-bottom:2px solid rgba(0,0,0,0.06); }
-        .day{ padding:12px; border-radius:6px; background: rgba(0,0,0,0.03); }
-        .day.day-off{ background: rgba(220,53,69,0.16); color:#8B0000; font-weight:700; box-shadow:0 0 5px rgba(220,53,69,0.18); }
-
-        .portal-section{ margin-top:40px; display:flex; flex-direction:column; align-items:center; }
-        .button-container{ display:flex; gap:20px; flex-wrap:wrap; justify-content:center; }
-
-        .portal-button{
-            font-family:'Poppins-Bold', sans-serif;
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            justify-content:center;
-            padding:22px 24px;
-            border-radius:12px;
-            text-decoration:none;
-            font-weight:700;
-            font-size:1em;
-            transition: transform .25s, box-shadow .25s, background .25s;
-            box-shadow:0 6px 14px rgba(0,0,0,0.08);
-            width:250px;
-            height:120px;
-            text-align:center;
-            background: var(--portal-bg);
+            width: 100%;
+            background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
             color: var(--portal-text);
-            border: none;
+            border: 1px solid rgba(255,255,255,0.05);
+            gap: 16px;
+            position: relative;
+            overflow: hidden;
         }
-        .portal-button i{ font-size:2.2em; color:inherit; margin-bottom:8px; }
 
-        .portal-button:hover{ transform: translateY(-6px); box-shadow:0 12px 26px rgba(0,0,0,0.12); opacity:0.98; }
+        .portal-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(248,228,139,0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
 
-        .modal-overlay{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; background: rgba(0,0,0,0.45); z-index:2000; }
-        .modal-content{ width:90%; max-width:420px; background:#fff; padding:24px; border-radius:14px; box-shadow:0 10px 40px rgba(0,0,0,0.25); text-align:center; color:#000; }
-        .modal-content h3{ margin:0 0 8px 0; font-family:'Poppins-Bold',sans-serif; font-size:1.2em; }
-        .modal-instruction{ margin-bottom:10px; color: rgba(0,0,0,0.8); }
+        .portal-button:active::before {
+            opacity: 1;
+        }
 
-        .pass-display{
-            min-height:44px;
-            display:flex;
-            gap:8px;
-            align-items:center;
-            justify-content:center;
-            padding:8px;
-            border-radius:8px;
-            background: #f7f7f7;
-            border: 1px solid rgba(0,0,0,0.06);
-            margin: 10px 0 8px 0;
-            font-family:'Poppins-Bold',sans-serif;
-            font-size:1.1em;
-            letter-spacing:1px;
-            color:#000;
-            user-select:none;
+        .portal-button i { 
+            font-size: 1.4em; 
+            color: var(--golden-glow);
+            width: 28px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .portal-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .portal-button:active { 
+            transform: scale(0.97);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Modal */
+        .modal-overlay { 
+            position: fixed; 
+            inset: 0; 
+            display: none; 
+            align-items: center; 
+            justify-content: center; 
+            background: rgba(0,0,0,0.55); 
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .modal-content { 
+            width: 100%;
+            max-width: 360px; 
+            background: linear-gradient(135deg, #ffffff 0%, #fffef9 100%);
+            padding: 32px 24px; 
+            border-radius: var(--radius-xl); 
+            box-shadow: 0 24px 80px rgba(0,0,0,0.35); 
+            text-align: center; 
+            color: #1a1a1a;
+            border: 1px solid rgba(248,228,139,0.2);
+        }
+
+        .modal-content h3 { 
+            margin: 0 0 12px 0; 
+            font-family: 'Poppins', 'Poppins-Bold', sans-serif; 
+            font-size: 1.2em;
+            font-weight: 800;
+        }
+
+        .modal-instruction { 
+            margin-bottom: 16px; 
+            color: rgba(0,0,0,0.65); 
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .pass-display {
+            min-height: 50px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #fefcf0 0%, #fef9e0 100%);
+            border: 2px solid rgba(248,228,139,0.3);
+            margin: 16px 0;
+            font-family: 'Poppins', 'Poppins-Bold', sans-serif;
+            font-size: 1.3em;
+            letter-spacing: 3px;
+            color: #1a1a1a;
+            user-select: none;
+            font-weight: 700;
         }
 
         .pass-display .digit {
-            display:inline-flex;
-            align-items:center;
-            justify-content:center;
-            width:34px;
-            height:34px;
-            border-radius:6px;
-            background: rgba(0,0,0,0.03);
-            box-shadow: inset 0 -2px 0 rgba(0,0,0,0.02);
-            font-weight:700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: white;
+            font-weight: 800;
+            box-shadow: 0 2px 8px rgba(248,228,139,0.2);
         }
 
-        .pass-buttons{
-            display:flex;
-            gap:8px;
-            flex-wrap:wrap;
-            justify-content:center;
-            margin-top:8px;
+        .pass-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 16px;
         }
 
-        .pass-btn{
-            background: #fff;
-            border:1px solid rgba(0,0,0,0.08);
-            padding:12px 14px;
-            border-radius:8px;
-            font-family:'Poppins-Bold',sans-serif;
-            cursor:pointer;
-            min-width:46px;
-            min-height:46px;
-            font-size:1.05em;
-            box-shadow:0 6px 14px rgba(0,0,0,0.04);
+        .pass-btn {
+            background: linear-gradient(135deg, #ffffff 0%, #fafaf8 100%);
+            border: 2px solid rgba(248,228,139,0.25);
+            padding: 14px 20px;
+            border-radius: 14px;
+            font-family: 'Poppins', 'Poppins-Bold', sans-serif;
+            cursor: pointer;
+            min-width: 52px;
+            min-height: 52px;
+            font-size: 1.15em;
+            font-weight: 700;
+            box-shadow: 0 2px 10px rgba(248,228,139,0.1);
+            transition: all 0.25s ease;
+            color: #1a1a1a;
         }
-        .pass-btn:active{ transform: translateY(1px); }
 
-        .modal-buttons{ display:flex; gap:12px; justify-content:center; margin-top:14px; flex-wrap:wrap; }
-        .modal-btn{ padding:10px 18px; border-radius:8px; border:none; cursor:pointer; font-family:'Poppins-Bold',sans-serif; }
-        .modal-btn.confirm-btn{ background:#15797f; color:#fff; }
-        .modal-btn.cancel-btn{ background: rgba(0,0,0,0.06); color:#000; }
+        .pass-btn:active { 
+            transform: scale(0.93); 
+            background: linear-gradient(135deg, #fefcf0 0%, #fdf0c8 100%);
+            border-color: var(--golden-glow);
+            box-shadow: 0 4px 16px rgba(248,228,139,0.3);
+        }
 
-        footer{
-            margin-top:40px;
-            padding:18px 12px;
-            text-align:center;
-            background: var(--footer-bg);
+        .modal-buttons { 
+            display: flex; 
+            gap: 12px; 
+            justify-content: center; 
+            margin-top: 24px; 
+            flex-wrap: wrap; 
+        }
+
+        .modal-btn { 
+            padding: 13px 24px; 
+            border-radius: 14px; 
+            border: none; 
+            cursor: pointer; 
+            font-family: 'Poppins', 'Poppins-Bold', sans-serif; 
+            font-size: 0.95em;
+            font-weight: 700;
+            transition: all 0.25s ease;
+            flex: 1;
+            min-width: 110px;
+        }
+
+        .modal-btn:active {
+            transform: scale(0.94);
+        }
+
+        .modal-btn.confirm-btn { 
+            background: linear-gradient(135deg, #0d6368 0%, var(--indicator-color) 100%);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(21,121,127,0.3);
+        }
+
+        .modal-btn.cancel-btn { 
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            color: #1a1a1a;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 48px;
+            padding: 24px 16px;
+            text-align: center;
+            background: linear-gradient(135deg, #0d6368 0%, var(--footer-bg) 100%);
             color: #f1efee;
-            font-family:'Poppins-Regular',sans-serif;
+            font-family: 'Poppins', 'Poppins-Regular', sans-serif;
+            font-size: 0.9em;
+            position: relative;
+            z-index: 1;
         }
 
+        footer::before {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 2px;
+            background: var(--golden-glow);
+            margin: 0 auto 16px;
+            border-radius: 1px;
+            opacity: 0.6;
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .employee-card {
+            animation: fadeInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+        }
+
+        .employee-card:nth-child(1) { animation-delay: 0.06s; }
+        .employee-card:nth-child(2) { animation-delay: 0.12s; }
+        .employee-card:nth-child(3) { animation-delay: 0.18s; }
+        .employee-card:nth-child(4) { animation-delay: 0.24s; }
+        .employee-card:nth-child(5) { animation-delay: 0.3s; }
+        .employee-card:nth-child(6) { animation-delay: 0.36s; }
+        .employee-card:nth-child(7) { animation-delay: 0.42s; }
+        .employee-card:nth-child(8) { animation-delay: 0.48s; }
+
+        /* Desktop */
+        @media (min-width: 768px) {
+            main {
+                padding: 36px 24px 48px;
+            }
+
+            .section-title {
+                font-size: 2em;
+                margin: 36px 0 24px;
+            }
+
+            .icon-button {
+                height: 155px;
+                min-width: 185px;
+            }
+
+            .icon-button i {
+                font-size: 2.6em;
+            }
+
+            .button-container {
+                flex-direction: row;
+                flex-wrap: wrap;
+                max-width: 800px;
+                gap: 14px;
+                justify-content: center;
+            }
+
+            .portal-button {
+                width: 210px;
+                justify-content: center;
+                flex-direction: column;
+                height: 135px;
+                gap: 14px;
+            }
+
+            .portal-button i {
+                font-size: 1.8em;
+                width: auto;
+            }
+
+            .employees-section {
+                padding: 28px 24px;
+            }
+
+            .employee-card {
+                padding: 18px 20px;
+                gap: 16px;
+            }
+
+            .employee-avatar {
+                width: 52px;
+                height: 52px;
+                font-size: 1.2em;
+            }
+
+            .employee-name {
+                font-size: 1em;
+            }
+
+            .role-badge {
+                font-size: 0.82em;
+                padding: 6px 14px;
+            }
+        }
     </style>
 </head>
 <body>
     <header>
-        <div class="logo-container" aria-hidden="false" id="logo-container">
-        </div>
+        <div class="logo-container" aria-hidden="false" id="logo-container"></div>
     </header>
 
     <main>
@@ -462,7 +866,6 @@
                 <i class="fas fa-user-plus" aria-hidden="true"></i>
                 <span>DTO<br>reclutamiento</span>
             </a>
-
             <a href="#" id="comercial-btn" class="icon-button comercial protected" aria-label="DTO comercial (protegido)">
                 <i class="fas fa-chart-bar" aria-hidden="true"></i>
                 <span>DTO<br>comercial</span>
@@ -478,26 +881,18 @@
             <button id="show-calendar-btn" class="schedule-button">
                 <i class="fas fa-calendar-alt"></i> Horario de descanso
             </button>
-
             <div id="calendar-wrapper" class="calendar-wrapper" aria-hidden="true">
                 <div class="calendar-header" style="margin-bottom:12px;">
-                    <h3 id="current-month"></h3>
-                    <div class="employee-select-container" style="display:flex;align-items:center;gap:10px;justify-content:center;">
-                        <label for="employee-select" style="font-family:'Poppins-Bold',sans-serif;color:#000;">Empleado:</label>
-                        <select id="employee-select" style="padding:8px;border-radius:6px;border:1px solid rgba(0,0,0,0.14);background:#fff;">
+                    <h3 id="current-month" style="font-size: 1em; margin: 0 0 12px; font-weight: 700;"></h3>
+                    <div class="employee-select-container" style="display:flex;align-items:center;gap:10px;justify-content:center;flex-wrap:wrap;">
+                        <label for="employee-select" style="font-family:'Poppins','Poppins-Bold',sans-serif;color:#1a1a1a;font-size:0.9em;">Empleado:</label>
+                        <select id="employee-select" style="padding:10px;border-radius:10px;border:2px solid rgba(248,228,139,0.3);background:#fff;font-family:'Poppins',sans-serif;font-size:0.9em;flex:1;max-width:200px;">
                             <option value="" disabled selected>Seleccione</option>
                         </select>
                     </div>
                 </div>
-
                 <div id="calendar" class="calendar" aria-hidden="true">
-                    <div class="day-name">Lun</div>
-                    <div class="day-name">Mar</div>
-                    <div class="day-name">Mié</div>
-                    <div class="day-name">Jue</div>
-                    <div class="day-name">Vie</div>
-                    <div class="day-name">Sáb</div>
-                    <div class="day-name">Dom</div>
+                    <div class="day-name">Lun</div><div class="day-name">Mar</div><div class="day-name">Mié</div><div class="day-name">Jue</div><div class="day-name">Vie</div><div class="day-name">Sáb</div><div class="day-name">Dom</div>
                 </div>
             </div>
         </section>
@@ -506,28 +901,19 @@
             <h2 class="section-title">Portal de empleados</h2>
             <div class="button-container">
                 <a href="lider.html" class="portal-button gerente" id="gerente-btn" title="Gerente">
-                    <i class="fas fa-user-tie" aria-hidden="true"></i>
-                    Gerente
+                    <i class="fas fa-user-tie" aria-hidden="true"></i> Gerente
                 </a>
-
                 <a href="mt.html" class="portal-button planner-digital" title="Planner Digital">
-                    <i class="fas fa-calendar-check" aria-hidden="true"></i>
-                    Planner Digital
+                    <i class="fas fa-calendar-check" aria-hidden="true"></i> Planner Digital
                 </a>
-
                 <a href="rh.html" class="portal-button planner-rh" title="Planner RH">
-                    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-                    Planner RH
+                    <i class="fas fa-calendar-alt" aria-hidden="true"></i> Planner RH
                 </a>
-
                 <a href="ventas.html" class="portal-button asesor-comercial" title="Asesor comercial">
-                    <i class="fas fa-chart-line" aria-hidden="true"></i>
-                    Asesor comercial
+                    <i class="fas fa-chart-line" aria-hidden="true"></i> Asesor comercial
                 </a>
-
                 <a href="reclu.html" class="portal-button asesor-reclutamiento" title="Asesor de reclutamiento">
-                    <i class="fas fa-users" aria-hidden="true"></i>
-                    Asesor de reclutamiento
+                    <i class="fas fa-users" aria-hidden="true"></i> Asesor de reclutamiento
                 </a>
             </div>
         </section>
@@ -540,10 +926,8 @@
     <div id="password-modal" class="modal-overlay" aria-hidden="true">
         <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
             <h3 id="modal-title">Acceso al Departamento Comercial</h3>
-            <p class="modal-instruction">Introduce la secuencia de acceso haciendo clic en los números (solo mediante clic).</p>
-
+            <p class="modal-instruction">Introduce la secuencia de acceso haciendo clic en los números</p>
             <div id="pass-display" class="pass-display" aria-live="polite" aria-atomic="true" aria-label="Secuencia introducida"></div>
-
             <div class="pass-buttons" role="group" aria-label="Teclado de acceso">
                 <button class="pass-btn" data-digit="1" aria-label="Número 1">1</button>
                 <button class="pass-btn" data-digit="2" aria-label="Número 2">2</button>
@@ -551,9 +935,7 @@
                 <button class="pass-btn" data-digit="4" aria-label="Número 4">4</button>
                 <button class="pass-btn" data-digit="5" aria-label="Número 5">5</button>
             </div>
-
-            <div id="modal-error-message" style="color:#ff4d4d;margin-top:8px;min-height:18px;"></div>
-
+            <div id="modal-error-message" style="color:#ff4d4d;margin-top:12px;min-height:20px;font-size:0.9em;"></div>
             <div class="modal-buttons">
                 <button id="validate-pass-btn" class="modal-btn confirm-btn">Validar</button>
                 <button id="cancel-password-btn" class="modal-btn cancel-btn">Cancelar</button>
@@ -564,7 +946,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const logoContainer = document.getElementById('logo-container');
-
             const logoUrls = [
                 'https://raw.githubusercontent.com/novaklar/Personal/refs/heads/main/novaklar.svg',
                 'https://raw.githubusercontent.com/novaklar/Personal/refs/heads/main/Novaft.svg'
@@ -592,15 +973,12 @@
                         if (i === 1) wrapper.classList.add('logo-nova');
                         wrapper.innerHTML = '<img src="' + logoUrls[i] + '" alt="" style="width:100%;height:100%;object-fit:contain;"/>';
                         fragments.push(wrapper);
-                        console.error('Error loading SVG:', logoUrls[i], err);
                     }
                 }
-
                 fragments.forEach((el, idx) => {
                     if (idx === 0) el.classList.add('visible');
                     logoContainer.appendChild(el);
                 });
-
                 if (fragments.length > 1) {
                     let current = 0;
                     setInterval(() => {
@@ -612,7 +990,6 @@
                     }, 4000);
                 }
             }
-
             loadAndInjectLogos();
 
             const comercialBtn = document.getElementById('comercial-btn');
@@ -622,7 +999,6 @@
             const validateBtn = document.getElementById('validate-pass-btn');
             const cancelBtn = document.getElementById('cancel-password-btn');
             const passButtons = Array.from(document.querySelectorAll('.pass-btn'));
-
             const CORRECT_SEQUENCE = "5512";
             let currentSequence = [];
 
@@ -631,20 +1007,19 @@
                 passwordModal.setAttribute('aria-hidden', 'false');
                 resetSequence();
                 modalErrorMessage.textContent = '';
+                document.body.style.overflow = 'hidden';
             }
-
             function closeModal() {
                 passwordModal.style.display = 'none';
                 passwordModal.setAttribute('aria-hidden', 'true');
                 resetSequence();
                 modalErrorMessage.textContent = '';
+                document.body.style.overflow = '';
             }
-
             function resetSequence() {
                 currentSequence = [];
                 passDisplay.innerHTML = '';
             }
-
             function pushDigit(d) {
                 if (typeof d !== 'string') d = String(d);
                 if (currentSequence.length >= 10) return;
@@ -655,16 +1030,12 @@
                 passDisplay.appendChild(span);
                 modalErrorMessage.textContent = '';
             }
-
             function validateSequence() {
                 const seq = currentSequence.join('');
                 if (seq === CORRECT_SEQUENCE) {
                     modalErrorMessage.style.color = '#0d8a3b';
                     modalErrorMessage.textContent = 'Acceso concedido. Redirigiendo...';
-                    setTimeout(() => {
-                        closeModal();
-                        window.location.href = "comercial.html";
-                    }, 450);
+                    setTimeout(() => { closeModal(); window.location.href = "comercial.html"; }, 450);
                 } else {
                     modalErrorMessage.style.color = '#ff4d4d';
                     modalErrorMessage.textContent = 'Secuencia incorrecta. Inténtalo de nuevo.';
@@ -674,46 +1045,20 @@
                         { transform: 'translateX(6px)' },
                         { transform: 'translateX(0px)' }
                     ], { duration: 300, iterations: 1 });
-                    setTimeout(() => {
-                        modalErrorMessage.textContent = '';
-                        resetSequence();
-                    }, 700);
+                    setTimeout(() => { modalErrorMessage.textContent = ''; resetSequence(); }, 700);
                 }
             }
-
-            comercialBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                openModal();
-            });
-
+            comercialBtn.addEventListener('click', function(e) { e.preventDefault(); openModal(); });
             passButtons.forEach(btn => {
-                btn.addEventListener('click', function(ev) {
-                    const d = btn.getAttribute('data-digit');
-                    pushDigit(d);
-                });
-                btn.addEventListener('touchstart', function(ev) {
-                    ev.preventDefault();
-                    const d = btn.getAttribute('data-digit');
-                    pushDigit(d);
-                }, { passive: false });
+                btn.addEventListener('click', function() { pushDigit(btn.getAttribute('data-digit')); });
+                btn.addEventListener('touchstart', function(ev) { ev.preventDefault(); pushDigit(btn.getAttribute('data-digit')); }, { passive: false });
             });
-
-            validateBtn.addEventListener('click', function() {
-                validateSequence();
-            });
-
-            validateBtn.addEventListener('touchstart', function(ev) {
-                ev.preventDefault();
-                validateSequence();
-            }, { passive: false });
-
-            cancelBtn.addEventListener('click', function() {
-                closeModal();
-            });
-
-            passwordModal.addEventListener('click', function(ev) {
-                if (ev.target === passwordModal) closeModal();
-            });
+            validateBtn.addEventListener('click', validateSequence);
+            validateBtn.addEventListener('touchstart', function(ev) { ev.preventDefault(); validateSequence(); }, { passive: false });
+            cancelBtn.addEventListener('click', closeModal);
+            cancelBtn.addEventListener('touchstart', function(ev) { ev.preventDefault(); closeModal(); }, { passive: false });
+            passwordModal.addEventListener('click', function(ev) { if (ev.target === passwordModal) closeModal(); });
+            window.addEventListener('popstate', function() { if (passwordModal.style.display === 'flex') closeModal(); });
 
             (function loadEmployees() {
                 const spreadsheetId = '1l2Ge_RZ698FQgRbaPxGUd8aZ2SLN_CA2t4rPlVWA3Mw';
@@ -726,21 +1071,14 @@
                     const v = dayName.toString().trim().toLowerCase();
                     if (v.startsWith('lun')) return 1;
                     if (v.startsWith('mar')) return 2;
-                    if (v.startsWith('mi') || v.startsWith('mié') || v.startsWith('mie') ) return 3;
+                    if (v.startsWith('mi') || v.startsWith('mié') || v.startsWith('mie')) return 3;
                     if (v.startsWith('jue')) return 4;
                     if (v.startsWith('vie')) return 5;
                     if (v.startsWith('sáb') || v.startsWith('sab')) return 6;
                     if (v.startsWith('dom')) return 0;
-                    if (v === 'monday') return 1;
-                    if (v === 'tuesday') return 2;
-                    if (v === 'wednesday') return 3;
-                    if (v === 'thursday') return 4;
-                    if (v === 'friday') return 5;
-                    if (v === 'saturday') return 6;
-                    if (v === 'sunday') return 0;
-                    return null;
+                    const english = { monday:1, tuesday:2, wednesday:3, thursday:4, friday:5, saturday:6, sunday:0 };
+                    return english[v] ?? null;
                 }
-
                 function parseRoleUnit(rawRole) {
                     if (!rawRole) return null;
                     let text = rawRole.toString().trim();
@@ -749,177 +1087,105 @@
                     const unitMatch = text.match(/\b(NK|HB)\b/i);
                     const unit = unitMatch ? unitMatch[0].toUpperCase() : null;
                     let base = text;
-                    if (/planner/i.test(text)) {
-                        base = 'Planner';
-                    } else if (/gerente/i.test(text)) {
-                        base = 'Gerente';
-                    } else if (/asesor\s+comercial/i.test(text)) {
-                        base = 'Asesor comercial';
-                    } else if (/reclutador/i.test(text)) {
-                        base = 'Asesor de reclutamiento';
-                    } else if (/asesor\s+de\s+reclutamiento/i.test(text)) {
-                        base = 'Asesor de reclutamiento';
-                    } else {
-                        if (/comercial/i.test(text)) base = 'Asesor comercial';
-                    }
-                    const display = text;
-                    return { role: base, unit: unit, display: display };
+                    if (/planner/i.test(text)) base = 'Planner';
+                    else if (/gerente/i.test(text)) base = 'Gerente';
+                    else if (/asesor\s+comercial/i.test(text)) base = 'Asesor comercial';
+                    else if (/reclutador/i.test(text)) base = 'Asesor de reclutamiento';
+                    else if (/asesor\s+de\s+reclutamiento/i.test(text)) base = 'Asesor de reclutamiento';
+                    else if (/comercial/i.test(text)) base = 'Asesor comercial';
+                    return { role: base, unit, display: text };
                 }
-
-                function slugify(name) {
-                    return name.toString().trim().toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_-]/g, '');
-                }
-
+                function slugify(name) { return name.toString().trim().toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_-]/g, ''); }
                 function getInitials(name) {
                     const parts = name.split(' ');
-                    if (parts.length >= 2) {
-                        return (parts[0][0] + parts[parts.length-1][0]).toUpperCase();
-                    }
-                    return name.substring(0, 2).toUpperCase();
+                    return parts.length >= 2 ? (parts[0][0] + parts[parts.length-1][0]).toUpperCase() : name.substring(0, 2).toUpperCase();
                 }
-
                 const employeesMap = {};
-
-                fetch(queryUrl)
-                    .then(r => r.text())
-                    .then(text => {
-                        const jsonStart = text.indexOf('{');
-                        const jsonEnd = text.lastIndexOf('}');
-                        if (jsonStart < 0 || jsonEnd < 0) throw new Error('Respuesta GViz inesperada');
-                        const jsonString = text.substring(jsonStart, jsonEnd + 1);
-                        const data = JSON.parse(jsonString);
-                        const rows = (data.table && data.table.rows) || [];
-
-                        rows.forEach(row => {
-                            const name = row.c?.[0]?.v?.toString()?.trim();
-                            const colC = row.c?.[1]?.v;
-                            const colD = row.c?.[2]?.v;
-                            const colE = row.c?.[3]?.v;
-                            const colF = row.c?.[4]?.v;
-
-                            if (!name) return;
-
-                            const slug = slugify(name);
-                            if (!employeesMap[slug]) {
-                                employeesMap[slug] = { name: name, roles: [], descansoDays: [] };
-                            }
-
-                            [colC, colD, colE].forEach(raw => {
-                                if (!raw) return;
-                                const textRaw = raw.toString().trim();
-                                if (!textRaw) return;
-                                if (/^no aplica$/i.test(textRaw)) return;
-                                const parts = textRaw.split(/\s*[,\/]\s*/).filter(Boolean);
-                                parts.forEach(p => {
-                                    const parsed = parseRoleUnit(p);
-                                    if (!parsed) return;
-                                    const exists = employeesMap[slug].roles.some(r => r.display?.toLowerCase() === parsed.display?.toLowerCase());
-                                    if (!exists) employeesMap[slug].roles.push(parsed);
-                                });
-                            });
-
-                            if (colF) {
-                                const txt = colF.toString().trim();
-                                if (txt) {
-                                    const parts = txt.split(/\s*[,\/]\s*/).filter(Boolean);
-                                    parts.forEach(p => {
-                                        const dayNum = dayNameToGetDay(p);
-                                        if (dayNum !== null && !employeesMap[slug].descansoDays.includes(dayNum)) {
-                                            employeesMap[slug].descansoDays.push(dayNum);
-                                        }
-                                    });
+                fetch(queryUrl).then(r => r.text()).then(text => {
+                    const jsonStart = text.indexOf('{'), jsonEnd = text.lastIndexOf('}');
+                    if (jsonStart < 0 || jsonEnd < 0) throw new Error('Respuesta GViz inesperada');
+                    const data = JSON.parse(text.substring(jsonStart, jsonEnd + 1));
+                    const rows = (data.table && data.table.rows) || [];
+                    rows.forEach(row => {
+                        const name = row.c?.[0]?.v?.toString()?.trim();
+                        if (!name) return;
+                        const slug = slugify(name);
+                        if (!employeesMap[slug]) employeesMap[slug] = { name, roles: [], descansoDays: [] };
+                        [row.c?.[1]?.v, row.c?.[2]?.v, row.c?.[3]?.v].forEach(raw => {
+                            if (!raw) return;
+                            const textRaw = raw.toString().trim();
+                            if (!textRaw || /^no aplica$/i.test(textRaw)) return;
+                            textRaw.split(/\s*[,\/]\s*/).filter(Boolean).forEach(p => {
+                                const parsed = parseRoleUnit(p);
+                                if (!parsed) return;
+                                if (!employeesMap[slug].roles.some(r => r.display?.toLowerCase() === parsed.display?.toLowerCase())) {
+                                    employeesMap[slug].roles.push(parsed);
                                 }
-                            }
+                            });
                         });
-
-                        const employees = Object.keys(employeesMap).map(k => employeesMap[k]);
-
-                        employeesList.innerHTML = '';
-                        employeeSelect.innerHTML = '<option value="" disabled selected>Seleccione</option>';
-
-                        employees.forEach(emp => {
-                            const card = document.createElement('div');
-                            card.className = 'employee-card';
-
-                            // Avatar with initials
-                            const avatar = document.createElement('div');
-                            avatar.className = 'employee-avatar';
-                            avatar.textContent = getInitials(emp.name);
-
-                            // Info section
-                            const infoSection = document.createElement('div');
-                            infoSection.className = 'employee-info';
-
-                            const nameEl = document.createElement('div');
-                            nameEl.className = 'employee-name';
-                            nameEl.textContent = emp.name;
-
-                            const rolesContainer = document.createElement('div');
-                            rolesContainer.className = 'employee-roles';
-
-                            if (emp.roles.length === 0) {
-                                const noRoleBadge = document.createElement('span');
-                                noRoleBadge.className = 'role-badge';
-                                noRoleBadge.textContent = 'Sin rol asignado';
-                                rolesContainer.appendChild(noRoleBadge);
-                            } else {
-                                emp.roles.forEach((role, index) => {
-                                    const roleBadge = document.createElement('span');
-                                    roleBadge.className = 'role-badge';
-                                    if (index === 0) {
-                                        roleBadge.classList.add('primary');
-                                        // Add status dot only for primary role
-                                        const dot = document.createElement('span');
-                                        dot.className = 'status-dot';
-                                        roleBadge.appendChild(dot);
-                                    }
-                                    const roleText = document.createElement('span');
-                                    roleText.textContent = role.display || role.role;
-                                    roleBadge.appendChild(roleText);
-                                    rolesContainer.appendChild(roleBadge);
-                                });
-                            }
-
-                            infoSection.appendChild(nameEl);
-                            infoSection.appendChild(rolesContainer);
-
-                            card.appendChild(avatar);
-                            card.appendChild(infoSection);
-
-                            employeesList.appendChild(card);
-
-                            const opt = document.createElement('option');
-                            opt.value = slugify(emp.name);
-                            opt.textContent = emp.name;
-                            employeeSelect.appendChild(opt);
-                        });
-
-                        window.__novaklar_employees_map = employeesMap;
-
-                        if (employees.length === 0) {
-                            const fallback = document.createElement('div');
-                            fallback.className = 'employee-card';
-                            const fallbackText = document.createElement('div');
-                            fallbackText.style.padding = '12px';
-                            fallbackText.style.textAlign = 'center';
-                            fallbackText.style.width = '100%';
-                            fallbackText.textContent = 'No se encontraron empleados.';
-                            fallback.appendChild(fallbackText);
-                            employeesList.appendChild(fallback);
+                        const colF = row.c?.[4]?.v;
+                        if (colF) {
+                            colF.toString().trim().split(/\s*[,\/]\s*/).filter(Boolean).forEach(p => {
+                                const dayNum = dayNameToGetDay(p);
+                                if (dayNum !== null && !employeesMap[slug].descansoDays.includes(dayNum)) {
+                                    employeesMap[slug].descansoDays.push(dayNum);
+                                }
+                            });
                         }
-                    })
-                    .catch(err => {
-                        console.error('Error fetching employees (GViz):', err);
-                        const fallback = document.createElement('div');
-                        fallback.className = 'employee-card';
-                        const fallbackText = document.createElement('div');
-                        fallbackText.style.padding = '12px';
-                        fallbackText.style.textAlign = 'center';
-                        fallbackText.style.width = '100%';
-                        fallbackText.textContent = 'No se pudieron cargar los empleados en este momento.';
-                        fallback.appendChild(fallbackText);
-                        employeesList.appendChild(fallback);
                     });
+                    const employees = Object.keys(employeesMap).map(k => employeesMap[k]);
+                    employeesList.innerHTML = '';
+                    employeeSelect.innerHTML = '<option value="" disabled selected>Seleccione</option>';
+                    employees.forEach(emp => {
+                        const card = document.createElement('div');
+                        card.className = 'employee-card';
+                        const avatar = document.createElement('div');
+                        avatar.className = 'employee-avatar';
+                        avatar.textContent = getInitials(emp.name);
+                        const infoSection = document.createElement('div');
+                        infoSection.className = 'employee-info';
+                        const nameEl = document.createElement('div');
+                        nameEl.className = 'employee-name';
+                        nameEl.textContent = emp.name;
+                        nameEl.title = emp.name;
+                        const rolesContainer = document.createElement('div');
+                        rolesContainer.className = 'employee-roles';
+                        if (emp.roles.length === 0) {
+                            const noRole = document.createElement('span');
+                            noRole.className = 'role-badge';
+                            noRole.textContent = 'Sin rol asignado';
+                            rolesContainer.appendChild(noRole);
+                        } else {
+                            emp.roles.forEach((role, index) => {
+                                const badge = document.createElement('span');
+                                badge.className = 'role-badge';
+                                if (index === 0) { badge.classList.add('primary'); const dot = document.createElement('span'); dot.className = 'status-dot'; badge.appendChild(dot); }
+                                const roleText = document.createElement('span');
+                                roleText.textContent = role.display || role.role;
+                                badge.appendChild(roleText);
+                                rolesContainer.appendChild(badge);
+                            });
+                        }
+                        infoSection.appendChild(nameEl);
+                        infoSection.appendChild(rolesContainer);
+                        card.appendChild(avatar);
+                        card.appendChild(infoSection);
+                        employeesList.appendChild(card);
+                        const opt = document.createElement('option');
+                        opt.value = slugify(emp.name);
+                        opt.textContent = emp.name;
+                        employeeSelect.appendChild(opt);
+                    });
+                    window.__novaklar_employees_map = employeesMap;
+                    if (employees.length === 0) {
+                        const fb = document.createElement('div'); fb.className = 'employee-card'; fb.style.justifyContent='center';
+                        const t = document.createElement('div'); t.style.textAlign='center'; t.style.width='100%'; t.textContent='No se encontraron empleados.'; fb.appendChild(t); employeesList.appendChild(fb);
+                    }
+                }).catch(err => {
+                    console.error(err);
+                    const fb = document.createElement('div'); fb.className = 'employee-card'; fb.style.justifyContent='center';
+                    const t = document.createElement('div'); t.style.textAlign='center'; t.style.width='100%'; t.textContent='No se pudieron cargar los empleados.'; fb.appendChild(t); employeesList.appendChild(fb);
+                });
             })();
 
             const showCalendarBtn = document.getElementById('show-calendar-btn');
@@ -927,73 +1193,30 @@
             const calendarEl = document.getElementById('calendar');
             const currentMonthEl = document.getElementById('current-month');
             const employeeSelect = document.getElementById('employee-select');
-
-            function getDescansoDaysForSlug(slug) {
-                const map = window.__novaklar_employees_map || {};
-                return (map[slug] && map[slug].descansoDays) ? map[slug].descansoDays : [];
-            }
-
+            function getDescansoDaysForSlug(slug) { const map = window.__novaklar_employees_map || {}; return (map[slug]?.descansoDays) || []; }
             showCalendarBtn.addEventListener('click', function(e){
                 e.stopPropagation();
                 const isVisible = calendarWrapper.style.display === 'block';
                 calendarWrapper.style.display = isVisible ? 'none' : 'block';
                 calendarWrapper.setAttribute('aria-hidden', isVisible ? 'true' : 'false');
-                if (!isVisible) generateCalendar(employeeSelect.value);
+                if (!isVisible) { generateCalendar(employeeSelect.value); calendarWrapper.scrollIntoView({ behavior:'smooth', block:'nearest' }); }
             });
-
-            employeeSelect.addEventListener('change', function(){
-                generateCalendar(employeeSelect.value);
-            });
-
-            document.addEventListener('click', function(e){
-                if (calendarWrapper.style.display === 'block' && !calendarWrapper.contains(e.target) && e.target !== showCalendarBtn) {
-                    calendarWrapper.style.display = 'none';
-                }
-            });
-
+            employeeSelect.addEventListener('change', () => generateCalendar(employeeSelect.value));
+            document.addEventListener('click', function(e){ if (calendarWrapper.style.display==='block' && !calendarWrapper.contains(e.target) && e.target!==showCalendarBtn) calendarWrapper.style.display='none'; });
             function generateCalendar(selectedSlug) {
-                calendarEl.innerHTML = `
-                    <div class="day-name">Lun</div>
-                    <div class="day-name">Mar</div>
-                    <div class="day-name">Mié</div>
-                    <div class="day-name">Jue</div>
-                    <div class="day-name">Vie</div>
-                    <div class="day-name">Sáb</div>
-                    <div class="day-name">Dom</div>
-                `;
-
-                const today = new Date();
-                const month = today.getMonth();
-                const year = today.getFullYear();
-                currentMonthEl.textContent = today.toLocaleString('es-ES', { month: 'long', year: 'numeric' });
-
-                const firstDayOfMonth = new Date(year, month, 1).getDay();
-                const daysInMonth = new Date(year, month + 1, 0).getDate();
-                const startDay = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
-
-                for (let i = 0; i < startDay; i++) {
-                    const emptyDay = document.createElement('div');
-                    emptyDay.classList.add('day');
-                    calendarEl.appendChild(emptyDay);
-                }
-
+                calendarEl.innerHTML = '<div class="day-name">Lun</div><div class="day-name">Mar</div><div class="day-name">Mié</div><div class="day-name">Jue</div><div class="day-name">Vie</div><div class="day-name">Sáb</div><div class="day-name">Dom</div>';
+                const today = new Date(), month = today.getMonth(), year = today.getFullYear();
+                currentMonthEl.textContent = today.toLocaleString('es-ES', { month:'long', year:'numeric' });
+                const startDay = (new Date(year, month, 1).getDay() || 7) - 1;
+                for (let i = 0; i < startDay; i++) { const d = document.createElement('div'); d.classList.add('day'); calendarEl.appendChild(d); }
                 const descansoDays = selectedSlug ? getDescansoDaysForSlug(selectedSlug) : [];
-
-                for (let i = 1; i <= daysInMonth; i++) {
-                    const dayEl = document.createElement('div');
-                    dayEl.classList.add('day');
-                    dayEl.textContent = i;
-
-                    const dayOfWeek = new Date(year, month, i).getDay();
-                    if (descansoDays.includes(dayOfWeek)) {
-                        dayEl.classList.add('day-off');
-                        dayEl.title = 'Día de descanso';
-                    }
+                for (let i = 1; i <= new Date(year, month+1, 0).getDate(); i++) {
+                    const dayEl = document.createElement('div'); dayEl.classList.add('day'); dayEl.textContent = i;
+                    if (descansoDays.includes(new Date(year, month, i).getDay())) { dayEl.classList.add('day-off'); dayEl.title='Día de descanso'; }
                     calendarEl.appendChild(dayEl);
                 }
             }
             generateCalendar('');
-
         });
     </script>
 </body>
