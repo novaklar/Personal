@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sistema R&R - Seguimiento de Asesoras</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variables de colores actualizadas según especificación */
+        :root {
+            --color-fondo: #f4f6fc;
+            --color-principal: #147a7f;
+            --color-secundario: #f8e48b;
+            --color-oscuro: #2d3436;
+            --color-blanco: #ffffff;
+            --color-texto: #2d3436;
+            --color-texto-claro: #636e72;
+            --color-exito: #00b894;
+            --color-advertencia: #fdcb6e;
+            --color-peligro: #d63031;
+            --color-info: #147a7f;
+            --sombra-suave: 0 2px 8px rgba(20, 122, 127, 0.08);
+            --sombra-mediana: 0 4px 12px rgba(20, 122, 127, 0.12);
+            --radio-borde: 12px;
+            --espaciado-xs: 8px;
+            --espaciado-sm: 12px;
+            --espaciado-md: 16px;
+            --espaciado-lg: 24px;
+            --espaciado-xl: 32px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: var(--color-fondo);
+            color: var(--color-texto);
+            line-height: 1.5;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Encabezado de la aplicación */
+        .app-header {
+            background: var(--color-principal);
+            color: var(--color-blanco);
+            padding: var(--espaciado-md) var(--espaciado-md);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--sombra-mediana);
+            text-align: center;
+            border-bottom: 3px solid var(--color-secundario);
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .saludo-especial {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--color-secundario);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .saludo-especial i {
+            font-size: 1.2rem;
+        }
+
+        .app-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: var(--espaciado-sm);
+            margin-bottom: 4px;
+        }
+
+        .app-title i {
+            color: var(--color-secundario);
+        }
+
+        .fecha-header {
+            font-size: 1rem;
+            opacity: 0.95;
+            font-weight: 400;
+            color: var(--color-blanco);
+        }
+
+        /* Botón regresar */
+        .btn-regresar {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--color-blanco);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 16px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-regresar:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: var(--color-secundario);
+            color: var(--color-secundario);
+        }
+
+        .btn-regresar:active {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Contenido principal */
+        .app-main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: var(--espaciado-md);
+        }
+
+        /* Sección de resumen general */
+        .resumen-section {
+            background-color: var(--color-blanco);
+            border-radius: var(--radio-borde);
+            padding: var(--espaciado-lg);
+            margin-bottom: var(--espaciado-lg);
+            box-shadow: var(--sombra-suave);
+            border: 1px solid rgba(20, 122, 127, 0.1);
+        }
+
+        .resumen-title {
+            color: var(--color-principal);
+            font-size: 1.2rem;
+            margin-bottom: var(--espaciado-md);
+            display: flex;
+            align-items: center;
+            gap: var(--espaciado-sm);
+        }
+
+        .resumen-title i {
+            color: var(--color-secundario);
+        }
+
+        .resumen-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--espaciado-md);
+            margin-bottom: var(--espaciado-lg);
+        }
+
+        .stat-card {
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+            padding: var(--espaciado-sm);
+            border-radius: var(--radio-borde);
+            background-color: var(--color-fondo);
+            border-left: 4px solid var(--color-principal);
+            border-bottom: 2px solid var(--color-secundario);
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--color-principal);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--color-texto-claro);
+        }
+
+        /* Tarjetas de asesoras */
+        .asesoras-container {
+            display: flex;
+            flex-direction: column;
+            gap: var(--espaciado-md);
+        }
+
+        .asesora-card {
+            background-color: var(--color-blanco);
+            border-radius: var(--radio-borde);
+            padding: var(--espaciado-lg);
+            box-shadow: var(--sombra-suave);
+            border: 1px solid rgba(20, 122, 127, 0.1);
+            border-left: 6px solid var(--color-principal);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+        }
+
+        .asesora-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--sombra-mediana);
+            border-left-color: var(--color-secundario);
+        }
+
+        .asesora-card.sin-registro-mes {
+            border-left-color: var(--color-peligro);
+            opacity: 0.95;
+        }
+
+        .asesora-card.registro-reciente {
+            border-left-color: var(--color-exito);
+        }
+
+        .asesora-card.registro-atrasado {
+            border-left-color: var(--color-advertencia);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--espaciado-md);
+        }
+
+        .asesora-info {
+            flex: 1;
+        }
+
+        .asesora-nombre {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--color-oscuro);
+            margin-bottom: 4px;
+        }
+
+        .asesora-detalle {
+            font-size: 0.9rem;
+            color: var(--color-texto-claro);
+            display: flex;
+            align-items: center;
+            gap: var(--espaciado-sm);
+        }
+
+        .estado-badge {
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .estado-al-dia {
+            background-color: rgba(0, 184, 148, 0.15);
+            color: var(--color-exito);
+            border: 1px solid rgba(0, 184, 148, 0.3);
+        }
+
+        .estado-retraso {
+            background-color: rgba(253, 203, 110, 0.2);
+            color: #e17055;
+            border: 1px solid rgba(253, 203, 110, 0.3);
+        }
+
+        .estado-riesgo {
+            background-color: rgba(214, 48, 49, 0.15);
+            color: var(--color-peligro);
+            border: 1px solid rgba(214, 48, 49, 0.3);
+        }
+
+        .estado-seguimiento {
+            background-color: rgba(20, 122, 127, 0.15);
+            color: var(--color-info);
+            border: 1px solid rgba(20, 122, 127, 0.3);
+        }
+
+        .estado-sin-registro {
+            background-color: rgba(99, 110, 114, 0.15);
+            color: #636e72;
+            border: 1px solid rgba(99, 110, 114, 0.3);
+        }
+
+        .card-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--espaciado-md);
+            margin-bottom: var(--espaciado-md);
+        }
+
+        .metric-box {
+            background-color: var(--color-fondo);
+            border-radius: 10px;
+            padding: var(--espaciado-sm);
+            text-align: center;
+            border: 1px solid rgba(20, 122, 127, 0.08);
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-principal);
+            margin-bottom: 4px;
+        }
+
+        .metric-label {
+            font-size: 0.85rem;
+            color: var(--color-texto-claro);
+        }
+
+        .card-mensaje {
+            background-color: rgba(248, 228, 139, 0.15);
+            border-left: 4px solid var(--color-secundario);
+            padding: var(--espaciado-sm) var(--espaciado-md);
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+            color: var(--color-texto);
+            margin-top: var(--espaciado-sm);
+        }
+
+        .card-mensaje.sin-registro {
+            background-color: rgba(214, 48, 49, 0.1);
+            border-left-color: var(--color-peligro);
+        }
+
+        .card-mensaje.atrasado {
+            background-color: rgba(253, 203, 110, 0.15);
+            border-left-color: var(--color-advertencia);
+        }
+
+        .cargando {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--espaciado-xl);
+            color: var(--color-texto-claro);
+        }
+
+        .error-message {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--espaciado-xl);
+            color: var(--color-peligro);
+            text-align: center;
+        }
+
+        .error-message i {
+            font-size: 3rem;
+            margin-bottom: var(--espaciado-md);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(20, 122, 127, 0.1);
+            border-left-color: var(--color-principal);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: var(--espaciado-md);
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .action-button {
+            background-color: var(--color-principal);
+            color: white;
+            border: 2px solid var(--color-principal);
+            padding: var(--espaciado-sm) var(--espaciado-md);
+            border-radius: 50px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--espaciado-sm);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: var(--espaciado-md);
+        }
+
+        .action-button:hover {
+            background-color: #106b63;
+            border-color: #106b63;
+        }
+
+        .action-button:active {
+            background-color: var(--color-secundario);
+            border-color: var(--color-secundario);
+            color: var(--color-principal);
+        }
+
+        @media (max-width: 480px) {
+            html {
+                font-size: 14px;
+            }
+            
+            .card-content {
+                grid-template-columns: 1fr;
+                gap: var(--espaciado-sm);
+            }
+            
+            .resumen-stats {
+                gap: var(--espaciado-sm);
+            }
+            
+            .stat-card {
+                min-width: calc(50% - var(--espaciado-sm));
+            }
+
+            .saludo-especial {
+                font-size: 1rem;
+            }
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(20, 122, 127, 0.3);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: var(--espaciado-md);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background-color: var(--color-blanco);
+            border-radius: var(--radio-borde);
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--sombra-mediana);
+            border: 1px solid rgba(20, 122, 127, 0.1);
+            transform: translateY(20px);
+            transition: transform 0.3s;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: var(--espaciado-lg);
+            border-bottom: 1px solid rgba(20, 122, 127, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--color-principal);
+            color: var(--color-blanco);
+            border-radius: var(--radio-borde) var(--radio-borde) 0 0;
+            border-bottom: 3px solid var(--color-secundario);
+        }
+
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--color-blanco);
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .close-modal:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-body {
+            padding: var(--espaciado-lg);
+        }
+
+        .actividad-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--espaciado-sm);
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+
+        .actividad-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--espaciado-sm);
+            border-radius: 8px;
+            background-color: var(--color-fondo);
+            border-left: 4px solid var(--color-secundario);
+            border: 1px solid rgba(20, 122, 127, 0.08);
+        }
+
+        .actividad-fecha {
+            font-weight: 600;
+            color: var(--color-texto);
+            font-size: 0.95rem;
+        }
+
+        .actividad-detalle {
+            font-size: 0.85rem;
+            color: var(--color-texto-claro);
+        }
+
+        .actividad-estado {
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+
+        .actividad-registrada {
+            background-color: rgba(0, 184, 148, 0.15);
+            color: var(--color-exito);
+            border: 1px solid rgba(0, 184, 148, 0.3);
+        }
+
+        .actividad-falta {
+            background-color: rgba(214, 48, 49, 0.15);
+            color: var(--color-peligro);
+            border: 1px solid rgba(214, 48, 49, 0.3);
+        }
+
+        .mes-actual {
+            display: inline-block;
+            background-color: rgba(248, 228, 139, 0.2);
+            color: var(--color-principal);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 4px;
+            border: 1px solid rgba(248, 228, 139, 0.3);
+        }
+
+        .actividad-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .actividad-list::-webkit-scrollbar-track {
+            background: var(--color-fondo);
+            border-radius: 3px;
+        }
+
+        .actividad-list::-webkit-scrollbar-thumb {
+            background: var(--color-secundario);
+            border-radius: 3px;
+        }
+
+        .actividad-list::-webkit-scrollbar-thumb:hover {
+            background: var(--color-principal);
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-content">
+            <div class="saludo-especial" id="saludo-especial">
+                <i class="fas fa-sun"></i> <span id="texto-saludo">Buenos días Aleja</span>
+            </div>
+            <h1 class="app-title"><i class="fas fa-hands-helping"></i> Sistema R&R</h1>
+            <div class="fecha-header" id="fecha-actual"></div>
+            <a href="comercial.html" class="btn-regresar">
+                <i class="fas fa-arrow-left"></i> Regresar
+            </a>
+        </div>
+    </header>
+
+    <main class="app-main">
+        <section class="resumen-section">
+            <h2 class="resumen-title"><i class="fas fa-chart-line"></i> Resumen General</h2>
+            <div class="resumen-stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="total-asesoras">3</div>
+                    <div class="stat-label">Total asesoras</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="asesoras-al-dia">0</div>
+                    <div class="stat-label">Al día</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="asesoras-retraso">0</div>
+                    <div class="stat-label">Con retraso</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="asesoras-sin-registro">3</div>
+                    <div class="stat-label">Sin registro</div>
+                </div>
+            </div>
+            <p id="resumen-texto">Monitoreando a 3 asesoras activas...</p>
+            <button class="action-button" id="btn-actualizar">
+                <i class="fas fa-sync-alt"></i> Actualizar datos ahora
+            </button>
+        </section>
+
+        <section id="asesoras-section">
+            <div class="asesoras-container" id="lista-asesoras">
+                <div class="cargando">
+                    <div class="spinner"></div>
+                    <p>Cargando datos reales desde Google Sheets...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="modal-overlay" id="modal-detalle">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modal-nombre">Detalles de Asesora</h2>
+                <button class="close-modal" id="cerrar-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="metric-box" style="margin-bottom: var(--espaciado-md);">
+                    <div class="metric-value" id="modal-dias-sin-registro">0</div>
+                    <div class="metric-label">Días sin registro</div>
+                </div>
+                <div id="ultimo-registro-info" style="margin-bottom: var(--espaciado-md);">
+                    </div>
+                <h3 style="margin-bottom: var(--espaciado-sm); color: var(--color-principal); display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-history"></i> Historial completo de registros
+                    <span id="total-registros" style="font-size: 0.9rem; background-color: var(--color-fondo); padding: 2px 8px; border-radius: 10px; border: 1px solid rgba(20, 122, 127, 0.15);">(0)</span>
+                </h3>
+                <div class="actividad-list" id="historial-actividad">
+                    </div>
+                <div class="card-mensaje" id="modal-mensaje" style="margin-top: var(--espaciado-md);">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
+    <script>
+        // ID de la hoja de cálculo proporcionada
+        const SHEET_ID = '1D54c79yejujdFIJKVu4m3iM3ndUVnxP_fSgwSqGec5U';
+        const SHEET_NAME = 'Form Responses 1';
+        
+        let datosAsesoras = [];
+        let datosOriginales = [];
+        let fechaActual = new Date();
+        let mesActual = fechaActual.getMonth();
+        let anioActual = fechaActual.getFullYear();
+        
+        const ASESORAS_FIJAS = [
+            { nombre: 'Alejandra', id: 'alejandra' },
+            { nombre: 'Danna', id: 'danna' },
+            { nombre: 'Tatiana', id: 'tatiana' }
+        ];
+        
+        // Función para obtener el saludo según la hora
+        function obtenerSaludoPorHora() {
+            const hora = fechaActual.getHours();
+            let saludo = '';
+            let icono = '';
+            
+            if (hora >= 5 && hora < 12) {
+                saludo = 'Buenos días Aleja';
+                icono = 'fa-sun';
+            } else if (hora >= 12 && hora < 18) {
+                saludo = 'Buenas tardes Aleja';
+                icono = 'fa-cloud-sun';
+            } else {
+                saludo = 'Buenas noches Aleja';
+                icono = 'fa-moon';
+            }
+            
+            document.getElementById('texto-saludo').textContent = saludo;
+            document.querySelector('#saludo-especial i').className = `fas ${icono}`;
+        }
+        
+        function formatearFechaHeader(fecha) {
+            const opciones = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+            return fecha.toLocaleDateString('es-ES', opciones);
+        }
+        
+        function formatearFechaCompleta(fecha) {
+            const opciones = { 
+                weekday: 'long', 
+                day: 'numeric', 
+                month: 'long', 
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            return fecha.toLocaleDateString('es-ES', opciones);
+        }
+        
+        function obtenerNombreMes(mes) {
+            const meses = [
+                'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+                'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+            ];
+            return meses[mes];
+        }
+        
+        function formatearFechaISO(fecha) {
+            return fecha.toISOString().split('T')[0];
+        }
+        
+        function parsearTimestamp(timestamp) {
+            try {
+                const fecha = new Date(timestamp);
+                if (!isNaN(fecha.getTime())) {
+                    return fecha;
+                }
+                
+                const partes = timestamp.split(/[\s,/:-]+/);
+                if (partes.length >= 6) {
+                    return new Date(partes[0], partes[1]-1, partes[2], partes[3], partes[4], partes[5]);
+                }
+                
+                return new Date();
+            } catch (e) {
+                console.error('Error parseando fecha:', timestamp, e);
+                return new Date();
+            }
+        }
+        
+        function diferenciaEnDias(fecha1, fecha2) {
+            const unDia = 24 * 60 * 60 * 1000;
+            return Math.floor(Math.abs((fecha1 - fecha2) / unDia));
+        }
+        
+        function esDelMesActual(fecha) {
+            return fecha.getMonth() === mesActual && fecha.getFullYear() === anioActual;
+        }
+        
+        function obtenerDatosReales() {
+            mostrarEstadoCarga(true, 'Conectando con Google Sheets...');
+            
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(function() {
+                const query = new google.visualization.Query(
+                    `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?sheet=${SHEET_NAME}&headers=1`
+                );
+                
+                query.send(function(response) {
+                    if (response.isError()) {
+                        console.error('Error al obtener datos:', response.getMessage());
+                        mostrarError('No se pudo conectar con Google Sheets. Verifica la conexión.');
+                        return;
+                    }
+                    
+                    const data = response.getDataTable();
+                    const numFilas = data.getNumberOfRows();
+                    const numColumnas = data.getNumberOfColumns();
+                    
+                    console.log(`Datos obtenidos: ${numFilas} filas, ${numColumnas} columnas`);
+                    
+                    if (numFilas === 0) {
+                        console.log('No hay registros en la hoja, se mostrarán asesoras sin registro');
+                        procesarDatos([]);
+                        return;
+                    }
+                    
+                    const registros = [];
+                    for (let fila = 0; fila < numFilas; fila++) {
+                        try {
+                            const timestamp = data.getValue(fila, 0);
+                            const fechaRegistro = parsearTimestamp(timestamp);
+                            
+                            let nombreAsesora = '';
+                            for (let col = 0; col < numColumnas; col++) {
+                                const valor = data.getValue(fila, col);
+                                if (valor && typeof valor === 'string') {
+                                    const nombreEncontrado = ASESORAS_FIJAS.find(asesora => 
+                                        valor.toLowerCase().includes(asesora.nombre.toLowerCase()) ||
+                                        valor.toLowerCase().includes(asesora.id.toLowerCase())
+                                    );
+                                    
+                                    if (nombreEncontrado) {
+                                        nombreAsesora = nombreEncontrado.nombre;
+                                        break;
+                                    }
+                                }
+                            }
+                            
+                            if (!nombreAsesora && numColumnas > 11) {
+                                const valorColumnaL = data.getValue(fila, 11);
+                                if (valorColumnaL && typeof valorColumnaL === 'string') {
+                                    nombreAsesora = valorColumnaL.trim();
+                                }
+                            }
+                            
+                            if (!nombreAsesora || nombreAsesora.trim() === '') {
+                                continue;
+                            }
+                            
+                            registros.push({
+                                fecha: fechaRegistro,
+                                asesora: nombreAsesora.trim()
+                            });
+                            
+                        } catch (error) {
+                            console.error(`Error procesando fila ${fila}:`, error);
+                        }
+                    }
+                    
+                    console.log(`Registros procesados: ${registros.length}`);
+                    procesarDatos(registros);
+                });
+            });
+        }
+        
+        function procesarDatos(registros) {
+            const asesorasMap = {};
+            
+            ASESORAS_FIJAS.forEach(asesora => {
+                asesorasMap[asesora.nombre] = {
+                    nombre: asesora.nombre,
+                    registros: [],
+                    ultimaFecha: null,
+                    tieneRegistroMesActual: false,
+                    registrosMesActual: 0
+                };
+            });
+            
+            registros.forEach(registro => {
+                const nombreAsesora = registro.asesora;
+                
+                if (asesorasMap[nombreAsesora]) {
+                    asesorasMap[nombreAsesora].registros.push({
+                        fecha: registro.fecha,
+                        fechaStr: formatearFechaISO(registro.fecha)
+                    });
+                    
+                    if (!asesorasMap[nombreAsesora].ultimaFecha || 
+                        registro.fecha > asesorasMap[nombreAsesora].ultimaFecha) {
+                        asesorasMap[nombreAsesora].ultimaFecha = registro.fecha;
+                    }
+                    
+                    if (esDelMesActual(registro.fecha)) {
+                        asesorasMap[nombreAsesora].tieneRegistroMesActual = true;
+                        asesorasMap[nombreAsesora].registrosMesActual++;
+                    }
+                }
+            });
+            
+            const asesorasArray = Object.values(asesorasMap).map(asesora => {
+                const registrosOrdenados = [...asesora.registros].sort((a, b) => b.fecha - a.fecha);
+                
+                let diasDesdeUltimoRegistro = null;
+                let mensaje = '';
+                let estado = '';
+                let claseEstado = '';
+                let claseTarjeta = '';
+                let claseMensaje = '';
+                
+                if (asesora.ultimaFecha) {
+                    diasDesdeUltimoRegistro = diferenciaEnDias(fechaActual, asesora.ultimaFecha);
+                    
+                    if (esDelMesActual(asesora.ultimaFecha)) {
+                        if (diasDesdeUltimoRegistro === 0) {
+                            estado = 'al-dia';
+                            claseEstado = 'estado-al-dia';
+                            claseTarjeta = 'registro-reciente';
+                            mensaje = `${asesora.nombre} realizó registro hoy. ¡Excelente!`;
+                        } else if (diasDesdeUltimoRegistro === 1) {
+                            estado = 'retraso';
+                            claseEstado = 'estado-retraso';
+                            claseTarjeta = 'registro-atrasado';
+                            claseMensaje = 'atrasado';
+                            mensaje = `${asesora.nombre} no registró ayer. Último registro hace ${diasDesdeUltimoRegistro} día.`;
+                        } else if (diasDesdeUltimoRegistro <= 3) {
+                            estado = 'retraso';
+                            claseEstado = 'estado-retraso';
+                            claseTarjeta = 'registro-atrasado';
+                            claseMensaje = 'atrasado';
+                            mensaje = `${asesora.nombre} no hace registro desde el ${asesora.ultimaFecha.getDate()} de ${obtenerNombreMes(asesora.ultimaFecha.getMonth())}.`;
+                        } else {
+                            estado = 'riesgo';
+                            claseEstado = 'estado-riesgo';
+                            claseTarjeta = 'registro-atrasado';
+                            claseMensaje = 'sin-registro';
+                            mensaje = `${asesora.nombre} no hace registro desde el ${asesora.ultimaFecha.getDate()} de ${obtenerNombreMes(asesora.ultimaFecha.getMonth())}.`;
+                        }
+                    } else {
+                        estado = 'sin-registro';
+                        claseEstado = 'estado-sin-registro';
+                        claseTarjeta = 'sin-registro-mes';
+                        claseMensaje = 'sin-registro';
+                        mensaje = `${asesora.nombre} no tiene registros en ${obtenerNombreMes(mesActual)}. Último registro: ${asesora.ultimaFecha.getDate()} de ${obtenerNombreMes(asesora.ultimaFecha.getMonth())}.`;
+                    }
+                } else {
+                    estado = 'sin-registro';
+                    claseEstado = 'estado-sin-registro';
+                    claseTarjeta = 'sin-registro-mes';
+                    claseMensaje = 'sin-registro';
+                    mensaje = `${asesora.nombre} no tiene registros en el sistema.`;
+                    diasDesdeUltimoRegistro = null;
+                }
+                
+                return {
+                    ...asesora,
+                    registrosOrdenados: registrosOrdenados,
+                    diasDesdeUltimoRegistro: diasDesdeUltimoRegistro,
+                    estado: estado,
+                    claseEstado: claseEstado,
+                    claseTarjeta: claseTarjeta,
+                    claseMensaje: claseMensaje,
+                    mensaje: mensaje
+                };
+            });
+            
+            asesorasArray.sort((a, b) => {
+                const ordenEstado = { 'al-dia': 0, 'retraso': 1, 'riesgo': 2, 'sin-registro': 3 };
+                return ordenEstado[a.estado] - ordenEstado[b.estado];
+            });
+            
+            datosOriginales = asesorasArray;
+            datosAsesoras = [...asesorasArray];
+            
+            mostrarEstadoCarga(false);
+            
+            renderizarAsesoras(datosOriginales);
+            actualizarResumen(datosOriginales);
+        }
+        
+        function mostrarEstadoCarga(mostrar, mensaje = '') {
+            const contenedor = document.getElementById('lista-asesoras');
+            
+            if (mostrar) {
+                contenedor.innerHTML = `
+                    <div class="cargando">
+                        <div class="spinner"></div>
+                        <p>${mensaje}</p>
+                    </div>
+                `;
+            }
+        }
+        
+        function mostrarError(mensaje) {
+            const contenedor = document.getElementById('lista-asesoras');
+            contenedor.innerHTML = `
+                <div class="error-message">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>${mensaje}</p>
+                    <button class="action-button" id="btn-reintentar">
+                        <i class="fas fa-redo"></i> Reintentar conexión
+                    </button>
+                </div>
+            `;
+            
+            document.getElementById('btn-reintentar').addEventListener('click', obtenerDatosReales);
+        }
+        
+        function renderizarAsesoras(asesoras) {
+            const contenedor = document.getElementById('lista-asesoras');
+            
+            if (asesoras.length === 0) {
+                contenedor.innerHTML = `
+                    <div class="cargando">
+                        <i class="fas fa-user-slash" style="font-size: 3rem; color: var(--color-texto-claro); margin-bottom: var(--espaciado-md);"></i>
+                        <p>No se encontraron asesoras para mostrar</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            contenedor.innerHTML = '';
+            
+            asesoras.forEach(asesora => {
+                const tarjeta = document.createElement('div');
+                tarjeta.className = `asesora-card ${asesora.claseTarjeta}`;
+                tarjeta.dataset.nombre = asesora.nombre;
+                
+                let textoEstado = '';
+                switch(asesora.estado) {
+                    case 'al-dia': textoEstado = 'Al día'; break;
+                    case 'retraso': textoEstado = 'Con retraso'; break;
+                    case 'riesgo': textoEstado = 'En riesgo'; break;
+                    case 'sin-registro': textoEstado = 'Sin registro'; break;
+                }
+                
+                let ultimaFechaTexto = asesora.ultimaFecha ? 
+                    asesora.ultimaFecha.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }) : 
+                    'Sin registros';
+                
+                let diasSinRegistroTexto = asesora.diasDesdeUltimoRegistro !== null ? 
+                    asesora.diasDesdeUltimoRegistro : 
+                    'N/A';
+                
+                tarjeta.innerHTML = `
+                    <div class="card-header">
+                        <div class="asesora-info">
+                            <div class="asesora-nombre">${asesora.nombre}</div>
+                            <div class="asesora-detalle">
+                                <i class="far fa-calendar-alt"></i>
+                                <span>Último: ${ultimaFechaTexto}</span>
+                            </div>
+                            <div class="mes-actual">${obtenerNombreMes(mesActual)} ${anioActual}</div>
+                        </div>
+                        <div class="estado-badge ${asesora.claseEstado}">${textoEstado}</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="metric-box">
+                            <div class="metric-value">${asesora.registrosMesActual}</div>
+                            <div class="metric-label">Registros este mes</div>
+                        </div>
+                        <div class="metric-box">
+                            <div class="metric-value">${diasSinRegistroTexto}</div>
+                            <div class="metric-label">Días sin registrar</div>
+                        </div>
+                    </div>
+                    <div class="card-mensaje ${asesora.claseMensaje}">
+                        ${asesora.mensaje}
+                    </div>
+                `;
+                
+                tarjeta.addEventListener('click', () => abrirModalDetalle(asesora));
+                
+                contenedor.appendChild(tarjeta);
+            });
+        }
+        
+        function actualizarResumen(asesoras) {
+            const totalAsesoras = asesoras.length;
+            const asesorasAlDia = asesoras.filter(a => a.estado === 'al-dia').length;
+            const asesorasRetraso = asesoras.filter(a => a.estado === 'retraso' || a.estado === 'riesgo').length;
+            const asesorasSinRegistro = asesoras.filter(a => a.estado === 'sin-registro').length;
+            
+            document.getElementById('total-asesoras').textContent = totalAsesoras;
+            document.getElementById('asesoras-al-dia').textContent = asesorasAlDia;
+            document.getElementById('asesoras-retraso').textContent = asesorasRetraso;
+            document.getElementById('asesoras-sin-registro').textContent = asesorasSinRegistro;
+            
+            let textoResumen = '';
+            if (asesorasAlDia === totalAsesoras) {
+                textoResumen = '¡Todas las asesoras están al día con sus registros!';
+            } else if (asesorasSinRegistro > 0) {
+                textoResumen = `${asesorasSinRegistro} asesora(s) sin registro en ${obtenerNombreMes(mesActual)}.`;
+            } else if (asesorasRetraso > 0) {
+                textoResumen = `${asesorasRetraso} asesora(s) presentan retraso en sus registros.`;
+            } else {
+                textoResumen = `${asesorasAlDia} de ${totalAsesoras} asesoras están al día.`;
+            }
+            
+            document.getElementById('resumen-texto').textContent = textoResumen;
+        }
+        
+        function abrirModalDetalle(asesora) {
+            document.getElementById('modal-nombre').textContent = asesora.nombre;
+            
+            const diasSinRegistro = asesora.diasDesdeUltimoRegistro !== null ? 
+                asesora.diasDesdeUltimoRegistro : 'Sin registros';
+            document.getElementById('modal-dias-sin-registro').textContent = diasSinRegistro;
+            
+            const ultimoRegistroInfo = document.getElementById('ultimo-registro-info');
+            if (asesora.ultimaFecha) {
+                ultimoRegistroInfo.innerHTML = `
+                    <div style="background-color: var(--color-fondo); padding: var(--espaciado-sm); border-radius: 10px; margin-bottom: var(--espaciado-md); border: 1px solid rgba(20, 122, 127, 0.1);">
+                        <div style="font-weight: 600; color: var(--color-principal); margin-bottom: 4px;">Último registro</div>
+                        <div>${formatearFechaCompleta(asesora.ultimaFecha)}</div>
+                        ${asesora.tieneRegistroMesActual ? 
+                            `<div style="color: var(--color-exito); font-size: 0.9rem; margin-top: 4px;">
+                                <i class="fas fa-check-circle"></i> Tiene registro en ${obtenerNombreMes(mesActual)}
+                            </div>` :
+                            `<div style="color: var(--color-peligro); font-size: 0.9rem; margin-top: 4px;">
+                                <i class="fas fa-exclamation-circle"></i> Sin registro en ${obtenerNombreMes(mesActual)}
+                            </div>`
+                        }
+                    </div>
+                `;
+            } else {
+                ultimoRegistroInfo.innerHTML = `
+                    <div style="background-color: var(--color-fondo); padding: var(--espaciado-sm); border-radius: 10px; margin-bottom: var(--espaciado-md); border: 1px solid rgba(20, 122, 127, 0.1);">
+                        <div style="font-weight: 600; color: var(--color-principal); margin-bottom: 4px;">Último registro</div>
+                        <div>No hay registros en el sistema</div>
+                    </div>
+                `;
+            }
+            
+            const historialContenedor = document.getElementById('historial-actividad');
+            historialContenedor.innerHTML = '';
+            
+            document.getElementById('total-registros').textContent = `(${asesora.registros.length})`;
+            
+            if (asesora.registros.length === 0) {
+                historialContenedor.innerHTML = `
+                    <div style="text-align: center; padding: var(--espaciado-md); color: var(--color-texto-claro);">
+                        <i class="fas fa-calendar-times" style="font-size: 2rem; margin-bottom: var(--espaciado-sm);"></i>
+                        <p>No hay registros de actividad</p>
+                    </div>
+                `;
+            } else {
+                asesora.registrosOrdenados.forEach((registro, index) => {
+                    const fecha = registro.fecha;
+                    const fechaFormateada = fecha.toLocaleDateString('es-ES', { 
+                        weekday: 'short', 
+                        day: 'numeric', 
+                        month: 'short',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    
+                    const esMesActual = esDelMesActual(fecha);
+                    const esHoy = diferenciaEnDias(fecha, fechaActual) === 0;
+                    
+                    const item = document.createElement('div');
+                    item.className = 'actividad-item';
+                    
+                    if (index === 0) {
+                        item.style.borderLeft = '4px solid var(--color-exito)';
+                        item.style.backgroundColor = 'rgba(0, 184, 148, 0.05)';
+                    }
+                    
+                    item.innerHTML = `
+                        <div>
+                            <div class="actividad-fecha">${fechaFormateada}</div>
+                            <div class="actividad-detalle">
+                                ${esHoy ? '<i class="fas fa-bolt" style="color: var(--color-advertencia); margin-right: 4px;"></i> Hoy' : 
+                                  esMesActual ? `<i class="fas fa-check" style="color: var(--color-exito); margin-right: 4px;"></i> ${obtenerNombreMes(fecha.getMonth())}` :
+                                  `<i class="fas fa-calendar-alt" style="color: var(--color-texto-claro); margin-right: 4px;"></i> ${obtenerNombreMes(fecha.getMonth())} ${fecha.getFullYear()}`
+                                }
+                            </div>
+                        </div>
+                        <div class="actividad-estado actividad-registrada">
+                            ${index === 0 ? 'ÚLTIMO' : 'Registró'}
+                        </div>
+                    `;
+                    
+                    historialContenedor.appendChild(item);
+                });
+            }
+            
+            document.getElementById('modal-mensaje').textContent = asesora.mensaje;
+            
+            document.getElementById('modal-detalle').classList.add('active');
+        }
+        
+        function cerrarModal() {
+            document.getElementById('modal-detalle').classList.remove('active');
+        }
+        
+        function inicializarApp() {
+            document.getElementById('fecha-actual').textContent = formatearFechaHeader(fechaActual);
+            
+            // Establecer el saludo según la hora
+            obtenerSaludoPorHora();
+            
+            document.getElementById('cerrar-modal').addEventListener('click', cerrarModal);
+            document.getElementById('btn-actualizar').addEventListener('click', obtenerDatosReales);
+            
+            document.getElementById('modal-detalle').addEventListener('click', function(e) {
+                if (e.target === this) cerrarModal();
+            });
+            
+            obtenerDatosReales();
+            
+            setInterval(obtenerDatosReales, 5 * 60 * 1000);
+            
+            // Actualizar el saludo cada minuto por si cambia la hora
+            setInterval(obtenerSaludoPorHora, 60000);
+        }
+        
+        document.addEventListener('DOMContentLoaded', inicializarApp);
+        
+        window.addEventListener('error', function(e) {
+            console.error('Error global:', e.error);
+            mostrarError('Ocurrió un error inesperado. Por favor, recarga la página.');
+        });
+    </script>
+</body>
+</html>
