@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Novaklar Portal - Departamento Comercial</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,19 +22,24 @@ font-weight: 400;
 font-style: normal;
 }
 :root {
---color-principal: #0d4c7f;
---color-secundario: #7fcfda;
---footer-bg: #106b63;
+--color-principal: #147a7f;
+--color-secundario: #f8e48b;
+--color-fondo: #f4f6fc;
+--color-texto: #2d3436;
+--footer-bg: #147a7f;
 }
 * {
 box-sizing: border-box;
+margin: 0;
+padding: 0;
 }
 body {
 margin: 0;
 font-family: 'Poppins-Regular', sans-serif;
-background-color: #FFFFFF;
-color: #000000;
+background-color: var(--color-fondo);
+color: var(--color-texto);
 line-height: 1.5;
+-webkit-tap-highlight-color: transparent;
 }
 header {
 position: sticky;
@@ -42,8 +47,9 @@ top: 0;
 z-index: 1000;
 padding: 8px 0;
 text-align: center;
-background: #FFFFFF;
-border-bottom: 1px solid #f0f0f0;
+background: var(--color-fondo);
+border-bottom: 1px solid rgba(20, 122, 127, 0.1);
+box-shadow: 0 2px 10px rgba(20, 122, 127, 0.05);
 }
 .logo-container {
 width: 140px;
@@ -77,8 +83,7 @@ max-height: 50px;
 max-width: 140px;
 display: block;
 }
-.logo-inner.logo-novagroup svg,
-.logo-inner.logo-hanabi svg,
+.logo-inner.logo-novaft svg,
 .logo-inner.logo-novaklar svg {
 width: 85%;
 height: 85%;
@@ -91,10 +96,23 @@ margin: 0 auto;
 }
 .section-title {
 font-family: 'Poppins-Bold', sans-serif;
-font-size: 1.6em;
-color: #000000;
+font-size: clamp(1.3em, 4vw, 1.6em);
+color: var(--color-principal);
 margin: 20px 0;
 text-align: center;
+position: relative;
+padding-bottom: 10px;
+}
+.section-title::after {
+content: '';
+position: absolute;
+bottom: 0;
+left: 50%;
+transform: translateX(-50%);
+width: 50px;
+height: 3px;
+background: var(--color-secundario);
+border-radius: 2px;
 }
 .back-button {
 margin-bottom: 20px;
@@ -108,47 +126,62 @@ align-items: center;
 justify-content: center;
 text-decoration: none;
 font-weight: 500;
-background-color: #106b63;
+background-color: var(--color-fondo);
+border: 2px solid var(--color-principal);
 border-radius: 8px;
 padding: 12px 20px;
-color: #ffffff;
+color: var(--color-principal);
 font-size: 0.95em;
 min-width: 120px;
-transition: background-color 0.3s;
+transition: all 0.3s;
 }
 .back-button a:hover {
-background-color: #0d554e;
+background-color: var(--color-principal);
+color: #ffffff;
+}
+.back-button a:active {
+background-color: var(--color-principal);
+color: #ffffff;
 }
 .back-button i {
 font-size: 1em;
 margin-right: 8px;
 }
 .info-section {
-background: #f8f9fa;
+background: #ffffff;
 border-radius: 10px;
 padding: 20px;
 margin-bottom: 30px;
 text-align: justify;
-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-border: 1px solid #eaeaea;
+box-shadow: 0 2px 6px rgba(20, 122, 127, 0.08);
+border: 1px solid rgba(20, 122, 127, 0.1);
 }
 .info-section p {
 font-family: 'Poppins-Regular', sans-serif;
 font-size: 0.95em;
 line-height: 1.6;
-color: #000000;
+color: var(--color-texto);
 margin: 0;
 }
 .button-container {
 display: grid;
 grid-template-columns: repeat(2, 1fr);
-gap: 15px;
+gap: 12px;
 margin-top: 20px;
+}
+@media (min-width: 600px) {
+.button-container {
+grid-template-columns: repeat(2, 1fr);
+gap: 15px;
+}
 }
 @media (min-width: 768px) {
 .button-container {
-grid-template-columns: repeat(4, 1fr);
+grid-template-columns: repeat(3, 1fr);
 gap: 20px;
+max-width: 600px;
+margin-left: auto;
+margin-right: auto;
 }
 }
 .portal-button {
@@ -161,139 +194,59 @@ padding: 20px 15px;
 border-radius: 10px;
 text-decoration: none;
 font-weight: 700;
-font-size: 0.9em;
+font-size: clamp(0.8em, 3vw, 0.9em);
 transition: all 0.3s ease;
-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+box-shadow: 0 4px 8px rgba(20, 122, 127, 0.1);
 text-align: center;
 border: none;
-min-height: 110px;
+min-height: 100px;
 width: 100%;
+-webkit-tap-highlight-color: transparent;
+touch-action: manipulation;
 }
 .portal-button i {
-font-size: 2.2em;
-margin-bottom: 10px;
+font-size: clamp(1.8em, 5vw, 2.2em);
+margin-bottom: 8px;
 }
 .portal-button.registrar {
-background: #106b63;
-color: #ffffff;
+background: #ffffff;
+color: var(--color-principal);
+border: 2px solid var(--color-principal);
 }
 .portal-button.registrar i {
-background: linear-gradient(90deg, #eec55b, #f8e48b);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
+color: var(--color-secundario);
 }
-.portal-button.nomina {
-background: linear-gradient(90deg, #eec55b, #f8e48b);
-color: #ffffff;
-border: 1px solid rgba(0,0,0,0.06);
+.portal-button.ranking {
+background: var(--color-secundario);
+color: var(--color-principal);
+border: 2px solid var(--color-secundario);
 }
-.portal-button.nomina i {
-color: #106b63;
+.portal-button.ranking i {
+color: var(--color-principal);
 }
-.portal-button.ranking,
 .portal-button.rr {
-background-color: #0d4c7f;
+background: var(--color-principal);
 color: #ffffff;
+border: 2px solid var(--color-principal);
 }
-.portal-button.ranking i,
 .portal-button.rr i {
-color: #7fcfda;
+color: var(--color-secundario);
 }
 .portal-button:hover {
 transform: translateY(-4px);
-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+box-shadow: 0 8px 16px rgba(20, 122, 127, 0.15);
 }
-.calculator-section {
-background: #f8f9fa;
-border-radius: 10px;
-padding: 25px 20px;
-margin: 30px 0;
-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-border: 1px solid #eaeaea;
+.portal-button:active {
+transform: translateY(-2px);
 }
-.calculator-form {
-display: flex;
-flex-direction: column;
-gap: 20px;
-margin-bottom: 25px;
-}
-.calculator-input {
-display: flex;
-flex-direction: column;
-width: 100%;
-}
-.calculator-input label {
-font-family: 'Poppins-Bold', sans-serif;
-font-weight: 700;
-margin-bottom: 8px;
-color: #000000;
-font-size: 0.95em;
-}
-.calculator-input input {
+footer {
+margin-top: 40px;
+padding: 20px 15px;
+text-align: center;
+background: var(--color-principal);
+color: var(--color-fondo);
 font-family: 'Poppins-Regular', sans-serif;
-padding: 14px 16px;
-border-radius: 8px;
-border: 1px solid #ddd;
-font-size: 1em;
-transition: border-color 0.3s;
-width: 100%;
-}
-.calculator-input input:focus {
-border-color: #7fcfda;
-outline: none;
-box-shadow: 0 0 0 2px rgba(127, 207, 218, 0.2);
-}
-.calculator-button {
-font-family: 'Poppins-Bold', sans-serif;
-background-color: #106b63;
-color: #ffffff;
-border: none;
-padding: 16px;
-border-radius: 8px;
-font-size: 1em;
-font-weight: 700;
-cursor: pointer;
-transition: background-color 0.3s;
-margin-top: 10px;
-}
-.calculator-button:hover {
-background-color: #0d554e;
-}
-.calculator-results {
-background: white;
-border-radius: 8px;
-padding: 20px;
-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-border: 1px solid #eaeaea;
-display: none;
-margin-top: 20px;
-}
-.result-item {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 15px;
-padding-bottom: 15px;
-border-bottom: 1px solid #eee;
-font-size: 1.1em;
-}
-.result-item:last-child {
-border-bottom: none;
-margin-bottom: 0;
-padding-bottom: 0;
-}
-.result-label {
-font-family: 'Poppins-Regular', sans-serif;
-font-weight: 500;
-color: #000000;
-font-size: 1em;
-}
-.result-value {
-font-family: 'Poppins-Bold', sans-serif;
-font-weight: 700;
-color: #0d4c7f;
-font-size: 1.1em;
+font-size: 0.9em;
 }
 .modal-overlay {
 position: fixed;
@@ -301,81 +254,90 @@ inset: 0;
 display: none;
 align-items: center;
 justify-content: center;
-background: rgba(0, 0, 0, 0.5);
+background: rgba(20, 122, 127, 0.3);
 z-index: 2000;
 padding: 20px;
+backdrop-filter: blur(5px);
 }
 .modal-content {
 width: 100%;
-max-width: 400px;
-background: #fff;
+max-width: 360px;
+background: #ffffff;
 padding: 25px 20px;
 border-radius: 12px;
-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+box-shadow: 0 10px 30px rgba(20, 122, 127, 0.2);
 text-align: center;
-color: #000;
+color: var(--color-texto);
+border: 1px solid rgba(20, 122, 127, 0.1);
 }
 .modal-content h3 {
 margin: 0 0 10px 0;
 font-family: 'Poppins-Bold', sans-serif;
 font-size: 1.3em;
+color: var(--color-principal);
 }
 .modal-instruction {
 margin-bottom: 15px;
-color: rgba(0, 0, 0, 0.8);
+color: rgba(45, 52, 54, 0.8);
 font-size: 0.9em;
 line-height: 1.4;
 }
 .pass-display {
 min-height: 50px;
 display: flex;
-gap: 10px;
+gap: 8px;
 align-items: center;
 justify-content: center;
 padding: 10px;
 border-radius: 8px;
-background: #f7f7f7;
-border: 1px solid rgba(0, 0, 0, 0.08);
+background: var(--color-fondo);
+border: 1px solid rgba(20, 122, 127, 0.15);
 margin: 15px 0;
 font-family: 'Poppins-Bold', sans-serif;
 font-size: 1.1em;
 letter-spacing: 1px;
-color: #000;
+color: var(--color-texto);
 user-select: none;
+flex-wrap: wrap;
 }
 .pass-display .digit {
 display: inline-flex;
 align-items: center;
 justify-content: center;
-width: 40px;
-height: 40px;
+width: 36px;
+height: 36px;
 border-radius: 6px;
-background: rgba(0, 0, 0, 0.03);
-box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.02);
+background: #ffffff;
+box-shadow: 0 2px 4px rgba(20, 122, 127, 0.1);
 font-weight: 700;
-font-size: 1.2em;
+font-size: 1.1em;
+color: var(--color-principal);
 }
 .pass-buttons {
 display: grid;
 grid-template-columns: repeat(3, 1fr);
-gap: 12px;
+gap: 10px;
 margin-top: 15px;
 }
 .pass-btn {
-background: #fff;
-border: 1px solid rgba(0, 0, 0, 0.1);
-padding: 15px;
+background: #ffffff;
+border: 2px solid rgba(20, 122, 127, 0.2);
+padding: 14px;
 border-radius: 8px;
 font-family: 'Poppins-Bold', sans-serif;
 cursor: pointer;
 font-size: 1.1em;
-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+box-shadow: 0 2px 4px rgba(20, 122, 127, 0.08);
 transition: all 0.2s;
-min-height: 50px;
+min-height: 45px;
+touch-action: manipulation;
+-webkit-tap-highlight-color: transparent;
+color: var(--color-principal);
 }
 .pass-btn:active {
 transform: translateY(2px);
-background-color: #f0f0f0;
+background-color: var(--color-secundario);
+border-color: var(--color-secundario);
 }
 .modal-buttons {
 display: flex;
@@ -385,91 +347,108 @@ margin-top: 20px;
 flex-wrap: wrap;
 }
 .modal-btn {
-padding: 12px 24px;
+padding: 12px 20px;
 border-radius: 8px;
 border: none;
 cursor: pointer;
 font-family: 'Poppins-Bold', sans-serif;
 font-size: 0.95em;
-min-width: 120px;
+min-width: 100px;
 transition: all 0.2s;
+touch-action: manipulation;
 }
 .modal-btn.confirm-btn {
-background: #0d4c7f;
-color: #fff;
+background: var(--color-principal);
+color: #ffffff;
+border: 2px solid var(--color-principal);
 }
 .modal-btn.confirm-btn:active {
-background: #0a3a63;
+background: #106b63;
+border-color: #106b63;
 }
 .modal-btn.cancel-btn {
-background: rgba(0, 0, 0, 0.06);
-color: #000;
+background: #ffffff;
+color: var(--color-principal);
+border: 2px solid rgba(20, 122, 127, 0.3);
 }
 .modal-btn.cancel-btn:active {
-background: rgba(0, 0, 0, 0.1);
+background: var(--color-fondo);
 }
 #modal-error-message {
-color: #ff4d4d;
 margin-top: 10px;
 min-height: 20px;
 font-size: 0.9em;
 font-weight: 500;
 }
-footer {
-margin-top: 40px;
-padding: 20px 15px;
-text-align: center;
-background: #106b63;
-color: #f1efee;
-font-family: 'Poppins-Regular', sans-serif;
-font-size: 0.9em;
-}
 @media (max-width: 480px) {
+main {
+padding: 15px 10px;
+}
 .section-title {
-font-size: 1.4em;
+font-size: 1.3em;
+margin: 15px 0;
 }
 .portal-button {
-padding: 18px 12px;
-min-height: 100px;
-font-size: 0.85em;
+padding: 16px 10px;
+min-height: 90px;
+font-size: 0.8em;
 }
 .portal-button i {
-font-size: 2em;
-margin-bottom: 8px;
+font-size: 1.8em;
+margin-bottom: 6px;
 }
-.calculator-section {
-padding: 20px 15px;
-}
-.calculator-input input {
-padding: 12px 14px;
-font-size: 0.95em;
-}
-.calculator-button {
-padding: 14px;
-font-size: 0.95em;
+.button-container {
+gap: 10px;
 }
 .pass-buttons {
-grid-template-columns: repeat(3, 1fr);
-gap: 10px;
+gap: 8px;
 }
 .pass-btn {
 padding: 12px;
-min-height: 45px;
+min-height: 40px;
 font-size: 1em;
 }
+.modal-content {
+padding: 20px 15px;
+}
 .modal-btn {
-padding: 10px 20px;
-min-width: 110px;
+padding: 10px 16px;
+min-width: 90px;
 font-size: 0.9em;
 }
 }
 @media (max-width: 360px) {
 .button-container {
 grid-template-columns: 1fr;
-gap: 12px;
+gap: 10px;
 }
 .portal-button {
-min-height: 95px;
+min-height: 85px;
+flex-direction: row;
+gap: 12px;
+padding: 14px 16px;
+}
+.portal-button i {
+font-size: 1.6em;
+margin-bottom: 0;
+}
+.modal-content {
+max-width: 300px;
+}
+.pass-display .digit {
+width: 32px;
+height: 32px;
+font-size: 1em;
+}
+}
+@media (max-width: 320px) {
+.portal-button {
+font-size: 0.75em;
+padding: 12px 10px;
+min-height: 75px;
+}
+.portal-button i {
+font-size: 1.4em;
 }
 }
 </style>
@@ -491,15 +470,11 @@ min-height: 95px;
 <section class="portal-section">
 <h2 class="section-title">Herramientas</h2>
 <div class="button-container">
-<a href="https://docs.google.com/forms/d/e/1FAIpQLSeH-s-NXiFe56qRP3_GKOWcVeSfMk4jz3ZmwRrs8ilAOhruUw/viewform?usp=header" target="_blank" class="portal-button registrar">
+<a href="https://docs.google.com/forms/d/e/1FAIpQLSeH-s-NXiFe56qRP3_GKOWcVeSfMk4jz3ZmwRrs8ilAOhruUw/viewform?usp=header" target="_blank" class="portal-button registrar" rel="noopener">
 <i class="fas fa-user-plus"></i>
 <span>Registrar afiliado</span>
 </a>
-<a href="#" id="nomina-btn" class="portal-button nomina">
-<i class="fas fa-money-bill-wave"></i>
-<span>Nómina</span>
-</a>
-<a href="https://docs.google.com/forms/d/e/1FAIpQLSeJqPYPHCrZy69Wf2gTxe-9QrTDE0HSKyMF2Fv--UzdeeGtyg/viewform?usp=header" target="_blank" class="portal-button ranking">
+<a href="https://docs.google.com/forms/d/e/1FAIpQLSeJqPYPHCrZy69Wf2gTxe-9QrTDE0HSKyMF2Fv--UzdeeGtyg/viewform?usp=header" target="_blank" class="portal-button ranking" rel="noopener">
 <i class="fas fa-chart-line"></i>
 <span>Ranking</span>
 </a>
@@ -509,27 +484,9 @@ min-height: 95px;
 </a>
 </div>
 </section>
-<h2 class="section-title">Calculadora promotor</h2>
-<section class="calculator-section">
-<div class="calculator-form">
-<div class="calculator-input">
-<label for="ganancia">Ganancia total:</label>
-<input type="number" id="ganancia" placeholder="Ingrese la ganancia total" min="0" inputmode="numeric">
-</div>
-<button class="calculator-button" onclick="calcularComision()">
-Calcular Comisión
-</button>
-</div>
-<div class="calculator-results" id="resultados">
-<div class="result-item">
-<span class="result-label">Comisión (45%):</span>
-<span class="result-value" id="comision-promotor">$0</span>
-</div>
-</div>
-</section>
 </main>
 <footer>
-<p>&copy; 2025 Novaklar. Todos los derechos reservados.</p>
+<p>&copy; 2025 Novaft. Todos los derechos reservados.</p>
 </footer>
 <div id="password-modal" class="modal-overlay" aria-hidden="true">
 <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
@@ -558,8 +515,7 @@ Calcular Comisión
 document.addEventListener('DOMContentLoaded', function() {
 const logoContainer = document.getElementById('logo-container');
 const logoUrls = [
-'https://raw.githubusercontent.com/novaklar/Personal/refs/heads/main/novagroup.svg',
-'https://raw.githubusercontent.com/novaklar/Personal/refs/heads/main/hanabi.svg',
+'https://raw.githubusercontent.com/novaklar/Personal/refs/heads/main/Novaft.svg',
 'https://raw.githubusercontent.com/novaklar/Personal/refs/heads/main/novaklar.svg'
 ];
 async function loadAndInjectLogos() {
@@ -573,17 +529,15 @@ if (svgStart > 0) svgText = svgText.substring(svgStart);
 svgText = svgText.replace(/<svg([^>]*)>/, '<svg$1 role="img" aria-hidden="true">');
 const wrapper = document.createElement('div');
 wrapper.classList.add('logo-inner');
-if (i === 0) wrapper.classList.add('logo-novagroup');
-if (i === 1) wrapper.classList.add('logo-hanabi');
-if (i === 2) wrapper.classList.add('logo-novaklar');
+if (i === 0) wrapper.classList.add('logo-novaft');
+if (i === 1) wrapper.classList.add('logo-novaklar');
 wrapper.innerHTML = svgText;
 fragments.push(wrapper);
 } catch (err) {
 const wrapper = document.createElement('div');
 wrapper.classList.add('logo-inner');
-if (i === 0) wrapper.classList.add('logo-novagroup');
-if (i === 1) wrapper.classList.add('logo-hanabi');
-if (i === 2) wrapper.classList.add('logo-novaklar');
+if (i === 0) wrapper.classList.add('logo-novaft');
+if (i === 1) wrapper.classList.add('logo-novaklar');
 wrapper.innerHTML = '<img src="' + logoUrls[i] + '" alt="" style="width:100%;height:100%;object-fit:contain;">';
 fragments.push(wrapper);
 }
@@ -604,7 +558,6 @@ current = next;
 }
 }
 loadAndInjectLogos();
-const nominaBtn = document.getElementById('nomina-btn');
 const rrBtn = document.getElementById('rr-btn');
 const passwordModal = document.getElementById('password-modal');
 const passDisplay = document.getElementById('pass-display');
@@ -615,17 +568,15 @@ const passButtons = Array.from(document.querySelectorAll('.pass-btn'));
 const modalTitle = document.getElementById('modal-title');
 let currentAccess = '';
 const PASSWORDS = {
-'NOMINA': '3589',
 'RR': '4334'
 };
 const REDIRECTS = {
-'NOMINA': 'NLC.html',
 'RR': 'https://novaklar.github.io/RR/'
 };
 let currentSequence = [];
 function openModal(accessType) {
 currentAccess = accessType;
-modalTitle.textContent = 'Acceso ' + (accessType === 'NOMINA' ? 'Nómina' : 'R&R');
+modalTitle.textContent = 'Acceso R&R';
 passwordModal.style.display = 'flex';
 passwordModal.setAttribute('aria-hidden', 'false');
 resetSequence();
@@ -655,14 +606,14 @@ modalErrorMessage.textContent = '';
 function validateSequence() {
 const seq = currentSequence.join('');
 if (seq === PASSWORDS[currentAccess]) {
-modalErrorMessage.style.color = '#0d8a3b';
+modalErrorMessage.style.color = '#147a7f';
 modalErrorMessage.textContent = 'Acceso concedido. Redirigiendo...';
 setTimeout(() => {
 closeModal();
 window.location.href = REDIRECTS[currentAccess];
 }, 450);
 } else {
-modalErrorMessage.style.color = '#ff4d4d';
+modalErrorMessage.style.color = '#e74c3c';
 modalErrorMessage.textContent = 'Secuencia incorrecta. Inténtalo de nuevo.';
 passDisplay.animate([
 { transform: 'translateX(0px)' },
@@ -676,10 +627,6 @@ resetSequence();
 }, 700);
 }
 }
-nominaBtn.addEventListener('click', function(e) {
-e.preventDefault();
-openModal('NOMINA');
-});
 rrBtn.addEventListener('click', function(e) {
 e.preventDefault();
 openModal('RR');
@@ -708,29 +655,6 @@ closeModal();
 passwordModal.addEventListener('click', function(ev) {
 if (ev.target === passwordModal) closeModal();
 });
-});
-function formatCurrency(number) {
-return '$' + number.toLocaleString('es-CO');
-}
-function calcularComision() {
-const gananciaInput = document.getElementById('ganancia');
-const ganancia = parseFloat(gananciaInput.value) || 0;
-if (ganancia <= 0) {
-gananciaInput.focus();
-gananciaInput.style.borderColor = '#ff4444';
-setTimeout(() => {
-gananciaInput.style.borderColor = '#ddd';
-}, 1500);
-return;
-}
-const comision = ganancia * 0.45;
-document.getElementById('comision-promotor').textContent = formatCurrency(comision);
-document.getElementById('resultados').style.display = 'block';
-}
-document.getElementById('ganancia').addEventListener('keypress', function(e) {
-if (e.key === 'Enter') {
-calcularComision();
-}
 });
 </script>
 </body>
