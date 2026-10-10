@@ -195,7 +195,7 @@ main {
   z-index: 2;
 }
 
-/* ---------------- BACK BUTTON (dentro del hero) ---------------- */
+/* ---------------- BACK BUTTON ---------------- */
 .back-wrap {
   display: flex;
   justify-content: center;
@@ -728,31 +728,18 @@ footer p strong { color: var(--accent); font-weight: 700; }
     <h3 id="modal-title">Acceso R&amp;R</h3>
     <p class="modal-instruction">Ingresa la contraseña de acceso al módulo R&amp;R.</p>
 
-    <form id="access-form" autocomplete="on" onsubmit="return false;">
+    <div class="pass-input-wrap">
       <input
-        type="text"
-        name="username"
-        value="RR"
-        autocomplete="username"
-        style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;"
-        tabindex="-1"
-        aria-hidden="true"
+        type="password"
+        id="pass-input"
+        class="pass-input-field"
+        autocomplete="off"
+        placeholder="Contraseña"
+        inputmode="numeric"
+        maxlength="10"
+        aria-label="Contraseña de acceso"
       >
-
-      <div class="pass-input-wrap">
-        <input
-          type="password"
-          id="pass-input"
-          name="password"
-          class="pass-input-field"
-          autocomplete="current-password"
-          placeholder="Contraseña"
-          inputmode="numeric"
-          maxlength="10"
-          aria-label="Contraseña de acceso"
-        >
-      </div>
-    </form>
+    </div>
 
     <div class="pass-buttons" role="group" aria-label="Teclado de acceso">
       <button type="button" class="pass-btn" data-digit="1">1</button>
@@ -837,7 +824,6 @@ document.addEventListener('DOMContentLoaded', function() {
      ============================================================ */
   const rrBtn = document.getElementById('rr-btn');
   const passwordModal = document.getElementById('password-modal');
-  const accessForm = document.getElementById('access-form');
   const passInput = document.getElementById('pass-input');
   const modalErrorMessage = document.getElementById('modal-error-message');
   const validateBtn = document.getElementById('validate-pass-btn');
@@ -879,28 +865,12 @@ document.addEventListener('DOMContentLoaded', function() {
     passInput.focus();
   }
 
-  async function storeCredential(password) {
-    try {
-      if (window.PasswordCredential && navigator.credentials && navigator.credentials.store) {
-        const cred = new PasswordCredential({
-          id: 'RR',
-          password: password,
-          name: 'Acceso R&R'
-        });
-        await navigator.credentials.store(cred);
-      }
-    } catch (err) {
-      console.warn('No se pudo guardar la credencial:', err);
-    }
-  }
-
   function validateSequence() {
     const seq = passInput.value;
 
     if (seq === PASSWORDS[currentAccess]) {
       modalErrorMessage.style.color = '#00005b';
       modalErrorMessage.textContent = '✓ Acceso concedido. Redirigiendo...';
-      storeCredential(seq);
       setTimeout(() => {
         closeModal();
         window.location.href = REDIRECTS[currentAccess];
@@ -942,11 +912,6 @@ document.addEventListener('DOMContentLoaded', function() {
       ev.preventDefault();
       validateSequence();
     }
-  });
-
-  accessForm.addEventListener('submit', function(ev) {
-    ev.preventDefault();
-    validateSequence();
   });
 
   passwordModal.addEventListener('click', function(ev) {
