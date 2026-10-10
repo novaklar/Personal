@@ -518,6 +518,10 @@ footer p strong { color: var(--accent); font-weight: 700; }
   text-align: center;
   outline: none;
   transition: all 0.25s ease;
+  caret-color: transparent;
+  cursor: default;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .pass-input-field:focus {
@@ -726,16 +730,20 @@ footer p strong { color: var(--accent); font-weight: 700; }
   <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="modal-lock"><i class="fas fa-lock"></i></div>
     <h3 id="modal-title">Acceso R&amp;R</h3>
-    <p class="modal-instruction">Ingresa la contraseña de acceso al módulo R&amp;R.</p>
+    <p class="modal-instruction">Ingresa la contraseña usando el teclado en pantalla.</p>
 
     <div class="pass-input-wrap">
       <input
-        type="password"
+        type="text"
         id="pass-input"
         class="pass-input-field"
+        readonly
+        inputmode="none"
         autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
         placeholder="Contraseña"
-        inputmode="numeric"
         maxlength="10"
         aria-label="Contraseña de acceso"
       >
@@ -843,7 +851,6 @@ document.addEventListener('DOMContentLoaded', function() {
     resetSequence();
     modalErrorMessage.textContent = '';
     modalErrorMessage.style.color = '';
-    setTimeout(() => passInput.focus(), 200);
   }
 
   function closeModal() {
@@ -862,7 +869,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (passInput.value.length >= 10) return;
     passInput.value += d;
     modalErrorMessage.textContent = '';
-    passInput.focus();
   }
 
   function validateSequence() {
@@ -887,7 +893,6 @@ document.addEventListener('DOMContentLoaded', function() {
       setTimeout(() => {
         modalErrorMessage.textContent = '';
         resetSequence();
-        passInput.focus();
       }, 800);
     }
   }
@@ -906,13 +911,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   validateBtn.addEventListener('click', validateSequence);
   cancelBtn.addEventListener('click', closeModal);
-
-  passInput.addEventListener('keydown', function(ev) {
-    if (ev.key === 'Enter') {
-      ev.preventDefault();
-      validateSequence();
-    }
-  });
 
   passwordModal.addEventListener('click', function(ev) {
     if (ev.target === passwordModal) closeModal();
