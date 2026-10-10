@@ -3,658 +3,955 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Novaklar Portal - Departamento Comercial</title>
+<title>Haku · Departamento Comercial</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
 @font-face {
-font-family: 'Poppins-Bold';
-src: url('https://raw.githubusercontent.com/novaklar/web/main/Poppins-Bold.ttf') format('truetype');
-font-weight: 700;
-font-style: normal;
+  font-family: 'Poppins-Bold';
+  src: url('https://raw.githubusercontent.com/novaklar/web/main/Poppins-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
 }
 @font-face {
-font-family: 'Poppins-Regular';
-src: url('https://raw.githubusercontent.com/novaklar/web/main/Poppins-Regular.ttf') format('truetype');
-font-weight: 400;
-font-style: normal;
+  font-family: 'Poppins-Regular';
+  src: url('https://raw.githubusercontent.com/novaklar/web/main/Poppins-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
 }
+
+/* =========================================
+   PALETA (4 colores)
+   --white:  #ffffff
+   --black:  #000000
+   --deep:   #00005b
+   --accent: #7a99ff
+   ========================================= */
 :root {
---color-principal: #147a7f;
---color-secundario: #f8e48b;
---color-fondo: #f4f6fc;
---color-texto: #2d3436;
---footer-bg: #147a7f;
+  --white:  #ffffff;
+  --black:  #000000;
+  --deep:   #00005b;
+  --accent: #7a99ff;
+  --shadow-soft: 0 12px 34px rgba(0, 0, 91, 0.10);
+  --shadow-deep: 0 22px 48px rgba(0, 0, 91, 0.24);
+  --radius-xl: 1.75rem;
+  --radius-lg: 1.25rem;
+  --radius-md: 0.9rem;
 }
-* {
-box-sizing: border-box;
-margin: 0;
-padding: 0;
-}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
 body {
-margin: 0;
-font-family: 'Poppins-Regular', sans-serif;
-background-color: var(--color-fondo);
-color: var(--color-texto);
-line-height: 1.5;
--webkit-tap-highlight-color: transparent;
+  font-family: 'Poppins-Regular', sans-serif;
+  background-color: var(--white);
+  color: var(--black);
+  line-height: 1.55;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
+
+/* ---------------- HEADER ---------------- */
 header {
-position: sticky;
-top: 0;
-z-index: 1000;
-padding: 8px 0;
-text-align: center;
-background: var(--color-fondo);
-border-bottom: 1px solid rgba(20, 122, 127, 0.1);
-box-shadow: 0 2px 10px rgba(20, 122, 127, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--white);
+  border-bottom: 1px solid rgba(0, 0, 91, 0.08);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .logo-container {
-width: 140px;
-height: 50px;
-margin: 0 auto;
-position: relative;
-display: inline-block;
+  width: 130px;
+  height: 44px;
+  position: relative;
+  flex-shrink: 0;
 }
+
 .logo-inner {
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-width: 100%;
-height: 100%;
-display: flex;
-align-items: center;
-justify-content: center;
-transition: opacity 1s ease;
-opacity: 0;
-pointer-events: none;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.9s ease;
+  opacity: 0;
+  pointer-events: none;
 }
 .logo-inner.visible {
-opacity: 1;
-pointer-events: auto;
+  opacity: 1;
+  pointer-events: auto;
 }
-.logo-inner svg {
-width: 100%;
-height: 100%;
-max-height: 50px;
-max-width: 140px;
-display: block;
+.logo-inner svg,
+.logo-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
-.logo-inner.logo-novaft svg,
-.logo-inner.logo-novaklar svg {
-width: 85%;
-height: 85%;
-max-height: 42px;
+.logo-inner.logo-haku svg,
+.logo-inner.logo-haku img,
+.logo-inner.logo-novaklar svg,
+.logo-inner.logo-novaklar img {
+  max-width: 100%;
+  max-height: 100%;
 }
+
+/* ---------------- HERO ---------------- */
+.hero {
+  position: relative;
+  background: linear-gradient(140deg, var(--deep) 0%, #00003a 55%, var(--black) 100%);
+  color: var(--white);
+  padding: 4rem 1.5rem 12rem;
+  overflow: hidden;
+  text-align: center;
+}
+
+.hero::before,
+.hero::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.hero::before {
+  width: 420px; height: 420px;
+  background: radial-gradient(circle, rgba(122,153,255,0.45) 0%, transparent 70%);
+  top: -160px; right: -110px;
+}
+.hero::after {
+  width: 340px; height: 340px;
+  background: radial-gradient(circle, rgba(122,153,255,0.28) 0%, transparent 70%);
+  bottom: -150px; left: -100px;
+}
+
+.hero-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: rgba(122, 153, 255, 0.16);
+  border: 1.5px solid var(--accent);
+  color: var(--accent);
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  font-family: 'Poppins-Bold', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+}
+
+.hero h1 {
+  font-family: 'Poppins-Bold', sans-serif;
+  font-size: clamp(1.8rem, 5.5vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.85rem;
+}
+
+.hero h1 .accent-text {
+  background: linear-gradient(90deg, var(--accent), #c8d4ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--accent);
+}
+
+.hero p {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 1rem;
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ---------------- MAIN ---------------- */
 main {
-padding: 20px 15px;
-max-width: 1200px;
-margin: 0 auto;
+  flex: 1;
+  max-width: 1100px;
+  width: 100%;
+  margin: -8rem auto 0;
+  padding: 0 1.25rem 3rem;
+  position: relative;
+  z-index: 2;
 }
-.section-title {
-font-family: 'Poppins-Bold', sans-serif;
-font-size: clamp(1.3em, 4vw, 1.6em);
-color: var(--color-principal);
-margin: 20px 0;
-text-align: center;
-position: relative;
-padding-bottom: 10px;
+
+/* ---------------- BACK BUTTON (dentro del hero) ---------------- */
+.back-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 6.5rem;
 }
-.section-title::after {
-content: '';
-position: absolute;
-bottom: 0;
-left: 50%;
-transform: translateX(-50%);
-width: 50px;
-height: 3px;
-background: var(--color-secundario);
-border-radius: 2px;
-}
-.back-button {
-margin-bottom: 20px;
-display: flex;
-justify-content: center;
-}
+
 .back-button a {
-font-family: 'Poppins-Regular', sans-serif;
-display: inline-flex;
-align-items: center;
-justify-content: center;
-text-decoration: none;
-font-weight: 500;
-background-color: var(--color-fondo);
-border: 2px solid var(--color-principal);
-border-radius: 8px;
-padding: 12px 20px;
-color: var(--color-principal);
-font-size: 0.95em;
-min-width: 120px;
-transition: all 0.3s;
+  font-family: 'Poppins-Regular', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  font-weight: 500;
+  background-color: var(--white);
+  border: none;
+  border-radius: 999px;
+  padding: 0.65rem 1.4rem;
+  color: var(--deep);
+  font-size: 0.9rem;
+  transition: all 0.25s ease;
+  box-shadow: 0 12px 30px rgba(0, 0, 91, 0.32);
 }
 .back-button a:hover {
-background-color: var(--color-principal);
-color: #ffffff;
+  background-color: var(--accent);
+  color: var(--deep);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(122, 153, 255, 0.5);
 }
-.back-button a:active {
-background-color: var(--color-principal);
-color: #ffffff;
+.back-button a i { font-size: 0.85rem; }
+
+/* ---------------- SECTION HEADING ---------------- */
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 1.5rem;
+  color: var(--deep);
 }
-.back-button i {
-font-size: 1em;
-margin-right: 8px;
+.section-heading::before {
+  content: '';
+  flex: 1;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, rgba(122, 153, 255, 0.6));
 }
-.info-section {
-background: #ffffff;
-border-radius: 10px;
-padding: 20px;
-margin-bottom: 30px;
-text-align: justify;
-box-shadow: 0 2px 6px rgba(20, 122, 127, 0.08);
-border: 1px solid rgba(20, 122, 127, 0.1);
+.section-heading::after {
+  content: '';
+  flex: 1;
+  height: 1.5px;
+  background: linear-gradient(90deg, rgba(122, 153, 255, 0.6), transparent);
 }
-.info-section p {
-font-family: 'Poppins-Regular', sans-serif;
-font-size: 0.95em;
-line-height: 1.6;
-color: var(--color-texto);
-margin: 0;
+.section-heading span {
+  font-family: 'Poppins-Bold', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
-.button-container {
-display: grid;
-grid-template-columns: repeat(2, 1fr);
-gap: 12px;
-margin-top: 20px;
+
+/* ---------------- TOOLS GRID ---------------- */
+.tools-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
 }
-@media (min-width: 600px) {
-.button-container {
-grid-template-columns: repeat(2, 1fr);
-gap: 15px;
+
+@media (min-width: 640px) {
+  .tools-grid { grid-template-columns: repeat(2, 1fr); gap: 1.15rem; }
 }
+@media (min-width: 900px) {
+  .tools-grid { grid-template-columns: repeat(3, 1fr); gap: 1.35rem; }
 }
-@media (min-width: 768px) {
-.button-container {
-grid-template-columns: repeat(3, 1fr);
-gap: 20px;
-max-width: 600px;
-margin-left: auto;
-margin-right: auto;
+
+.tool-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  padding: 1.5rem 1.4rem 1.35rem;
+  border-radius: var(--radius-lg);
+  background-color: var(--white);
+  border: 1.5px solid rgba(122, 153, 255, 0.35);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.35s ease,
+              border-color 0.35s ease;
+  min-height: 175px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
+
+.tool-card::before {
+  content: '';
+  position: absolute;
+  top: -50%; right: -50%;
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(122,153,255,0.16) 0%, transparent 65%);
+  transition: transform 0.5s ease;
+  pointer-events: none;
 }
-.portal-button {
-font-family: 'Poppins-Bold', sans-serif;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-padding: 20px 15px;
-border-radius: 10px;
-text-decoration: none;
-font-weight: 700;
-font-size: clamp(0.8em, 3vw, 0.9em);
-transition: all 0.3s ease;
-box-shadow: 0 4px 8px rgba(20, 122, 127, 0.1);
-text-align: center;
-border: none;
-min-height: 100px;
-width: 100%;
--webkit-tap-highlight-color: transparent;
-touch-action: manipulation;
+
+.tool-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-deep);
 }
-.portal-button i {
-font-size: clamp(1.8em, 5vw, 2.2em);
-margin-bottom: 8px;
+.tool-card:hover::before {
+  transform: scale(1.4);
 }
-.portal-button.registrar {
-background: #ffffff;
-color: var(--color-principal);
-border: 2px solid var(--color-principal);
+
+.tool-card:active {
+  transform: translateY(-3px);
 }
-.portal-button.registrar i {
-color: var(--color-secundario);
+
+.tool-index {
+  position: absolute;
+  top: 1rem;
+  right: 1.15rem;
+  font-family: 'Poppins-Bold', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  opacity: 0.85;
 }
-.portal-button.ranking {
-background: var(--color-secundario);
-color: var(--color-principal);
-border: 2px solid var(--color-secundario);
+
+.tool-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background-color: var(--deep);
+  color: var(--white);
+  font-size: 1.45rem;
+  margin-bottom: 1.1rem;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 8px 18px rgba(0, 0, 91, 0.28);
+  transition: transform 0.35s ease;
 }
-.portal-button.ranking i {
-color: var(--color-principal);
+.tool-card:hover .tool-icon {
+  transform: scale(1.08) rotate(-4deg);
 }
-.portal-button.rr {
-background: var(--color-principal);
-color: #ffffff;
-border: 2px solid var(--color-principal);
+
+.tool-icon.accent {
+  background-color: var(--accent);
+  color: var(--deep);
+  box-shadow: 0 8px 18px rgba(122, 153, 255, 0.4);
 }
-.portal-button.rr i {
-color: var(--color-secundario);
+
+.tool-icon.outline {
+  background-color: var(--white);
+  color: var(--deep);
+  border: 2px solid var(--deep);
+  box-shadow: 0 6px 14px rgba(0, 0, 91, 0.15);
 }
-.portal-button:hover {
-transform: translateY(-4px);
-box-shadow: 0 8px 16px rgba(20, 122, 127, 0.15);
+
+.tool-title {
+  font-family: 'Poppins-Bold', sans-serif;
+  font-weight: 700;
+  font-size: 1.02rem;
+  color: var(--deep);
+  line-height: 1.25;
+  margin-bottom: 0.35rem;
+  position: relative;
+  z-index: 1;
 }
-.portal-button:active {
-transform: translateY(-2px);
+
+.tool-desc {
+  font-size: 0.82rem;
+  color: var(--black);
+  opacity: 0.72;
+  line-height: 1.45;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 1rem;
+  flex: 1;
 }
+
+.tool-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'Poppins-Bold', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--deep);
+  position: relative;
+  z-index: 1;
+}
+.tool-cta i {
+  transition: transform 0.25s ease;
+}
+.tool-card:hover .tool-cta i {
+  transform: translateX(4px);
+}
+
+/* Variantes */
+.tool-card.rr .tool-icon { background-color: var(--deep); }
+.tool-card.rr:hover .tool-icon { background-color: var(--accent); color: var(--deep); }
+
+.tool-card.ranking .tool-icon { background-color: var(--accent); color: var(--deep); }
+.tool-card.ranking:hover .tool-icon { background-color: var(--deep); color: var(--white); }
+
+/* ---------------- FOOTER ---------------- */
 footer {
-margin-top: 40px;
-padding: 20px 15px;
-text-align: center;
-background: var(--color-principal);
-color: var(--color-fondo);
-font-family: 'Poppins-Regular', sans-serif;
-font-size: 0.9em;
+  margin-top: auto;
+  background-color: var(--black);
+  color: rgba(255, 255, 255, 0.72);
+  padding: 1.6rem 1.25rem;
+  text-align: center;
+  font-size: 0.82rem;
 }
+
+footer p { margin: 0; }
+footer p strong { color: var(--accent); font-weight: 700; }
+
+/* ---------------- MODAL ---------------- */
 .modal-overlay {
-position: fixed;
-inset: 0;
-display: none;
-align-items: center;
-justify-content: center;
-background: rgba(20, 122, 127, 0.3);
-z-index: 2000;
-padding: 20px;
-backdrop-filter: blur(5px);
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 2000;
+  padding: 1.25rem;
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.25s ease;
 }
+.modal-overlay[aria-hidden="false"] {
+  display: flex;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
 .modal-content {
-width: 100%;
-max-width: 360px;
-background: #ffffff;
-padding: 25px 20px;
-border-radius: 12px;
-box-shadow: 0 10px 30px rgba(20, 122, 127, 0.2);
-text-align: center;
-color: var(--color-texto);
-border: 1px solid rgba(20, 122, 127, 0.1);
+  width: 100%;
+  max-width: 400px;
+  background: var(--white);
+  padding: 2rem 1.5rem 1.5rem;
+  border-radius: var(--radius-xl);
+  box-shadow: 0 30px 60px rgba(0, 0, 91, 0.35);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  animation: modalIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-content::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--deep), var(--accent), var(--deep));
+}
+
+.modal-lock {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--deep), var(--accent));
+  color: var(--white);
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 10px 24px rgba(0, 0, 91, 0.28);
+}
+
 .modal-content h3 {
-margin: 0 0 10px 0;
-font-family: 'Poppins-Bold', sans-serif;
-font-size: 1.3em;
-color: var(--color-principal);
+  margin: 0 0 0.4rem;
+  font-family: 'Poppins-Bold', sans-serif;
+  font-size: 1.35rem;
+  color: var(--deep);
+  font-weight: 700;
 }
+
 .modal-instruction {
-margin-bottom: 15px;
-color: rgba(45, 52, 54, 0.8);
-font-size: 0.9em;
-line-height: 1.4;
+  margin-bottom: 1.25rem;
+  color: var(--black);
+  opacity: 0.72;
+  font-size: 0.88rem;
+  line-height: 1.5;
 }
-.pass-display {
-min-height: 50px;
-display: flex;
-gap: 8px;
-align-items: center;
-justify-content: center;
-padding: 10px;
-border-radius: 8px;
-background: var(--color-fondo);
-border: 1px solid rgba(20, 122, 127, 0.15);
-margin: 15px 0;
-font-family: 'Poppins-Bold', sans-serif;
-font-size: 1.1em;
-letter-spacing: 1px;
-color: var(--color-texto);
-user-select: none;
-flex-wrap: wrap;
+
+.pass-input-wrap {
+  margin: 1rem 0;
+  position: relative;
 }
-.pass-display .digit {
-display: inline-flex;
-align-items: center;
-justify-content: center;
-width: 36px;
-height: 36px;
-border-radius: 6px;
-background: #ffffff;
-box-shadow: 0 2px 4px rgba(20, 122, 127, 0.1);
-font-weight: 700;
-font-size: 1.1em;
-color: var(--color-principal);
+
+.pass-input-field {
+  width: 100%;
+  height: 54px;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-md);
+  background: var(--white);
+  border: 2px solid rgba(122, 153, 255, 0.45);
+  font-family: 'Poppins-Bold', sans-serif;
+  font-size: 1.25rem;
+  letter-spacing: 0.55em;
+  text-indent: 0.55em;
+  color: var(--deep);
+  text-align: center;
+  outline: none;
+  transition: all 0.25s ease;
 }
+
+.pass-input-field:focus {
+  border-color: var(--deep);
+  box-shadow: 0 0 0 4px rgba(122, 153, 255, 0.3);
+}
+
+.pass-input-field::placeholder {
+  letter-spacing: normal;
+  text-indent: 0;
+  color: var(--deep);
+  opacity: 0.35;
+  font-family: 'Poppins-Regular', sans-serif;
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
 .pass-buttons {
-display: grid;
-grid-template-columns: repeat(3, 1fr);
-gap: 10px;
-margin-top: 15px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.55rem;
+  margin-top: 1rem;
 }
+
 .pass-btn {
-background: #ffffff;
-border: 2px solid rgba(20, 122, 127, 0.2);
-padding: 14px;
-border-radius: 8px;
-font-family: 'Poppins-Bold', sans-serif;
-cursor: pointer;
-font-size: 1.1em;
-box-shadow: 0 2px 4px rgba(20, 122, 127, 0.08);
-transition: all 0.2s;
-min-height: 45px;
-touch-action: manipulation;
--webkit-tap-highlight-color: transparent;
-color: var(--color-principal);
+  background: var(--white);
+  border: 1.5px solid rgba(122, 153, 255, 0.4);
+  padding: 0.85rem;
+  border-radius: var(--radius-md);
+  font-family: 'Poppins-Bold', sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 1.15rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 91, 0.06);
+  transition: all 0.15s ease;
+  min-height: 48px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  color: var(--deep);
+}
+.pass-btn:hover {
+  border-color: var(--accent);
+  background-color: rgba(122, 153, 255, 0.08);
 }
 .pass-btn:active {
-transform: translateY(2px);
-background-color: var(--color-secundario);
-border-color: var(--color-secundario);
+  transform: translateY(2px) scale(0.96);
+  background-color: var(--accent);
+  border-color: var(--accent);
 }
+
 .modal-buttons {
-display: flex;
-gap: 12px;
-justify-content: center;
-margin-top: 20px;
-flex-wrap: wrap;
+  display: flex;
+  gap: 0.7rem;
+  justify-content: center;
+  margin-top: 1.25rem;
+  flex-wrap: wrap;
 }
+
 .modal-btn {
-padding: 12px 20px;
-border-radius: 8px;
-border: none;
-cursor: pointer;
-font-family: 'Poppins-Bold', sans-serif;
-font-size: 0.95em;
-min-width: 100px;
-transition: all 0.2s;
-touch-action: manipulation;
+  padding: 0.85rem 1.4rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Poppins-Bold', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  min-width: 110px;
+  transition: all 0.2s ease;
+  touch-action: manipulation;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
+
 .modal-btn.confirm-btn {
-background: var(--color-principal);
-color: #ffffff;
-border: 2px solid var(--color-principal);
+  background: var(--deep);
+  color: var(--white);
+  border: 2px solid var(--deep);
+  box-shadow: 0 6px 16px rgba(0, 0, 91, 0.28);
+}
+.modal-btn.confirm-btn:hover {
+  background: var(--accent);
+  color: var(--deep);
+  border-color: var(--accent);
+  transform: translateY(-2px);
 }
 .modal-btn.confirm-btn:active {
-background: #106b63;
-border-color: #106b63;
+  transform: translateY(0);
 }
+
 .modal-btn.cancel-btn {
-background: #ffffff;
-color: var(--color-principal);
-border: 2px solid rgba(20, 122, 127, 0.3);
+  background: var(--white);
+  color: var(--deep);
+  border: 2px solid rgba(122, 153, 255, 0.5);
 }
-.modal-btn.cancel-btn:active {
-background: var(--color-fondo);
+.modal-btn.cancel-btn:hover {
+  background-color: rgba(122, 153, 255, 0.12);
+  border-color: var(--accent);
 }
+
 #modal-error-message {
-margin-top: 10px;
-min-height: 20px;
-font-size: 0.9em;
-font-weight: 500;
+  margin-top: 0.85rem;
+  min-height: 22px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--black);
 }
-@media (max-width: 480px) {
-main {
-padding: 15px 10px;
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 640px) {
+  .hero { padding: 3rem 1.25rem 9rem; }
+  main { padding: 0 1rem 2.5rem; margin-top: -6rem; }
+  .back-wrap { margin-bottom: 5rem; }
+  .tool-card { padding: 1.25rem 1.15rem 1.15rem; min-height: 160px; }
+  .tool-icon { width: 50px; height: 50px; font-size: 1.25rem; }
+  .modal-content { padding: 1.75rem 1.25rem 1.25rem; }
+  .pass-input-field { height: 50px; font-size: 1.15rem; }
+  .pass-btn { min-height: 44px; font-size: 1.05rem; }
 }
-.section-title {
-font-size: 1.3em;
-margin: 15px 0;
+
+@media (max-width: 400px) {
+  .modal-content { border-radius: var(--radius-lg); }
+  .modal-btn { min-width: 100px; padding: 0.75rem 1.1rem; font-size: 0.85rem; }
 }
-.portal-button {
-padding: 16px 10px;
-min-height: 90px;
-font-size: 0.8em;
-}
-.portal-button i {
-font-size: 1.8em;
-margin-bottom: 6px;
-}
-.button-container {
-gap: 10px;
-}
-.pass-buttons {
-gap: 8px;
-}
-.pass-btn {
-padding: 12px;
-min-height: 40px;
-font-size: 1em;
-}
-.modal-content {
-padding: 20px 15px;
-}
-.modal-btn {
-padding: 10px 16px;
-min-width: 90px;
-font-size: 0.9em;
-}
-}
-@media (max-width: 360px) {
-.button-container {
-grid-template-columns: 1fr;
-gap: 10px;
-}
-.portal-button {
-min-height: 85px;
-flex-direction: row;
-gap: 12px;
-padding: 14px 16px;
-}
-.portal-button i {
-font-size: 1.6em;
-margin-bottom: 0;
-}
-.modal-content {
-max-width: 300px;
-}
-.pass-display .digit {
-width: 32px;
-height: 32px;
-font-size: 1em;
-}
-}
+
 @media (max-width: 320px) {
-.portal-button {
-font-size: 0.75em;
-padding: 12px 10px;
-min-height: 75px;
-}
-.portal-button i {
-font-size: 1.4em;
-}
+  .pass-btn { min-height: 40px; font-size: 1rem; }
+  .pass-input-field { font-size: 1rem; height: 46px; }
 }
 </style>
 </head>
 <body>
+
 <header>
-<div class="logo-container" id="logo-container"></div>
+  <div class="logo-container" id="logo-container"></div>
 </header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <i class="fas fa-briefcase"></i>
+      Departamento Comercial
+    </div>
+    <h1>
+      Centro de <span class="accent-text">Herramientas</span>
+    </h1>
+    <p>Registra nuevos afiliados, consulta el ranking y accede al módulo R&amp;R desde un solo lugar. Todo centralizado para optimizar tu gestión comercial.</p>
+  </div>
+</section>
+
 <main>
-<div class="back-button">
-<a href="index.html">
-<i class="fas fa-arrow-left"></i> Regresar
-</a>
-</div>
-<h2 class="section-title">Departamento Comercial</h2>
-<section class="info-section">
-<p>En este apartado podrás registrar a los nuevos reclutados, cargar el ranking y consultar el manual de recaudos. Todo ello con el propósito de centralizar la información y optimizar los procesos de gestión comercial.</p>
-</section>
-<section class="portal-section">
-<h2 class="section-title">Herramientas</h2>
-<div class="button-container">
-<a href="https://docs.google.com/forms/d/e/1FAIpQLSeH-s-NXiFe56qRP3_GKOWcVeSfMk4jz3ZmwRrs8ilAOhruUw/viewform?usp=header" target="_blank" class="portal-button registrar" rel="noopener">
-<i class="fas fa-user-plus"></i>
-<span>Registrar afiliado</span>
-</a>
-<a href="https://docs.google.com/forms/d/e/1FAIpQLSeJqPYPHCrZy69Wf2gTxe-9QrTDE0HSKyMF2Fv--UzdeeGtyg/viewform?usp=header" target="_blank" class="portal-button ranking" rel="noopener">
-<i class="fas fa-chart-line"></i>
-<span>Ranking</span>
-</a>
-<a href="#" id="rr-btn" class="portal-button rr">
-<i class="fas fa-chart-pie"></i>
-<span>R&R</span>
-</a>
-</div>
-</section>
+
+  <div class="back-wrap">
+    <div class="back-button">
+      <a href="index.html">
+        <i class="fas fa-arrow-left"></i> Regresar
+      </a>
+    </div>
+  </div>
+
+  <div class="section-heading">
+    <span>Herramientas</span>
+  </div>
+
+  <section class="tools-grid">
+
+    <!-- 01 · R&R -->
+    <a href="#" id="rr-btn" class="tool-card rr">
+      <span class="tool-index">01</span>
+      <div class="tool-icon"><i class="fas fa-chart-pie"></i></div>
+      <div class="tool-title">R&amp;R</div>
+      <div class="tool-desc">Manual de recaudos y reportes. Requiere contraseña de acceso.</div>
+      <span class="tool-cta">Acceder <i class="fas fa-lock"></i></span>
+    </a>
+
+    <!-- 02 · Ranking -->
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeJqPYPHCrZy69Wf2gTxe-9QrTDE0HSKyMF2Fv--UzdeeGtyg/viewform?usp=header" target="_blank" class="tool-card ranking" rel="noopener">
+      <span class="tool-index">02</span>
+      <div class="tool-icon accent"><i class="fas fa-chart-line"></i></div>
+      <div class="tool-title">Ranking</div>
+      <div class="tool-desc">Consulta la clasificación actualizada de afiliados y sus ventas.</div>
+      <span class="tool-cta">Acceder <i class="fas fa-arrow-right"></i></span>
+    </a>
+
+    <!-- 03 · Registrar afiliado -->
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeH-s-NXiFe56qRP3_GKOWcVeSfMk4jz3ZmwRrs8ilAOhruUw/viewform?usp=header" target="_blank" class="tool-card registrar" rel="noopener">
+      <span class="tool-index">03</span>
+      <div class="tool-icon outline"><i class="fas fa-user-plus"></i></div>
+      <div class="tool-title">Registrar afiliado</div>
+      <div class="tool-desc">Da de alta a nuevos reclutados en el sistema comercial.</div>
+      <span class="tool-cta">Acceder <i class="fas fa-arrow-right"></i></span>
+    </a>
+
+  </section>
+
 </main>
+
 <footer>
-<p>&copy; 2025 Novaft. Todos los derechos reservados.</p>
+  <p>&copy; 2025 <strong>Haku</strong> · Todos los derechos reservados.</p>
 </footer>
+
+<!-- MODAL R&R -->
 <div id="password-modal" class="modal-overlay" aria-hidden="true">
-<div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-<h3 id="modal-title">Acceso</h3>
-<p class="modal-instruction">Introduce la secuencia de acceso haciendo clic en los números (solo mediante clic).</p>
-<div id="pass-display" class="pass-display" aria-live="polite" aria-atomic="true" aria-label="Secuencia introducida"></div>
-<div class="pass-buttons" role="group" aria-label="Teclado de acceso">
-<button class="pass-btn" data-digit="1" aria-label="Número 1">1</button>
-<button class="pass-btn" data-digit="2" aria-label="Número 2">2</button>
-<button class="pass-btn" data-digit="3" aria-label="Número 3">3</button>
-<button class="pass-btn" data-digit="4" aria-label="Número 4">4</button>
-<button class="pass-btn" data-digit="5" aria-label="Número 5">5</button>
-<button class="pass-btn" data-digit="6" aria-label="Número 6">6</button>
-<button class="pass-btn" data-digit="7" aria-label="Número 7">7</button>
-<button class="pass-btn" data-digit="8" aria-label="Número 8">8</button>
-<button class="pass-btn" data-digit="9" aria-label="Número 9">9</button>
+  <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-lock"><i class="fas fa-lock"></i></div>
+    <h3 id="modal-title">Acceso R&amp;R</h3>
+    <p class="modal-instruction">Ingresa la contraseña de acceso al módulo R&amp;R.</p>
+
+    <form id="access-form" autocomplete="on" onsubmit="return false;">
+      <input
+        type="text"
+        name="username"
+        value="RR"
+        autocomplete="username"
+        style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;"
+        tabindex="-1"
+        aria-hidden="true"
+      >
+
+      <div class="pass-input-wrap">
+        <input
+          type="password"
+          id="pass-input"
+          name="password"
+          class="pass-input-field"
+          autocomplete="current-password"
+          placeholder="Contraseña"
+          inputmode="numeric"
+          maxlength="10"
+          aria-label="Contraseña de acceso"
+        >
+      </div>
+    </form>
+
+    <div class="pass-buttons" role="group" aria-label="Teclado de acceso">
+      <button type="button" class="pass-btn" data-digit="1">1</button>
+      <button type="button" class="pass-btn" data-digit="2">2</button>
+      <button type="button" class="pass-btn" data-digit="3">3</button>
+      <button type="button" class="pass-btn" data-digit="4">4</button>
+      <button type="button" class="pass-btn" data-digit="5">5</button>
+      <button type="button" class="pass-btn" data-digit="6">6</button>
+      <button type="button" class="pass-btn" data-digit="7">7</button>
+      <button type="button" class="pass-btn" data-digit="8">8</button>
+      <button type="button" class="pass-btn" data-digit="9">9</button>
+    </div>
+
+    <div id="modal-error-message"></div>
+
+    <div class="modal-buttons">
+      <button id="validate-pass-btn" class="modal-btn confirm-btn" type="button">
+        <i class="fas fa-check"></i> Validar
+      </button>
+      <button id="cancel-password-btn" class="modal-btn cancel-btn" type="button">
+        Cancelar
+      </button>
+    </div>
+  </div>
 </div>
-<div id="modal-error-message"></div>
-<div class="modal-buttons">
-<button id="validate-pass-btn" class="modal-btn confirm-btn">Validar</button>
-<button id="cancel-password-btn" class="modal-btn cancel-btn">Cancelar</button>
-</div>
-</div>
-</div>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-const logoContainer = document.getElementById('logo-container');
-const logoUrls = [
-'https://raw.githubusercontent.com/novaklar/Personal/refs/heads/main/Novaft.svg',
-'https://raw.githubusercontent.com/novaklar/Personal/refs/heads/main/novaklar.svg'
-];
-async function loadAndInjectLogos() {
-const fragments = [];
-for (let i = 0; i < logoUrls.length; i++) {
-try {
-const res = await fetch(logoUrls[i]);
-let svgText = await res.text();
-const svgStart = svgText.indexOf('<svg');
-if (svgStart > 0) svgText = svgText.substring(svgStart);
-svgText = svgText.replace(/<svg([^>]*)>/, '<svg$1 role="img" aria-hidden="true">');
-const wrapper = document.createElement('div');
-wrapper.classList.add('logo-inner');
-if (i === 0) wrapper.classList.add('logo-novaft');
-if (i === 1) wrapper.classList.add('logo-novaklar');
-wrapper.innerHTML = svgText;
-fragments.push(wrapper);
-} catch (err) {
-const wrapper = document.createElement('div');
-wrapper.classList.add('logo-inner');
-if (i === 0) wrapper.classList.add('logo-novaft');
-if (i === 1) wrapper.classList.add('logo-novaklar');
-wrapper.innerHTML = '<img src="' + logoUrls[i] + '" alt="" style="width:100%;height:100%;object-fit:contain;">';
-fragments.push(wrapper);
-}
-}
-fragments.forEach((el, idx) => {
-if (idx === 0) el.classList.add('visible');
-logoContainer.appendChild(el);
-});
-if (fragments.length > 1) {
-let current = 0;
-setInterval(() => {
-const total = fragments.length;
-const next = (current + 1) % total;
-fragments[current].classList.remove('visible');
-fragments[next].classList.add('visible');
-current = next;
-}, 4000);
-}
-}
-loadAndInjectLogos();
-const rrBtn = document.getElementById('rr-btn');
-const passwordModal = document.getElementById('password-modal');
-const passDisplay = document.getElementById('pass-display');
-const modalErrorMessage = document.getElementById('modal-error-message');
-const validateBtn = document.getElementById('validate-pass-btn');
-const cancelBtn = document.getElementById('cancel-password-btn');
-const passButtons = Array.from(document.querySelectorAll('.pass-btn'));
-const modalTitle = document.getElementById('modal-title');
-let currentAccess = '';
-const PASSWORDS = {
-'RR': '4334'
-};
-const REDIRECTS = {
-'RR': 'ryr.html'
-};
-let currentSequence = [];
-function openModal(accessType) {
-currentAccess = accessType;
-modalTitle.textContent = 'Acceso R&R';
-passwordModal.style.display = 'flex';
-passwordModal.setAttribute('aria-hidden', 'false');
-resetSequence();
-modalErrorMessage.textContent = '';
-modalErrorMessage.style.color = '';
-}
-function closeModal() {
-passwordModal.style.display = 'none';
-passwordModal.setAttribute('aria-hidden', 'true');
-resetSequence();
-modalErrorMessage.textContent = '';
-}
-function resetSequence() {
-currentSequence = [];
-passDisplay.innerHTML = '';
-}
-function pushDigit(d) {
-if (typeof d !== 'string') d = String(d);
-if (currentSequence.length >= 10) return;
-currentSequence.push(d);
-const span = document.createElement('span');
-span.className = 'digit';
-span.textContent = d;
-passDisplay.appendChild(span);
-modalErrorMessage.textContent = '';
-}
-function validateSequence() {
-const seq = currentSequence.join('');
-if (seq === PASSWORDS[currentAccess]) {
-modalErrorMessage.style.color = '#147a7f';
-modalErrorMessage.textContent = 'Acceso concedido. Redirigiendo...';
-setTimeout(() => {
-closeModal();
-window.location.href = REDIRECTS[currentAccess];
-}, 450);
-} else {
-modalErrorMessage.style.color = '#e74c3c';
-modalErrorMessage.textContent = 'Secuencia incorrecta. Inténtalo de nuevo.';
-passDisplay.animate([
-{ transform: 'translateX(0px)' },
-{ transform: 'translateX(-6px)' },
-{ transform: 'translateX(6px)' },
-{ transform: 'translateX(0px)' }
-], { duration: 300, iterations: 1 });
-setTimeout(() => {
-modalErrorMessage.textContent = '';
-resetSequence();
-}, 700);
-}
-}
-rrBtn.addEventListener('click', function(e) {
-e.preventDefault();
-openModal('RR');
-});
-passButtons.forEach(btn => {
-btn.addEventListener('click', function(ev) {
-const d = btn.getAttribute('data-digit');
-pushDigit(d);
-});
-btn.addEventListener('touchstart', function(ev) {
-ev.preventDefault();
-const d = btn.getAttribute('data-digit');
-pushDigit(d);
-}, { passive: false });
-});
-validateBtn.addEventListener('click', function() {
-validateSequence();
-});
-validateBtn.addEventListener('touchstart', function(ev) {
-ev.preventDefault();
-validateSequence();
-}, { passive: false });
-cancelBtn.addEventListener('click', function() {
-closeModal();
-});
-passwordModal.addEventListener('click', function(ev) {
-if (ev.target === passwordModal) closeModal();
-});
+
+  /* ============================================================
+     LOGOS CON ROTACIÓN
+     ============================================================ */
+  const logoContainer = document.getElementById('logo-container');
+  const logoUrls = [
+    'https://raw.githubusercontent.com/novaklar/Personal/refs/heads/main/Logos/haku.svg',
+    'https://raw.githubusercontent.com/novaklar/Personal/refs/heads/main/Logos/novaklar.svg'
+  ];
+
+  async function loadAndInjectLogos() {
+    const fragments = [];
+    for (let i = 0; i < logoUrls.length; i++) {
+      try {
+        const res = await fetch(logoUrls[i]);
+        let svgText = await res.text();
+        const svgStart = svgText.indexOf('<svg');
+        if (svgStart > 0) svgText = svgText.substring(svgStart);
+        svgText = svgText.replace(/<svg([^>]*)>/, '<svg$1 role="img" aria-hidden="true">');
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('logo-inner');
+        if (i === 0) wrapper.classList.add('logo-haku');
+        if (i === 1) wrapper.classList.add('logo-novaklar');
+        wrapper.innerHTML = svgText;
+        fragments.push(wrapper);
+      } catch (err) {
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('logo-inner');
+        if (i === 0) wrapper.classList.add('logo-haku');
+        if (i === 1) wrapper.classList.add('logo-novaklar');
+        wrapper.innerHTML = '<img src="' + logoUrls[i] + '" alt="" style="width:100%;height:100%;object-fit:contain;">';
+        fragments.push(wrapper);
+      }
+    }
+    fragments.forEach((el, idx) => {
+      if (idx === 0) el.classList.add('visible');
+      logoContainer.appendChild(el);
+    });
+    if (fragments.length > 1) {
+      let current = 0;
+      setInterval(() => {
+        const total = fragments.length;
+        const next = (current + 1) % total;
+        fragments[current].classList.remove('visible');
+        fragments[next].classList.add('visible');
+        current = next;
+      }, 4000);
+    }
+  }
+  loadAndInjectLogos();
+
+  /* ============================================================
+     MODAL / CONTRASEÑA R&R
+     ============================================================ */
+  const rrBtn = document.getElementById('rr-btn');
+  const passwordModal = document.getElementById('password-modal');
+  const accessForm = document.getElementById('access-form');
+  const passInput = document.getElementById('pass-input');
+  const modalErrorMessage = document.getElementById('modal-error-message');
+  const validateBtn = document.getElementById('validate-pass-btn');
+  const cancelBtn = document.getElementById('cancel-password-btn');
+  const passButtons = Array.from(document.querySelectorAll('.pass-btn'));
+  const modalTitle = document.getElementById('modal-title');
+
+  let currentAccess = '';
+  const PASSWORDS = { 'RR': '4334' };
+  const REDIRECTS = { 'RR': 'ryr.html' };
+
+  function openModal(accessType) {
+    currentAccess = accessType;
+    modalTitle.textContent = 'Acceso R&R';
+    passwordModal.style.display = 'flex';
+    passwordModal.setAttribute('aria-hidden', 'false');
+    resetSequence();
+    modalErrorMessage.textContent = '';
+    modalErrorMessage.style.color = '';
+    setTimeout(() => passInput.focus(), 200);
+  }
+
+  function closeModal() {
+    passwordModal.style.display = 'none';
+    passwordModal.setAttribute('aria-hidden', 'true');
+    resetSequence();
+    modalErrorMessage.textContent = '';
+  }
+
+  function resetSequence() {
+    passInput.value = '';
+  }
+
+  function pushDigit(d) {
+    if (typeof d !== 'string') d = String(d);
+    if (passInput.value.length >= 10) return;
+    passInput.value += d;
+    modalErrorMessage.textContent = '';
+    passInput.focus();
+  }
+
+  async function storeCredential(password) {
+    try {
+      if (window.PasswordCredential && navigator.credentials && navigator.credentials.store) {
+        const cred = new PasswordCredential({
+          id: 'RR',
+          password: password,
+          name: 'Acceso R&R'
+        });
+        await navigator.credentials.store(cred);
+      }
+    } catch (err) {
+      console.warn('No se pudo guardar la credencial:', err);
+    }
+  }
+
+  function validateSequence() {
+    const seq = passInput.value;
+
+    if (seq === PASSWORDS[currentAccess]) {
+      modalErrorMessage.style.color = '#00005b';
+      modalErrorMessage.textContent = '✓ Acceso concedido. Redirigiendo...';
+      storeCredential(seq);
+      setTimeout(() => {
+        closeModal();
+        window.location.href = REDIRECTS[currentAccess];
+      }, 500);
+    } else {
+      modalErrorMessage.style.color = '#000000';
+      modalErrorMessage.textContent = '✕ Contraseña incorrecta. Inténtalo de nuevo.';
+      passInput.animate([
+        { transform: 'translateX(0px)' },
+        { transform: 'translateX(-6px)' },
+        { transform: 'translateX(6px)' },
+        { transform: 'translateX(0px)' }
+      ], { duration: 300, iterations: 1 });
+      setTimeout(() => {
+        modalErrorMessage.textContent = '';
+        resetSequence();
+        passInput.focus();
+      }, 800);
+    }
+  }
+
+  rrBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    openModal('RR');
+  });
+
+  passButtons.forEach(btn => {
+    btn.addEventListener('click', function(ev) {
+      ev.preventDefault();
+      pushDigit(btn.getAttribute('data-digit'));
+    });
+  });
+
+  validateBtn.addEventListener('click', validateSequence);
+  cancelBtn.addEventListener('click', closeModal);
+
+  passInput.addEventListener('keydown', function(ev) {
+    if (ev.key === 'Enter') {
+      ev.preventDefault();
+      validateSequence();
+    }
+  });
+
+  accessForm.addEventListener('submit', function(ev) {
+    ev.preventDefault();
+    validateSequence();
+  });
+
+  passwordModal.addEventListener('click', function(ev) {
+    if (ev.target === passwordModal) closeModal();
+  });
 });
 </script>
 </body>
